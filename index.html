@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Discover unforgettable destinations and plan your next adventure with TravelVista." />
+  <title>TravelVista — Your Next Adventure Awaits</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="announcement">Make memories, not just plans. <a href="#packages">Explore our trips <span aria-hidden="true">↗</span></a></div>
+
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="TravelVista home">
+      <span class="brand-mark" aria-hidden="true">▲</span><span>Travel<span class="brand-light">Vista</span></span>
+    </a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a class="active" href="#">Home</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#packages">Packages</a>
+      <a href="#why-us">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="header-cta" href="#booking">Plan your trip <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="eyebrow light">EXPLORE · DREAM · DISCOVER</p>
+        <h1>Your next <span>adventure</span><br> awaits.</h1>
+        <p class="hero-copy">Find your next escape, from quiet beaches to mountain hideaways. The world is waiting for you.</p>
+        <a class="button button-primary" href="#destinations">Explore destinations <span aria-hidden="true">→</span></a>
+        <div class="hero-proof"><span class="proof-stars">★★★★★</span><span><strong>4.9/5</strong> from happy travellers</span></div>
+      </div>
+      <div class="hero-caption"><span class="caption-dot"></span> Santorini, Greece <span class="caption-divider">/</span> A place to slow down</div>
+    </section>
+
+    <section class="search-wrap" id="booking" aria-label="Search trips">
+      <form class="search-panel" id="search-form">
+        <label class="search-field">
+          <span class="field-icon">⌖</span><span class="field-text"><span class="field-label">Where to?</span>
+          <input id="destination-input" type="text" placeholder="Search destinations" /></span>
+        </label>
+        <label class="search-field">
+          <span class="field-icon">▦</span><span class="field-text"><span class="field-label">Departure</span>
+          <input id="date-input" type="date" aria-label="Departure date" /></span>
+        </label>
+        <label class="search-field travellers-field">
+          <span class="field-icon">♙</span><span class="field-text"><span class="field-label">Travellers</span>
+          <select id="travellers-input" aria-label="Number of travellers"><option>2 travellers</option><option>1 traveller</option><option>3 travellers</option><option>4+ travellers</option></select></span>
+        </label>
+        <button class="button search-button" type="submit">Search trips <span aria-hidden="true">→</span></button>
+      </form>
+      <p class="search-message" id="search-message" aria-live="polite"></p>
+    </section>
+
+    <section class="section destinations-section" id="destinations">
+      <div class="section-heading">
+        <div><p class="eyebrow">YOUR NEXT STORY STARTS HERE</p><h2>Popular destinations</h2><p class="section-copy">Places that stay with you long after you return.</p></div>
+        <a class="text-link" href="#packages">View all destinations <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="destination-grid">
+        <a class="destination-card" href="#packages" data-destination="Bali">
+          <div class="destination-image bali"><span class="card-tag">TROPICAL ESCAPE</span><span class="heart" aria-label="Save Bali">♡</span></div>
+          <div class="destination-info"><div><h3>Bali</h3><p>Indonesia</p></div><span class="rating">★ 4.9</span></div>
+          <div class="card-bottom"><span>From <strong>$799</strong></span><span class="round-arrow" aria-hidden="true">↗</span></div>
+        </a>
+        <a class="destination-card" href="#packages" data-destination="Santorini">
+          <div class="destination-image santorini"><span class="card-tag">ROMANTIC GETAWAY</span><span class="heart" aria-label="Save Santorini">♡</span></div>
+          <div class="destination-info"><div><h3>Santorini</h3><p>Greece</p></div><span class="rating">★ 4.9</span></div>
+          <div class="card-bottom"><span>From <strong>$1,199</strong></span><span class="round-arrow" aria-hidden="true">↗</span></div>
+        </a>
+        <a class="destination-card" href="#packages" data-destination="Dubai">
+          <div class="destination-image dubai"><span class="card-tag">CITY & LUXURY</span><span class="heart" aria-label="Save Dubai">♡</span></div>
+          <div class="destination-info"><div><h3>Dubai</h3><p>United Arab Emirates</p></div><span class="rating">★ 4.8</span></div>
+          <div class="card-bottom"><span>From <strong>$899</strong></span><span class="round-arrow" aria-hidden="true">↗</span></div>
+        </a>
+        <a class="destination-card" href="#packages" data-destination="Switzerland">
+          <div class="destination-image switzerland"><span class="card-tag">MOUNTAIN RETREAT</span><span class="heart" aria-label="Save Switzerland">♡</span></div>
+          <div class="destination-info"><div><h3>Switzerland</h3><p>Central Europe</p></div><span class="rating">★ 5.0</span></div>
+          <div class="card-bottom"><span>From <strong>$1,499</strong></span><span class="round-arrow" aria-hidden="true">↗</span></div>
+        </a>
+      </div>
+      <p class="empty-state" id="empty-state" hidden>No matching destinations yet. Try Bali, Santorini, Dubai or Switzerland.</p>
+    </section>
+
+    <section class="why-section" id="why-us">
+      <div class="why-photo" role="img" aria-label="Traveller looking at a scenic mountain landscape"></div>
+      <div class="why-content">
+        <p class="eyebrow light">THE TRAVELVISTA DIFFERENCE</p>
+        <h2>Travel better.<br><span>Feel more.</span></h2>
+        <p class="why-copy">The best trips aren't just about where you go. They're about how you feel along the way. We'll help you make every moment count.</p>
+        <div class="benefit-list">
+          <div class="benefit"><span class="benefit-icon">✦</span><div><h3>Thoughtfully curated</h3><p>Handpicked stays and experiences you'll remember.</p></div></div>
+          <div class="benefit"><span class="benefit-icon">⌁</span><div><h3>Made for your pace</h3><p>Flexible journeys built around what you love.</p></div></div>
+          <div class="benefit"><span class="benefit-icon">♡</span><div><h3>Here when you need us</h3><p>Friendly support before, during and after your trip.</p></div></div>
+        </div>
+        <a class="button button-outline" href="#contact">Get to know us <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="section packages-section" id="packages">
+      <div class="section-heading">
+        <div><p class="eyebrow">MADE FOR YOUR KIND OF GETAWAY</p><h2>Trips worth taking</h2><p class="section-copy">A little inspiration for your next big memory.</p></div>
+        <a class="text-link" href="#contact">Build a custom trip <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="package-grid">
+        <article class="package-card"><div class="package-image bali"></div><div class="package-body"><div class="package-meta"><span>5 days / 4 nights</span><span>★ 4.9</span></div><h3>Bali, beyond the beaches</h3><p>Waterfalls, lush rice terraces and slow island mornings.</p><div class="package-footer"><span>From <strong>$799</strong> / person</span><a href="#contact" aria-label="Ask about Bali escape">↗</a></div></div></article>
+        <article class="package-card"><div class="package-image santorini"></div><div class="package-body"><div class="package-meta"><span>6 days / 5 nights</span><span>★ 4.9</span></div><h3>Greek island dreaming</h3><p>Whitewashed villages, blue horizons and golden sunsets.</p><div class="package-footer"><span>From <strong>$1,199</strong> / person</span><a href="#contact" aria-label="Ask about Greek island tour">↗</a></div></div></article>
+        <article class="package-card"><div class="package-image switzerland"></div><div class="package-body"><div class="package-meta"><span>7 days / 6 nights</span><span>★ 5.0</span></div><h3>Alpine wonderland</h3><p>Fresh mountain air, scenic railways and lakeside towns.</p><div class="package-footer"><span>From <strong>$1,499</strong> / person</span><a href="#contact" aria-label="Ask about Alpine adventure">↗</a></div></div></article>
+      </div>
+    </section>
+
+    <section class="quote-section">
+      <span class="quote-mark" aria-hidden="true">“</span>
+      <blockquote>The world is a book, and those who do not travel read only one page.</blockquote>
+      <p>YOUR NEXT CHAPTER IS OUT THERE</p>
+    </section>
+
+    <section class="final-cta" id="contact">
+      <div><p class="eyebrow light">LET'S MAKE IT HAPPEN</p><h2>Your next great story<br>starts with a trip.</h2><p>Tell us what inspires you. We'll help you plan the rest.</p></div>
+      <a class="button button-light" href="mailto:hello@travelvista.example?subject=Plan%20my%20trip">Plan my trip <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="#"><span class="brand-mark" aria-hidden="true">▲</span><span>Travel<span class="brand-light">Vista</span></span></a>
+    <p>Go somewhere that moves you.</p>
+    <div class="footer-links"><a href="#">Home</a><a href="#destinations">Destinations</a><a href="#packages">Packages</a><a href="#contact">Contact</a></div>
+    <small>© <span id="year"></span> TravelVista. Demo website concept.</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
