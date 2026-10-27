@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Explore destinations and thoughtfully curated travel packages with TravelVista.">
+<title>Plan Your Trip — TravelVista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="announcement">Make memories, not just plans. <a href="packages.html">Explore our trips ↗</a></div>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">▲</span><span>Travel<span class="brand-light">Vista</span></span></a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a><a href="destinations.html">Destinations</a><a href="packages.html">Packages</a><a href="index.html#why-us">About</a><a href="contact.html">Contact</a>
+    </nav>
+    <a class="header-cta" href="booking.html">Plan your trip ↗</a>
+  </header>
+
+<main>
+  <section class="page-hero booking-hero"><div><p class="eyebrow light">LET'S PLAN SOMETHING GOOD</p><h1>Your next adventure<br><em>starts here.</em></h1><p>Share a few details and our travel team can help you plan the next step.</p></div></section>
+  <section class="section booking-section">
+    <div class="form-intro"><p class="eyebrow">TRIP ENQUIRY</p><h2>Tell us what you're dreaming of.</h2><p class="body-copy">This demo form validates your details in the browser. It does not submit to a real booking service or take payment.</p><div class="form-note"><strong>What happens next?</strong><p>We'll review your preferences and help you understand options, dates and estimated costs.</p></div></div>
+    <form class="trip-form" id="trip-form">
+      <div class="form-heading"><span>01</span><div><h3>Your trip details</h3><p>Start with the basics.</p></div></div>
+      <div class="form-grid">
+        <label>Destination *<select name="destination" id="booking-destination" required><option value="">Choose a destination</option><option>Bali</option><option>Santorini</option><option>Dubai</option><option>Switzerland</option><option>Maldives</option><option>Thailand</option><option>Not sure yet</option></select></label>
+        <label>Travel style<select name="style"><option>Relaxation</option><option>Adventure</option><option>Culture & food</option><option>Luxury</option><option>Family trip</option></select></label>
+        <label>Departure date *<input type="date" name="departure" id="booking-date" required></label>
+        <label>Return date<input type="date" name="return"></label>
+        <label>Adults<select name="adults"><option>1 adult</option><option selected>2 adults</option><option>3 adults</option><option>4 adults</option><option>5+ adults</option></select></label>
+        <label>Budget per person<select name="budget"><option>Under $800</option><option>$800–$1,500</option><option>$1,500–$3,000</option><option>$3,000+</option><option>Flexible</option></select></label>
+      </div>
+      <div class="form-heading second-heading"><span>02</span><div><h3>Your contact details</h3><p>So we know how to reach you.</p></div></div>
+      <div class="form-grid">
+        <label>Full name *<input type="text" name="name" placeholder="Your name" required></label>
+        <label>Email address *<input type="email" name="email" placeholder="you@example.com" required></label>
+        <label class="wide-field">Anything else we should know?<textarea name="notes" rows="4" placeholder="Special occasions, preferences or questions…"></textarea></label>
+      </div>
+      <label class="consent"><input type="checkbox" required> I understand this is a demo enquiry form and no booking is confirmed. *</label>
+      <button class="button search-button submit-button" type="submit">Send trip enquiry →</button>
+      <p id="booking-result" class="form-result" aria-live="polite"></p>
+    </form>
+  </section>
+</main>
+
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="index.html"><span class="brand-mark">▲</span><span>Travel<span class="brand-light">Vista</span></span></a>
+    <p>Go somewhere that moves you.</p>
+    <div class="footer-links"><a href="index.html">Home</a><a href="destinations.html">Destinations</a><a href="packages.html">Packages</a><a href="contact.html">Contact</a></div>
+    <small>© <span class="year"></span> TravelVista. Demo website concept.</small>
+  </footer>
+  <script src="script.js"></script>
+
+</body></html>

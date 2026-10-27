@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Explore destinations and thoughtfully curated travel packages with TravelVista.">
+<title>Destinations — TravelVista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="announcement">Make memories, not just plans. <a href="packages.html">Explore our trips ↗</a></div>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">▲</span><span>Travel<span class="brand-light">Vista</span></span></a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a><a href="destinations.html">Destinations</a><a href="packages.html">Packages</a><a href="index.html#why-us">About</a><a href="contact.html">Contact</a>
+    </nav>
+    <a class="header-cta" href="booking.html">Plan your trip ↗</a>
+  </header>
+
+<main>
+  <section class="page-hero destinations-hero">
+    <div><p class="eyebrow light">FIND YOUR SOMEWHERE</p><h1>Discover amazing<br><em>destinations.</em></h1><p>From tropical beaches to snow-capped mountains, your next story starts here.</p></div>
+  </section>
+  <section class="section">
+    <div class="section-heading"><div><p class="eyebrow">A WORLD OF POSSIBILITIES</p><h2>Explore all destinations</h2><p class="section-copy">Choose a place that feels like you.</p></div></div>
+    <div class="filter-bar">
+      <label>Search destination<input id="destination-filter" type="search" placeholder="Try Bali or Dubai"></label>
+      <label>Travel style<select id="style-filter"><option value="all">All travel styles</option><option value="beach">Beach</option><option value="city">City & culture</option><option value="nature">Nature</option></select></label>
+    </div>
+    <div class="destination-grid listing-grid" id="destination-list">
+      <a class="destination-card" href="destination-details.html?place=bali" data-name="bali indonesia" data-style="beach"><div class="destination-image bali"><span class="card-tag">TROPICAL ESCAPE</span></div><div class="destination-info"><div><h3>Bali</h3><p>Indonesia</p></div><span class="rating">★ 4.9</span></div><div class="card-bottom"><span>From <strong>$799</strong></span><span class="round-arrow">↗</span></div></a>
+      <a class="destination-card" href="destination-details.html?place=santorini" data-name="santorini greece" data-style="beach"><div class="destination-image santorini"><span class="card-tag">ISLAND LIFE</span></div><div class="destination-info"><div><h3>Santorini</h3><p>Greece</p></div><span class="rating">★ 4.9</span></div><div class="card-bottom"><span>From <strong>$1,199</strong></span><span class="round-arrow">↗</span></div></a>
+      <a class="destination-card" href="destination-details.html?place=dubai" data-name="dubai united arab emirates" data-style="city"><div class="destination-image dubai"><span class="card-tag">CITY & LUXURY</span></div><div class="destination-info"><div><h3>Dubai</h3><p>United Arab Emirates</p></div><span class="rating">★ 4.8</span></div><div class="card-bottom"><span>From <strong>$899</strong></span><span class="round-arrow">↗</span></div></a>
+      <a class="destination-card" href="destination-details.html?place=switzerland" data-name="switzerland alps europe" data-style="nature"><div class="destination-image switzerland"><span class="card-tag">MOUNTAIN RETREAT</span></div><div class="destination-info"><div><h3>Switzerland</h3><p>Central Europe</p></div><span class="rating">★ 5.0</span></div><div class="card-bottom"><span>From <strong>$1,499</strong></span><span class="round-arrow">↗</span></div></a>
+      <a class="destination-card" href="destination-details.html?place=maldives" data-name="maldives island ocean" data-style="beach"><div class="destination-image maldives"><span class="card-tag">ISLAND RETREAT</span></div><div class="destination-info"><div><h3>Maldives</h3><p>Indian Ocean</p></div><span class="rating">★ 4.9</span></div><div class="card-bottom"><span>From <strong>$1,099</strong></span><span class="round-arrow">↗</span></div></a>
+      <a class="destination-card" href="destination-details.html?place=thailand" data-name="thailand bangkok temples" data-style="city"><div class="destination-image thailand"><span class="card-tag">CULTURE & FLAVOUR</span></div><div class="destination-info"><div><h3>Thailand</h3><p>Southeast Asia</p></div><span class="rating">★ 4.7</span></div><div class="card-bottom"><span>From <strong>$749</strong></span><span class="round-arrow">↗</span></div></a>
+    </div>
+    <p id="filter-empty" class="empty-state" hidden>No destinations match those filters. Try another search.</p>
+  </section>
+  <section class="final-cta"><div><p class="eyebrow light">NEED A LITTLE HELP?</p><h2>Let's find your<br>kind of adventure.</h2><p>Tell us what you love and we'll help you plan a trip around it.</p></div><a class="button button-light" href="contact.html">Talk to our team →</a></section>
+</main>
+
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="index.html"><span class="brand-mark">▲</span><span>Travel<span class="brand-light">Vista</span></span></a>
+    <p>Go somewhere that moves you.</p>
+    <div class="footer-links"><a href="index.html">Home</a><a href="destinations.html">Destinations</a><a href="packages.html">Packages</a><a href="contact.html">Contact</a></div>
+    <small>© <span class="year"></span> TravelVista. Demo website concept.</small>
+  </footer>
+  <script src="script.js"></script>
+
+</body></html>
