@@ -6,13 +6,11 @@
   <meta name="description" content="Discover amazing destinations with TravelVista. Explore the most beautiful places on Earth." />
   <title>Destinations — TravelVista</title>
   
-  <!-- Google Fonts & Preconnect for faster loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   
-  <!-- Embedded CSS for perfect visibility -->
   <style>
     /* === GLOBAL STYLES === */
     :root {
@@ -27,51 +25,22 @@
       --font-body: 'DM Sans', sans-serif;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: var(--font-body);
-      color: var(--text-dark);
-      background-color: var(--bg-light);
-      line-height: 1.6;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-body); color: var(--text-dark); background-color: var(--bg-light); line-height: 1.6; }
     a { text-decoration: none; color: inherit; }
 
     /* === ANNOUNCEMENT & HEADER === */
-    .announcement {
-      background: var(--primary);
-      color: var(--white);
-      text-align: center;
-      padding: 0.5rem;
-      font-size: 0.85rem;
-    }
+    .announcement { background: var(--primary); color: var(--white); text-align: center; padding: 0.5rem; font-size: 0.85rem; }
     .announcement a { font-weight: 600; text-decoration: underline; }
 
     .site-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 5%;
-      background: var(--white);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 5%; background: var(--white);
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: sticky; top: 0; z-index: 100;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
+    .brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--primary); }
     .brand-mark { font-size: 1.5rem; }
     .brand-light { font-weight: 400; }
 
@@ -79,237 +48,89 @@
     .nav-links a { font-weight: 500; color: var(--text-dark); transition: color 0.3s; }
     .nav-links a:hover, .nav-links a.active { color: var(--primary); }
 
-    .header-cta {
-      background: var(--primary);
-      color: var(--white);
-      padding: 0.6rem 1.2rem;
-      border-radius: 5px;
-      font-weight: 500;
-      transition: background 0.3s;
-    }
+    .header-cta { background: var(--primary); color: var(--white); padding: 0.6rem 1.2rem; border-radius: 5px; font-weight: 500; transition: background 0.3s; }
     .header-cta:hover { background: var(--primary-hover); }
     .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
 
-    /* === PAGE HERO (Middle Image Style) === */
+    /* === PAGE HERO === */
     .page-hero {
       position: relative;
-      /* Optimized Hero Image: Width 1600px, Quality 60 */
       background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1600&q=60');
-      background-size: cover;
-      background-position: center;
-      padding: 8rem 5% 7rem;
-      text-align: center;
-      color: var(--white);
+      background-size: cover; background-position: center;
+      padding: 8rem 5% 7rem; text-align: center; color: var(--white);
     }
-
     .page-hero::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       background: linear-gradient(rgba(15, 61, 62, 0.4), rgba(15, 61, 62, 0.4));
     }
-
-    .hero-content {
-      position: relative;
-      z-index: 10;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .page-hero h1 {
-      font-family: var(--font-heading);
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-    }
-
-    .page-hero p {
-      font-size: 1.1rem;
-      opacity: 0.95;
-      max-width: 600px;
-      margin: 0 auto;
-    }
+    .hero-content { position: relative; z-index: 10; max-width: 800px; margin: 0 auto; }
+    .page-hero h1 { font-family: var(--font-heading); font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.2; }
+    .page-hero p { font-size: 1.1rem; opacity: 0.95; max-width: 600px; margin: 0 auto; }
 
     /* === FILTER BAR === */
-    .filter-wrapper {
-      padding: 0 5%;
-      margin-top: -3.5rem;
-      position: relative;
-      z-index: 20;
-    }
-
+    .filter-wrapper { padding: 0 5%; margin-top: -3.5rem; position: relative; z-index: 20; }
     .filter-panel {
-      display: flex;
-      gap: 1rem;
-      background: var(--white);
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      max-width: 1000px;
-      margin: 0 auto;
-      align-items: flex-end;
+      display: flex; gap: 1rem; background: var(--white); padding: 1.5rem;
+      border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      max-width: 1000px; margin: 0 auto; align-items: flex-end;
     }
-
-    .filter-field {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .field-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-dark);
-    }
-
+    .filter-field { flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
+    .field-label { font-size: 0.85rem; font-weight: 600; color: var(--text-dark); }
     .filter-field input, .filter-field select {
-      padding: 0.8rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      outline: none;
-      background: #fafafa;
-      color: var(--text-muted);
+      padding: 0.8rem 1rem; border: 1px solid var(--border); border-radius: 5px;
+      font-family: var(--font-body); font-size: 0.95rem; outline: none; background: #fafafa; color: var(--text-muted);
     }
-    .filter-field input:focus, .filter-field select:focus {
-      border-color: var(--primary);
-    }
-
+    .filter-field input:focus, .filter-field select:focus { border-color: var(--primary); }
     .search-button {
-      background: var(--primary);
-      color: var(--white);
-      padding: 0.8rem 2rem;
-      border: none;
-      border-radius: 5px;
-      font-family: var(--font-body);
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s;
-      height: 45px;
+      background: var(--primary); color: var(--white); padding: 0.8rem 2rem;
+      border: none; border-radius: 5px; font-family: var(--font-body); font-size: 1rem;
+      font-weight: 600; cursor: pointer; transition: background 0.3s; height: 45px;
     }
     .search-button:hover { background: var(--primary-hover); }
 
     /* === DESTINATIONS GRID === */
     .section { padding: 4rem 5%; }
-
     .section-heading { margin-bottom: 2rem; }
-    .section-heading h2 {
-      font-family: var(--font-heading);
-      font-size: 2rem;
-      color: var(--text-dark);
-    }
+    .section-heading h2 { font-family: var(--font-heading); font-size: 2rem; color: var(--text-dark); }
 
     .destination-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;
     }
-
     .destination-card {
-      background: var(--white);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-      transition: transform 0.3s, box-shadow 0.3s;
-      display: flex;
-      flex-direction: column;
+      background: var(--white); border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: transform 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column;
     }
-
-    .destination-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    }
-
-    .destination-image {
-      height: 220px;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-
+    .destination-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+    .destination-image { height: 220px; background-size: cover; background-position: center; position: relative; background-color: #eee; }
     .heart {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: rgba(255,255,255,0.9);
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: var(--text-dark);
-      transition: background 0.3s;
+      position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.9);
+      width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.2rem; color: var(--text-dark); transition: background 0.3s;
     }
     .heart:hover { background: var(--white); }
-
-    .destination-info {
-      padding: 1.2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .destination-info h3 {
-      font-size: 1.2rem;
-      color: var(--text-dark);
-      margin-bottom: 0.1rem;
-    }
-
-    .destination-info p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .rating {
-      font-weight: 600;
-      color: #f39c12;
-      font-size: 0.95rem;
-      white-space: nowrap;
-    }
-    .reviews {
-      color: var(--text-muted);
-      font-weight: 400;
-      font-size: 0.85rem;
-    }
+    .destination-info { padding: 1.2rem; display: flex; justify-content: space-between; align-items: center; }
+    .destination-info h3 { font-size: 1.2rem; color: var(--text-dark); margin-bottom: 0.1rem; }
+    .destination-info p { font-size: 0.85rem; color: var(--text-muted); }
+    .rating { font-weight: 600; color: #f39c12; font-size: 0.95rem; white-space: nowrap; }
+    .reviews { color: var(--text-muted); font-weight: 400; font-size: 0.85rem; }
 
     /* === FOOTER === */
     .site-footer {
-      background: var(--primary);
-      color: var(--white);
-      padding: 3rem 5%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 1.5rem;
+      background: var(--primary); color: var(--white); padding: 3rem 5%;
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.5rem;
     }
-
     .footer-brand { color: var(--white); }
     .footer-links { display: flex; gap: 2rem; }
     .footer-links a { opacity: 0.7; transition: opacity 0.3s; }
     .footer-links a:hover { opacity: 1; }
     .site-footer small { opacity: 0.5; margin-top: 1rem; }
 
-    /* === OPTIMIZED CARD IMAGES (Width 600px, Quality 60) === */
-    .destination-image.bali { background-image: url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=60'); }
-    .destination-image.santorini { background-image: url('https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?auto=format&fit=crop&w=600&q=60'); }
-    .destination-image.dubai { background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=60'); }
-    .destination-image.switzerland { background-image: url('https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=60'); }
-    .destination-image.thailand { background-image: url('https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=600&q=60'); }
-    .destination-image.maldives { background-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=600&q=60'); }
-
     /* === RESPONSIVE DESIGN === */
     @media (max-width: 900px) {
       .filter-panel { flex-direction: column; align-items: stretch; }
       .search-button { width: 100%; }
     }
-
     @media (max-width: 768px) {
       .nav-links, .header-cta { display: none; }
       .menu-toggle { display: block; }
@@ -323,10 +144,8 @@
 </head>
 <body>
 
-  <!-- Announcement -->
   <div class="announcement">Make memories, not just plans. <a href="index.html#packages">Explore our trips <span aria-hidden="true">↗</span></a></div>
 
-  <!-- Header -->
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="TravelVista home">
       <span class="brand-mark" aria-hidden="true">▲</span><span>Travel<span class="brand-light">Vista</span></span>
@@ -343,7 +162,6 @@
   </header>
 
   <main>
-    <!-- Hero Section (Image match) -->
     <section class="page-hero">
       <div class="hero-content">
         <h1>Discover Amazing<br>Destinations</h1>
@@ -351,7 +169,6 @@
       </div>
     </section>
 
-    <!-- Filter Bar -->
     <div class="filter-wrapper">
       <form class="filter-panel">
         <label class="filter-field">
@@ -381,101 +198,16 @@
       </form>
     </div>
 
-    <!-- Destinations Grid -->
     <section class="section destinations-section">
       <div class="section-heading">
         <h2>All Destinations</h2>
       </div>
       
-      <div class="destination-grid">
-        <!-- Bali -->
-        <a class="destination-card" href="index.html#packages">
-          <div class="destination-image bali">
-            <span class="heart" aria-label="Save Bali">♡</span>
-          </div>
-          <div class="destination-info">
-            <div>
-              <h3>Bali</h3>
-              <p>Indonesia</p>
-            </div>
-            <span class="rating">★ 4.8 <span class="reviews">(2.5k reviews)</span></span>
-          </div>
-        </a>
-
-        <!-- Santorini -->
-        <a class="destination-card" href="index.html#packages">
-          <div class="destination-image santorini">
-            <span class="heart" aria-label="Save Santorini">♡</span>
-          </div>
-          <div class="destination-info">
-            <div>
-              <h3>Santorini</h3>
-              <p>Greece</p>
-            </div>
-            <span class="rating">★ 4.9 <span class="reviews">(1.8k reviews)</span></span>
-          </div>
-        </a>
-
-        <!-- Dubai -->
-        <a class="destination-card" href="index.html#packages">
-          <div class="destination-image dubai">
-            <span class="heart" aria-label="Save Dubai">♡</span>
-          </div>
-          <div class="destination-info">
-            <div>
-              <h3>Dubai</h3>
-              <p>UAE</p>
-            </div>
-            <span class="rating">★ 4.7 <span class="reviews">(3.2k reviews)</span></span>
-          </div>
-        </a>
-
-        <!-- Switzerland -->
-        <a class="destination-card" href="index.html#packages">
-          <div class="destination-image switzerland">
-            <span class="heart" aria-label="Save Switzerland">♡</span>
-          </div>
-          <div class="destination-info">
-            <div>
-              <h3>Switzerland</h3>
-              <p>Europe</p>
-            </div>
-            <span class="rating">★ 4.8 <span class="reviews">(1.2k reviews)</span></span>
-          </div>
-        </a>
-
-        <!-- Thailand -->
-        <a class="destination-card" href="index.html#packages">
-          <div class="destination-image thailand">
-            <span class="heart" aria-label="Save Thailand">♡</span>
-          </div>
-          <div class="destination-info">
-            <div>
-              <h3>Thailand</h3>
-              <p>Southeast Asia</p>
-            </div>
-            <span class="rating">★ 4.6 <span class="reviews">(2.1k reviews)</span></span>
-          </div>
-        </a>
-
-        <!-- Maldives -->
-        <a class="destination-card" href="index.html#packages">
-          <div class="destination-image maldives">
-            <span class="heart" aria-label="Save Maldives">♡</span>
-          </div>
-          <div class="destination-info">
-            <div>
-              <h3>Maldives</h3>
-              <p>Indian Ocean</p>
-            </div>
-            <span class="rating">★ 4.9 <span class="reviews">(1.5k reviews)</span></span>
-          </div>
-        </a>
-      </div>
+      <!-- DYNAMIC DESTINATIONS CONTAINER -->
+      <div class="destination-grid" id="destinationGrid"></div>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="site-footer">
     <a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">▲</span><span>Travel<span class="brand-light">Vista</span></span></a>
     <p>Go somewhere that moves you.</p>
@@ -488,5 +220,54 @@
     <small>© 2024 TravelVista. Demo website concept.</small>
   </footer>
 
+  <!-- FIREBASE INTEGRATION -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC94eV35vYNjRz_w-4INGwX0c5MjUHBwTQ",
+      authDomain: "travelvista-app-fc93a.firebaseapp.com",
+      databaseURL: "https://travelvista-app-fc93a-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "travelvista-app-fc93a",
+      storageBucket: "travelvista-app-fc93a.firebasestorage.app",
+      messagingSenderId: "375355222246",
+      appId: "1:375355222246:web:fee5ab1981fd96202bb327",
+      measurementId: "G-GHBQ9PEJYR"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const destinationsRef = collection(db, "destinations");
+    const q = query(destinationsRef, where("status", "==", "published"));
+
+    const grid = document.getElementById('destinationGrid');
+
+    onSnapshot(q, (snapshot) => {
+      grid.innerHTML = '';
+      if (snapshot.empty) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 2rem; color: #666;">No destinations added yet. Please check back later.</p>`;
+        return;
+      }
+
+      snapshot.forEach((doc) => {
+        const d = doc.data();
+        grid.innerHTML += `
+          <a class="destination-card" href="index.html#packages">
+            <div class="destination-image" style="background-image: url('${d.image || 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=60'}');">
+              <span class="heart" aria-label="Save ${d.name}">♡</span>
+            </div>
+            <div class="destination-info">
+              <div>
+                <h3>${d.name}</h3>
+                <p>${d.destination || ''}</p>
+              </div>
+              <span class="rating">★ ${d.rating || '4.5'} <span class="reviews">(${d.reviews || '1.2k'} reviews)</span></span>
+            </div>
+          </a>
+        `;
+      });
+    });
+  </script>
 </body>
 </html>
