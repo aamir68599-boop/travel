@@ -1,12 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Explore destinations and thoughtfully curated travel packages with TravelVista.">
 <title>Destination Details — TravelVista</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+
+<!-- Embedded CSS for Perfect Design -->
+<style>
+  /* === GLOBAL & HEADER/FOOTER STYLES (Same as Index) === */
+  :root {
+    --primary: #0f3d3e; 
+    --primary-hover: #0a2a2b;
+    --text-dark: #222;
+    --text-muted: #666;
+    --bg-light: #f4f6f8;
+    --white: #ffffff;
+    --border: #e0e0e0;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font-body); color: var(--text-dark); background-color: var(--bg-light); line-height: 1.6; }
+  a { text-decoration: none; color: inherit; }
+
+  .announcement { background: var(--primary); color: var(--white); text-align: center; padding: 0.5rem; font-size: 0.85rem; }
+  .announcement a { font-weight: 600; text-decoration: underline; }
+
+  .site-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 5%; background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+  .brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+  .brand-mark { font-size: 1.5rem; }
+  .brand-light { font-weight: 400; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-weight: 500; color: var(--text-dark); transition: color 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+  .header-cta { background: var(--primary); color: var(--white); padding: 0.6rem 1.2rem; border-radius: 5px; font-weight: 500; transition: background 0.3s; }
+  .header-cta:hover { background: var(--primary-hover); }
+  .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+  /* === DETAIL PAGE SPECIFIC STYLES === */
+  .eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .eyebrow.light { color: #e0e0e0; }
+
+  .detail-hero {
+    position: relative;
+    /* Optimized Bali Background Image */
+    background-image: url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1600&q=60');
+    background-size: cover;
+    background-position: center;
+    padding: 8rem 5% 5rem;
+    color: var(--white);
+  }
+  .detail-shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,61,62,0.9), rgba(15,61,62,0.2)); }
+  .detail-hero-content { position: relative; z-index: 10; max-width: 1200px; margin: 0 auto; }
+  .detail-hero h1 { font-family: var(--font-heading); font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.1; }
+  .detail-hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin-bottom: 1.5rem; }
+  
+  .detail-stats { display: flex; gap: 1.5rem; font-size: 0.9rem; font-weight: 500; flex-wrap: wrap; }
+  .detail-stats span { background: rgba(255,255,255,0.2); padding: 0.4rem 0.8rem; border-radius: 20px; backdrop-filter: blur(5px); }
+
+  /* === LAYOUT (Grid) === */
+  .detail-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; max-width: 1200px; margin: 0 auto; }
+  .section { padding: 4rem 5%; }
+
+  /* === MAIN CONTENT === */
+  .detail-main { background: var(--white); padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+  .detail-tabs { display: flex; gap: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem; }
+  .detail-tabs a { font-weight: 600; color: var(--text-muted); transition: color 0.3s; }
+  .detail-tabs a:hover { color: var(--primary); }
+  
+  .detail-main h2 { font-family: var(--font-heading); font-size: 2rem; color: var(--primary); margin-bottom: 1rem; }
+  .body-copy { font-size: 1.05rem; color: var(--text-muted); line-height: 1.8; }
+  
+  .detail-subsection { margin-top: 3rem; }
+  
+  /* Checklist */
+  .check-list { list-style: none; margin-top: 1rem; }
+  .check-list li { position: relative; padding-left: 1.8rem; margin-bottom: 0.8rem; color: var(--text-dark); }
+  .check-list li::before { content: '✓'; position: absolute; left: 0; color: #20c997; font-weight: bold; font-size: 1.1rem; }
+
+  /* Itinerary */
+  .itinerary-item { display: flex; gap: 1.5rem; margin-top: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .itinerary-item:last-child { border-bottom: none; }
+  .itinerary-item span { font-weight: 700; color: var(--primary); min-width: 80px; font-size: 0.9rem; }
+  .itinerary-item h3 { font-size: 1.1rem; color: var(--text-dark); margin-bottom: 0.3rem; }
+  .itinerary-item p { color: var(--text-muted); font-size: 0.95rem; }
+
+  /* === SIDEBAR BOOKING CARD === */
+  .booking-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 100px;
+    align-self: start;
+    border: 1px solid var(--border);
+  }
+  .booking-card .price { font-size: 2.5rem; font-weight: 700; color: var(--primary); font-family: var(--font-heading); margin-bottom: 0.2rem; }
+  .booking-card .price span { font-size: 1rem; font-family: var(--font-body); color: var(--text-muted); font-weight: 400; }
+  .booking-card .muted { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .booking-card ul { list-style: none; margin-bottom: 2rem; }
+  .booking-card ul li { margin-bottom: 0.8rem; font-size: 0.95rem; color: var(--text-dark); }
+  
+  .full-button { width: 100%; text-align: center; display: block; margin-bottom: 1rem; background: var(--primary); color: var(--white); padding: 1rem; border-radius: 5px; font-weight: 600; transition: background 0.3s; }
+  .full-button:hover { background: var(--primary-hover); }
+  .tiny-note { font-size: 0.75rem; color: var(--text-muted); text-align: center; line-height: 1.4; }
+
+  /* === FOOTER === */
+  .site-footer { background: var(--primary); color: var(--white); padding: 3rem 5%; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.5rem; }
+  .footer-brand { color: var(--white); }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { opacity: 0.7; transition: opacity 0.3s; }
+  .footer-links a:hover { opacity: 1; }
+  .site-footer small { opacity: 0.5; margin-top: 1rem; }
+
+  /* === RESPONSIVE DESIGN === */
+  @media (max-width: 900px) {
+    .detail-layout { grid-template-columns: 1fr; }
+    .booking-card { position: static; margin-top: 2rem; }
+  }
+  @media (max-width: 768px) {
+    .nav-links, .header-cta { display: none; }
+    .menu-toggle { display: block; }
+    .detail-hero { padding: 6rem 5% 3rem; }
+    .detail-hero h1 { font-size: 2.5rem; }
+    .detail-main { padding: 1.5rem; }
+    .itinerary-item { flex-direction: column; gap: 0.5rem; }
+    .footer-links { flex-direction: column; gap: 1rem; }
+  }
+</style>
 </head>
 <body>
 
@@ -21,15 +149,93 @@
   </header>
 
 <main>
-  <section class="detail-hero bali" id="detail-hero"><div class="detail-shade"></div><div class="detail-hero-content"><p class="eyebrow light">DESTINATION GUIDE · INDONESIA</p><h1 id="detail-title">Bali, Indonesia</h1><p>Green rice terraces, hidden waterfalls and warm island sunsets.</p><div class="detail-stats"><span>★ 4.9 traveller rating</span><span>5 days / 4 nights</span><span>Best for couples & explorers</span></div></div></section>
+  <section class="detail-hero bali" id="detail-hero">
+    <div class="detail-shade"></div>
+    <div class="detail-hero-content">
+      <p class="eyebrow light">DESTINATION GUIDE · INDONESIA</p>
+      <h1 id="detail-title">Bali, Indonesia</h1>
+      <p>Green rice terraces, hidden waterfalls and warm island sunsets.</p>
+      <div class="detail-stats">
+        <span>★ 4.9 traveller rating</span>
+        <span>5 days / 4 nights</span>
+        <span>Best for couples & explorers</span>
+      </div>
+    </div>
+  </section>
+
   <section class="detail-layout section">
     <article class="detail-main">
-      <div class="detail-tabs"><a href="#overview">Overview</a><a href="#itinerary">Itinerary</a><a href="#highlights">Highlights</a></div>
-      <section id="overview"><p class="eyebrow">A LITTLE ABOUT THE PLACE</p><h2>Make room for wonder.</h2><p class="body-copy" id="detail-description">Bali brings together peaceful temples, emerald rice terraces, surf-friendly beaches and a rich local culture. Take it slow, taste something new and find your own favourite corner of the island.</p></section>
-      <section id="highlights" class="detail-subsection"><p class="eyebrow">DON'T MISS</p><h2>Trip highlights</h2><ul class="check-list"><li>Explore scenic viewpoints and local villages</li><li>Visit cultural landmarks with a local guide</li><li>Enjoy a free afternoon to explore at your own pace</li><li>Discover regional food and memorable sunsets</li></ul></section>
-      <section id="itinerary" class="detail-subsection"><p class="eyebrow">YOUR JOURNEY, DAY BY DAY</p><h2>Sample itinerary</h2><div class="itinerary-item"><span>DAY 01</span><div><h3>Arrive & unwind</h3><p>Settle in, meet your trip host and enjoy a relaxed welcome evening.</p></div></div><div class="itinerary-item"><span>DAY 02</span><div><h3>Discover the destination</h3><p>Explore signature sights, local culture and scenic stops.</p></div></div><div class="itinerary-item"><span>DAY 03</span><div><h3>A day at your pace</h3><p>Choose an optional experience or take time to recharge.</p></div></div><div class="itinerary-item"><span>DAY 04–05</span><div><h3>Last looks & departure</h3><p>Enjoy a final morning before your onward journey.</p></div></div></section>
+      <div class="detail-tabs">
+        <a href="#overview">Overview</a>
+        <a href="#itinerary">Itinerary</a>
+        <a href="#highlights">Highlights</a>
+      </div>
+      
+      <section id="overview">
+        <p class="eyebrow">A LITTLE ABOUT THE PLACE</p>
+        <h2>Make room for wonder.</h2>
+        <p class="body-copy" id="detail-description">Bali brings together peaceful temples, emerald rice terraces, surf-friendly beaches and a rich local culture. Take it slow, taste something new and find your own favourite corner of the island.</p>
+      </section>
+      
+      <section id="highlights" class="detail-subsection">
+        <p class="eyebrow">DON'T MISS</p>
+        <h2>Trip highlights</h2>
+        <ul class="check-list">
+          <li>Explore scenic viewpoints and local villages</li>
+          <li>Visit cultural landmarks with a local guide</li>
+          <li>Enjoy a free afternoon to explore at your own pace</li>
+          <li>Discover regional food and memorable sunsets</li>
+        </ul>
+      </section>
+      
+      <section id="itinerary" class="detail-subsection">
+        <p class="eyebrow">YOUR JOURNEY, DAY BY DAY</p>
+        <h2>Sample itinerary</h2>
+        
+        <div class="itinerary-item">
+          <span>DAY 01</span>
+          <div>
+            <h3>Arrive & unwind</h3>
+            <p>Settle in, meet your trip host and enjoy a relaxed welcome evening.</p>
+          </div>
+        </div>
+        <div class="itinerary-item">
+          <span>DAY 02</span>
+          <div>
+            <h3>Discover the destination</h3>
+            <p>Explore signature sights, local culture and scenic stops.</p>
+          </div>
+        </div>
+        <div class="itinerary-item">
+          <span>DAY 03</span>
+          <div>
+            <h3>A day at your pace</h3>
+            <p>Choose an optional experience or take time to recharge.</p>
+          </div>
+        </div>
+        <div class="itinerary-item">
+          <span>DAY 04–05</span>
+          <div>
+            <h3>Last looks & departure</h3>
+            <p>Enjoy a final morning before your onward journey.</p>
+          </div>
+        </div>
+      </section>
     </article>
-    <aside class="booking-card"><p class="eyebrow">YOUR ESCAPE AWAITS</p><p class="price">$799 <span>/ person</span></p><p class="muted">Estimated starting price</p><ul><li>✓ 5 days / 4 nights</li><li>✓ Flexible trip options</li><li>✓ Local experiences</li><li>✓ Planning support</li></ul><a class="button search-button full-button" href="booking.html">Enquire about this trip →</a><p class="tiny-note">Demo pricing only. Final prices depend on dates and availability.</p></aside>
+
+    <aside class="booking-card">
+      <p class="eyebrow">YOUR ESCAPE AWAITS</p>
+      <p class="price">$799 <span>/ person</span></p>
+      <p class="muted">Estimated starting price</p>
+      <ul>
+        <li>✓ 5 days / 4 nights</li>
+        <li>✓ Flexible trip options</li>
+        <li>✓ Local experiences</li>
+        <li>✓ Planning support</li>
+      </ul>
+      <a class="button search-button full-button" href="booking.html">Enquire about this trip →</a>
+      <p class="tiny-note">Demo pricing only. Final prices depend on dates and availability.</p>
+    </aside>
   </section>
 </main>
 
@@ -41,4 +247,5 @@
   </footer>
   <script src="script.js"></script>
 
-</body></html>
+</body>
+</html>
