@@ -88,6 +88,8 @@
   .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
   .badge-published { background: #d1fae5; color: #065f46; }
   .badge-draft { background: #fef3c7; color: #92400e; }
+  .badge-booking { background: #e0f2fe; color: #0369a1; }
+  .badge-contact { background: #f3e8ff; color: #6b21a8; }
   .action-btn { background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0.3rem; color: var(--text-muted); }
   .action-btn:hover { color: var(--accent); }
   .action-btn.delete:hover { color: var(--danger); }
@@ -231,10 +233,10 @@
               <thead>
                 <tr>
                   <th>Date</th>
+                  <th>Type</th>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Topic</th>
-                  <th>Message</th>
+                  <th>Details</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -315,11 +317,13 @@
   const db = getFirestore(app);
   const packagesRef = collection(db, "packages");
   const destinationsRef = collection(db, "destinations");
-  const messagesRef = collection(db, "messages"); // Naya collection enquiries ke liye
+  const messagesRef = collection(db, "messages"); // Contact
+  const bookingsRef = collection(db, "bookings"); // Booking
 
   let globalPackages = [];
   let globalDestinations = [];
   let globalMessages = [];
+  let globalBookings = [];
 
   // Listen for real-time updates
   onSnapshot(packagesRef, (snapshot) => {
@@ -332,9 +336,13 @@
     if(sessionStorage.getItem('tv_admin_logged_in') === '1') renderAll();
   });
 
-  // Listen for Enquiries
   onSnapshot(messagesRef, (snapshot) => {
-    globalMessages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    globalMessages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data(), type: 'Contact' }));
+    if(sessionStorage.getItem('tv_admin_logged_in') === '1') renderAll();
+  });
+
+  onSnapshot(bookingsRef, (snapshot) => {
+    globalBookings = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data(), type: 'Booking' }));
     if(sessionStorage.getItem('tv_admin_logged_in') === '1') renderAll();
   });
 
@@ -402,16 +410,18 @@
     renderRecent(); 
     renderPackagesTable(); 
     renderDestinationsTable();
-    renderEnquiriesTable(); // Naya function call
+    renderEnquiriesTable(); 
   }
 
   function renderStats() {
     const all = [...globalPackages, ...globalDestinations];
     const published = all.filter(x => x.status === 'published').length;
+    const totalEnq = globalMessages.length + globalBookings.length;
+
     document.getElementById('statPackages').textContent = globalPackages.length;
     document.getElementById('statDestinations').textContent = globalDestinations.length;
     document.getElementById('statPublished').textContent = published;
-    document.getElementById('statEnquiries').textContent = globalMessages.length; // Enquiries count
+    document.getElementById('statEnquiries').textContent = totalEnq;
   }
 
   function renderRecent() {
@@ -474,28 +484,39 @@
     `).join('');
   }
 
-  // ENQUIRIES TABLE RENDER
+  // UNIFIED ENQUIRIES TABLE
   function renderEnquiriesTable() {
     const tbody = document.getElementById('enquiriesTableBody');
-    if (!globalMessages.length) {
+    const allEnquiries = [...globalMessages, ...globalBookings].sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+    if (!allEnquiries.length) {
       tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No enquiries yet.</td></tr>`;
       return;
     }
     
-    // Newest first
-    const sorted = [...globalMessages].sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
-    
-    tbody.innerHTML = sorted.map(m => {
+    tbody.innerHTML = allEnquiries.map(m => {
       const date = m.createdAt ? new Date(m.createdAt).toLocaleDateString() : '—';
+      let details = '';
+      
+      if (m.type === 'Contact') {
+        details = `<strong>Topic:</strong> ${m.topic || 'General'}<br><span style="font-size:0.85rem;color:#555;">${m.message}</span>`;
+      } else {
+        // Booking details
+        details = `<strong>Dest:</strong> ${m.destination}<br>
+                   <strong>Dates:</strong> ${m.departure} to ${m.returnDate || 'N/A'}<br>
+                   <strong>Guests:</strong> ${m.adults} | <strong>Budget:</strong> ${m.budget}<br>
+                   <span style="font-size:0.85rem;color:#555;">${m.notes ? 'Notes: ' + m.notes : ''}</span>`;
+      }
+
       return `
         <tr>
           <td>${date}</td>
+          <td><span class="badge ${m.type === 'Booking' ? 'badge-booking' : 'badge-contact'}">${m.type}</span></td>
           <td>${m.name || '—'}</td>
           <td><a href="mailto:${m.email}" style="color:var(--primary);text-decoration:underline;">${m.email || '—'}</a></td>
-          <td><span class="badge" style="background:#e0f2fe;color:#0369a1;">${m.topic || 'General'}</span></td>
-          <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${m.message}">${m.message || '—'}</td>
+          <td style="max-width: 350px;">${details}</td>
           <td>
-            <button class="action-btn delete" onclick="deleteEnquiry('${m.id}')" title="Delete">🗑</button>
+            <button class="action-btn delete" onclick="deleteEnquiry('${m.type}', '${m.id}')" title="Delete">🗑</button>
           </td>
         </tr>
       `;
@@ -592,11 +613,12 @@
     }
   };
 
-  // Delete Enquiry
-  window.deleteEnquiry = async function(id) {
+  // Delete Enquiry (Handles both Contact and Booking)
+  window.deleteEnquiry = async function(type, id) {
     if (!confirm('Are you sure you want to delete this enquiry?')) return;
     try {
-      await deleteDoc(doc(db, "messages", id));
+      const collName = type === 'Booking' ? 'bookings' : 'messages';
+      await deleteDoc(doc(db, collName, id));
       showToast('Enquiry deleted successfully.');
     } catch (error) {
       console.error("Error deleting: ", error);
