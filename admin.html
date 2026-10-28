@@ -24,417 +24,90 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text-dark);
-    line-height: 1.5;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-dark); line-height: 1.5; }
 
   /* ---------- LOGIN VIEW ---------- */
-  #loginView {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--primary) 0%, #1a5c5e 100%);
-    padding: 1rem;
-  }
-  .login-card {
-    background: var(--white);
-    border-radius: 16px;
-    padding: 2.5rem;
-    width: 100%;
-    max-width: 420px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  }
-  .login-card .brand {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 2rem;
-  }
-  .login-card .brand-mark {
-    font-size: 1.8rem;
-    color: var(--accent);
-  }
-  .login-card h2 {
-    font-size: 1.6rem;
-    margin-bottom: 0.4rem;
-  }
-  .login-card p {
-    color: var(--text-muted);
-    margin-bottom: 1.8rem;
-    font-size: 0.95rem;
-  }
-  .login-card label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
-  }
-  .login-card input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-    outline: none;
-  }
+  #loginView { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--primary) 0%, #1a5c5e 100%); padding: 1rem; }
+  .login-card { background: var(--white); border-radius: 16px; padding: 2.5rem; width: 100%; max-width: 420px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+  .login-card .brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.4rem; font-weight: 700; color: var(--primary); margin-bottom: 2rem; }
+  .login-card .brand-mark { font-size: 1.8rem; color: var(--accent); }
+  .login-card h2 { font-size: 1.6rem; margin-bottom: 0.4rem; }
+  .login-card p { color: var(--text-muted); margin-bottom: 1.8rem; font-size: 0.95rem; }
+  .login-card label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .login-card input { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.95rem; margin-bottom: 1rem; outline: none; }
   .login-card input:focus { border-color: var(--accent); }
-  .login-card .btn-login {
-    width: 100%;
-    background: var(--accent);
-    color: white;
-    border: none;
-    padding: 0.85rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-    margin-top: 0.5rem;
-  }
+  .login-card .btn-login { width: 100%; background: var(--accent); color: white; border: none; padding: 0.85rem; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
   .login-card .btn-login:hover { background: var(--accent-hover); }
-  .login-hint {
-    margin-top: 1.2rem;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    text-align: center;
-  }
+  .login-hint { margin-top: 1.2rem; font-size: 0.8rem; color: var(--text-muted); text-align: center; }
 
   /* ---------- DASHBOARD LAYOUT ---------- */
   #dashboardView { display: none; }
-  .admin-layout {
-    display: flex;
-    min-height: 100vh;
-  }
-
-  /* Sidebar */
-  .sidebar {
-    width: var(--sidebar-width);
-    background: var(--primary);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem 1rem;
-    position: fixed;
-    top: 0; bottom: 0; left: 0;
-    z-index: 100;
-    transition: transform 0.3s;
-  }
-  .sidebar .brand {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.25rem;
-    font-weight: 700;
-    padding: 0 0.5rem;
-    margin-bottom: 2rem;
-  }
+  .admin-layout { display: flex; min-height: 100vh; }
+  .sidebar { width: var(--sidebar-width); background: var(--primary); color: white; display: flex; flex-direction: column; padding: 1.5rem 1rem; position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; transition: transform 0.3s; }
+  .sidebar .brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; padding: 0 0.5rem; margin-bottom: 2rem; }
   .sidebar .brand-mark { color: var(--accent); font-size: 1.6rem; }
   .sidebar-nav { display: flex; flex-direction: column; gap: 0.3rem; flex: 1; }
-  .sidebar-nav a {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    color: rgba(255,255,255,0.75);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: background 0.2s, color 0.2s;
-    cursor: pointer;
-  }
-  .sidebar-nav a:hover,
-  .sidebar-nav a.active {
-    background: rgba(255,255,255,0.12);
-    color: white;
-  }
+  .sidebar-nav a { display: flex; align-items: center; gap: 0.8rem; padding: 0.75rem 1rem; border-radius: 8px; color: rgba(255,255,255,0.75); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: background 0.2s, color 0.2s; cursor: pointer; }
+  .sidebar-nav a:hover, .sidebar-nav a.active { background: rgba(255,255,255,0.12); color: white; }
   .sidebar-nav a .icon { font-size: 1.1rem; width: 20px; text-align: center; }
-  .sidebar-footer {
-    margin-top: auto;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255,255,255,0.15);
-  }
+  .sidebar-footer { margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.15); }
   .sidebar-footer a { color: rgba(255,255,255,0.7); }
 
-  /* Main Content */
-  .main-content {
-    flex: 1;
-    margin-left: var(--sidebar-width);
-    padding: 1.5rem 2rem;
-    min-width: 0;
-  }
+  .main-content { flex: 1; margin-left: var(--sidebar-width); padding: 1.5rem 2rem; min-width: 0; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; background: var(--white); padding: 0.9rem 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 1.5rem; }
+  .topbar-search { display: flex; align-items: center; gap: 0.5rem; background: var(--bg); padding: 0.5rem 1rem; border-radius: 8px; width: 300px; }
+  .topbar-search input { border: none; background: transparent; outline: none; font-family: inherit; width: 100%; }
+  .topbar-actions { display: flex; align-items: center; gap: 1rem; }
+  .btn-icon { background: var(--bg); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .user-chip { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; font-weight: 500; }
+  .avatar { width: 38px; height: 38px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-  .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--white);
-    padding: 0.9rem 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    margin-bottom: 1.5rem;
-  }
-  .topbar-search {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--bg);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    width: 300px;
-  }
-  .topbar-search input {
-    border: none;
-    background: transparent;
-    outline: none;
-    font-family: inherit;
-    width: 100%;
-  }
-  .topbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .btn-icon {
-    background: var(--bg);
-    border: none;
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
-  }
-  .user-chip {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-  .avatar {
-    width: 38px; height: 38px;
-    background: var(--accent);
-    color: white;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700;
-  }
-
-  /* Stats Cards */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.2rem;
-    margin-bottom: 1.5rem;
-  }
-  .stat-card {
-    background: var(--white);
-    padding: 1.4rem 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  }
-  .stat-card .label {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 0.4rem;
-  }
-  .stat-card .value {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--text-dark);
-  }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; margin-bottom: 1.5rem; }
+  .stat-card { background: var(--white); padding: 1.4rem 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .stat-card .label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+  .stat-card .value { font-size: 1.8rem; font-weight: 700; color: var(--text-dark); }
   .stat-card .value.accent { color: var(--accent); }
 
-  /* Section Panel */
-  .panel {
-    background: var(--white);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    margin-bottom: 1.5rem;
-  }
-  .panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-  }
-  .panel-header h2 {
-    font-size: 1.15rem;
-    font-weight: 600;
-  }
-  .btn {
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    font-family: inherit;
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .btn-primary {
-    background: var(--accent);
-    color: white;
-  }
+  .panel { background: var(--white); border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 1.5rem; }
+  .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem; }
+  .panel-header h2 { font-size: 1.15rem; font-weight: 600; }
+  .btn { border: none; padding: 0.6rem 1.2rem; border-radius: 8px; font-family: inherit; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; }
+  .btn-primary { background: var(--accent); color: white; }
   .btn-primary:hover { background: var(--accent-hover); }
-  .btn-outline {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text-dark);
-  }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-dark); }
   .btn-outline:hover { background: var(--bg); }
   .btn-danger { background: var(--danger); color: white; }
   .btn-danger:hover { background: #dc2626; }
 
-  /* Table */
   .table-wrap { overflow-x: auto; }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-  }
-  th {
-    text-align: left;
-    padding: 0.8rem 0.6rem;
-    border-bottom: 1px solid var(--border);
-    color: var(--text-muted);
-    font-weight: 600;
-    white-space: nowrap;
-  }
-  td {
-    padding: 0.75rem 0.6rem;
-    border-bottom: 1px solid var(--border);
-    vertical-align: middle;
-  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th { text-align: left; padding: 0.8rem 0.6rem; border-bottom: 1px solid var(--border); color: var(--text-muted); font-weight: 600; white-space: nowrap; }
+  td { padding: 0.75rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
-  .table-img {
-    width: 48px; height: 36px;
-    border-radius: 6px;
-    object-fit: cover;
-    background: var(--bg);
-  }
-  .badge {
-    display: inline-block;
-    padding: 0.2rem 0.6rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-  }
+  .table-img { width: 48px; height: 36px; border-radius: 6px; object-fit: cover; background: var(--bg); }
+  .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
   .badge-published { background: #d1fae5; color: #065f46; }
   .badge-draft { background: #fef3c7; color: #92400e; }
-  .action-btn {
-    background: none; border: none; cursor: pointer;
-    font-size: 1rem; padding: 0.3rem;
-    color: var(--text-muted);
-  }
+  .action-btn { background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0.3rem; color: var(--text-muted); }
   .action-btn:hover { color: var(--accent); }
   .action-btn.delete:hover { color: var(--danger); }
 
-  /* Modal */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 200;
-    padding: 1rem;
-  }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: none; align-items: center; justify-content: center; z-index: 200; padding: 1rem; }
   .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--white);
-    border-radius: 16px;
-    width: 100%;
-    max-width: 620px;
-    max-height: 90vh;
-    overflow-y: auto;
-    padding: 2rem;
-  }
-  .modal h2 {
-    font-size: 1.3rem;
-    margin-bottom: 1.2rem;
-  }
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
+  .modal { background: var(--white); border-radius: 16px; width: 100%; max-width: 620px; max-height: 90vh; overflow-y: auto; padding: 2rem; }
+  .modal h2 { font-size: 1.3rem; margin-bottom: 1.2rem; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .form-grid .full { grid-column: span 2; }
-  .form-group label {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-    color: var(--text-dark);
-  }
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    padding: 0.65rem 0.9rem;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.9rem;
-    outline: none;
-    background: #fafafa;
-  }
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    border-color: var(--accent);
-    background: white;
-  }
+  .form-group label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--text-dark); }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.65rem 0.9rem; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.9rem; outline: none; background: #fafafa; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); background: white; }
   .form-group textarea { resize: vertical; min-height: 80px; }
-  .image-preview {
-    margin-top: 0.5rem;
-    width: 100%;
-    height: 120px;
-    border-radius: 8px;
-    background: var(--bg);
-    background-size: cover;
-    background-position: center;
-    border: 1px dashed var(--border);
-  }
-  .modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.8rem;
-    margin-top: 1.5rem;
-  }
+  .image-preview { margin-top: 0.5rem; width: 100%; height: 120px; border-radius: 8px; background: var(--bg); background-size: cover; background-position: center; border: 1px dashed var(--border); }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 1.5rem; }
 
-  /* Toast */
-  #toast {
-    position: fixed;
-    bottom: 2rem; right: 2rem;
-    background: var(--primary);
-    color: white;
-    padding: 0.9rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 500;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s;
-    z-index: 300;
-    pointer-events: none;
-  }
+  #toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--primary); color: white; padding: 0.9rem 1.5rem; border-radius: 8px; font-weight: 500; box-shadow: 0 10px 25px rgba(0,0,0,0.2); opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 300; pointer-events: none; }
   #toast.show { opacity: 1; transform: translateY(0); }
 
-  /* Responsive */
   @media (max-width: 900px) {
     .sidebar { transform: translateX(-100%); }
     .sidebar.open { transform: translateX(0); }
@@ -451,7 +124,6 @@
 </head>
 <body>
 
-<!-- ================= LOGIN VIEW ================= -->
 <div id="loginView">
   <div class="login-card">
     <div class="brand">
@@ -469,16 +141,10 @@
   </div>
 </div>
 
-<!-- ================= DASHBOARD VIEW ================= -->
 <div id="dashboardView">
   <div class="admin-layout">
-
-    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-      <div class="brand">
-        <span class="brand-mark">▲</span>
-        <span>TravelVista</span>
-      </div>
+      <div class="brand"><span class="brand-mark">▲</span><span>TravelVista</span></div>
       <nav class="sidebar-nav">
         <a class="active" data-page="dashboard"><span class="icon">▦</span> Dashboard</a>
         <a data-page="packages"><span class="icon">📦</span> Packages</a>
@@ -491,9 +157,7 @@
       </div>
     </aside>
 
-    <!-- Main -->
     <main class="main-content">
-      <!-- Topbar -->
       <div class="topbar">
         <div class="topbar-search">
           <span>🔍</span>
@@ -508,49 +172,24 @@
         </div>
       </div>
 
-      <!-- Dashboard Page -->
       <div id="page-dashboard">
         <div class="stats-grid">
-          <div class="stat-card">
-            <div class="label">Total Packages</div>
-            <div class="value" id="statPackages">0</div>
-          </div>
-          <div class="stat-card">
-            <div class="label">Total Destinations</div>
-            <div class="value" id="statDestinations">0</div>
-          </div>
-          <div class="stat-card">
-            <div class="label">Published Items</div>
-            <div class="value accent" id="statPublished">0</div>
-          </div>
-          <div class="stat-card">
-            <div class="label">Total Value</div>
-            <div class="value" id="statValue">$0</div>
-          </div>
+          <div class="stat-card"><div class="label">Total Packages</div><div class="value" id="statPackages">0</div></div>
+          <div class="stat-card"><div class="label">Total Destinations</div><div class="value" id="statDestinations">0</div></div>
+          <div class="stat-card"><div class="label">Published Items</div><div class="value accent" id="statPublished">0</div></div>
+          <div class="stat-card"><div class="label">Total Value</div><div class="value" id="statValue">$0</div></div>
         </div>
-
         <div class="panel">
-          <div class="panel-header">
-            <h2>Recent Additions</h2>
-          </div>
+          <div class="panel-header"><h2>Recent Additions</h2></div>
           <div class="table-wrap">
             <table>
-              <thead>
-                <tr>
-                  <th>Image</th>
-                  <th>Name</th>
-                  <th>Type</th>
-                  <th>Price</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
+              <thead><tr><th>Image</th><th>Name</th><th>Type</th><th>Price</th><th>Status</th></tr></thead>
               <tbody id="recentTableBody"></tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- Packages Page -->
       <div id="page-packages" style="display:none;">
         <div class="panel">
           <div class="panel-header">
@@ -559,25 +198,13 @@
           </div>
           <div class="table-wrap">
             <table>
-              <thead>
-                <tr>
-                  <th>Image</th>
-                  <th>Name</th>
-                  <th>Destination</th>
-                  <th>Category</th>
-                  <th>Duration</th>
-                  <th>Price</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
+              <thead><tr><th>Image</th><th>Name</th><th>Destination</th><th>Category</th><th>Duration</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
               <tbody id="packagesTableBody"></tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- Destinations Page -->
       <div id="page-destinations" style="display:none;">
         <div class="panel">
           <div class="panel-header">
@@ -586,58 +213,33 @@
           </div>
           <div class="table-wrap">
             <table>
-              <thead>
-                <tr>
-                  <th>Image</th>
-                  <th>Name</th>
-                  <th>Country</th>
-                  <th>Rating</th>
-                  <th>Starting Price</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
+              <thead><tr><th>Image</th><th>Name</th><th>Country</th><th>Rating</th><th>Starting Price</th><th>Status</th><th>Actions</th></tr></thead>
               <tbody id="destinationsTableBody"></tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- Placeholder Pages -->
-      <div id="page-enquiries" style="display:none;">
-        <div class="panel"><h2>Enquiries</h2><p style="color:var(--text-muted);margin-top:0.5rem;">Enquiries module coming soon.</p></div>
-      </div>
-      <div id="page-settings" style="display:none;">
-        <div class="panel"><h2>Settings</h2><p style="color:var(--text-muted);margin-top:0.5rem;">Settings module coming soon.</p></div>
-      </div>
+      <div id="page-enquiries" style="display:none;"><div class="panel"><h2>Enquiries</h2><p style="color:var(--text-muted);margin-top:0.5rem;">Enquiries module coming soon.</p></div></div>
+      <div id="page-settings" style="display:none;"><div class="panel"><h2>Settings</h2><p style="color:var(--text-muted);margin-top:0.5rem;">Settings module coming soon.</p></div></div>
     </main>
   </div>
 </div>
 
-<!-- ================= MODAL (Add / Edit) ================= -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h2 id="modalTitle">Add New Package</h2>
     <form id="itemForm">
       <input type="hidden" id="itemId">
       <input type="hidden" id="itemType">
-
       <div class="form-grid">
         <div class="form-group full">
           <label>Image URL</label>
           <input type="url" id="itemImage" placeholder="https://images.unsplash.com/...">
           <div class="image-preview" id="imagePreview"></div>
         </div>
-
-        <div class="form-group">
-          <label>Name *</label>
-          <input type="text" id="itemName" required placeholder="Bali Escape">
-        </div>
-        <div class="form-group">
-          <label>Destination / Country *</label>
-          <input type="text" id="itemDestination" required placeholder="Bali, Indonesia">
-        </div>
-
+        <div class="form-group"><label>Name *</label><input type="text" id="itemName" required placeholder="Bali Escape"></div>
+        <div class="form-group"><label>Destination / Country *</label><input type="text" id="itemDestination" required placeholder="Bali, Indonesia"></div>
         <div class="form-group">
           <label>Category</label>
           <select id="itemCategory">
@@ -648,25 +250,10 @@
             <option value="adventure">Adventure</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Duration</label>
-          <input type="text" id="itemDuration" placeholder="5 days / 4 nights">
-        </div>
-
-        <div class="form-group">
-          <label>Price (USD)</label>
-          <input type="number" id="itemPrice" placeholder="799">
-        </div>
-        <div class="form-group">
-          <label>Rating</label>
-          <input type="number" id="itemRating" step="0.1" min="0" max="5" placeholder="4.9">
-        </div>
-
-        <div class="form-group full">
-          <label>Description</label>
-          <textarea id="itemDescription" placeholder="Short description..."></textarea>
-        </div>
-
+        <div class="form-group"><label>Duration</label><input type="text" id="itemDuration" placeholder="5 days / 4 nights"></div>
+        <div class="form-group"><label>Price (USD)</label><input type="number" id="itemPrice" placeholder="799"></div>
+        <div class="form-group"><label>Rating</label><input type="number" id="itemRating" step="0.1" min="0" max="5" placeholder="4.9"></div>
+        <div class="form-group full"><label>Description</label><textarea id="itemDescription" placeholder="Short description..."></textarea></div>
         <div class="form-group full">
           <label>Status</label>
           <select id="itemStatus">
@@ -675,10 +262,9 @@
           </select>
         </div>
       </div>
-
       <div class="modal-actions">
         <button type="button" class="btn btn-outline" id="cancelModalBtn">Cancel</button>
-        <button type="submit" class="btn btn-primary" id="saveItemBtn">Save</button>
+        <button type="submit" class="btn btn-primary">Save</button>
       </div>
     </form>
   </div>
@@ -686,332 +272,274 @@
 
 <div id="toast"></div>
 
-<script>
-/* ============================================================
-   STORAGE HELPERS
-   ============================================================ */
-const PKG_KEY = 'travelvista_packages';
-const DEST_KEY = 'travelvista_destinations';
-const BC = ('BroadcastChannel' in window) ? new BroadcastChannel('travelvista_updates') : null;
+<!-- FIREBASE INTEGRATION -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-function getPackages() {
-  try { return JSON.parse(localStorage.getItem(PKG_KEY)) || []; }
-  catch { return []; }
-}
-function getDestinations() {
-  try { return JSON.parse(localStorage.getItem(DEST_KEY)) || []; }
-  catch { return []; }
-}
-function savePackages(list) {
-  localStorage.setItem(PKG_KEY, JSON.stringify(list));
-  broadcast();
-}
-function saveDestinations(list) {
-  localStorage.setItem(DEST_KEY, JSON.stringify(list));
-  broadcast();
-}
-function broadcast() {
-  if (BC) BC.postMessage({ type: 'data_changed' });
-  // storage event doesn't fire in same tab, so dispatch custom event for same tab listeners if needed
-  window.dispatchEvent(new CustomEvent('tv_data_changed'));
-}
-
-function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
-
-/* ============================================================
-   UI HELPERS
-   ============================================================ */
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-function formatPrice(n) {
-  const num = Number(n) || 0;
-  return '$' + num.toLocaleString();
-}
-
-/* ============================================================
-   LOGIN
-   ============================================================ */
-document.getElementById('loginBtn').addEventListener('click', () => {
-  const email = document.getElementById('loginEmail').value.trim();
-  const pass = document.getElementById('loginPassword').value.trim();
-  if (email === 'admin@travelvista.com' && pass === 'admin123') {
-    sessionStorage.setItem('tv_admin_logged_in', '1');
-    initDashboard();
-  } else {
-    alert('Invalid credentials. Use admin@travelvista.com / admin123');
-  }
-});
-
-document.getElementById('logoutBtn').addEventListener('click', () => {
-  sessionStorage.removeItem('tv_admin_logged_in');
-  document.getElementById('dashboardView').style.display = 'none';
-  document.getElementById('loginView').style.display = 'flex';
-});
-
-/* ============================================================
-   INIT DASHBOARD
-   ============================================================ */
-function initDashboard() {
-  document.getElementById('loginView').style.display = 'none';
-  document.getElementById('dashboardView').style.display = 'block';
-  renderAll();
-  initNavigation();
-}
-
-function initNavigation() {
-  const links = document.querySelectorAll('.sidebar-nav a');
-  links.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const page = link.dataset.page;
-      links.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
-      ['dashboard','packages','destinations','enquiries','settings'].forEach(p => {
-        const el = document.getElementById('page-' + p);
-        if (el) el.style.display = (p === page) ? 'block' : 'none';
-      });
-    });
-  });
-}
-
-/* ============================================================
-   RENDER ALL
-   ============================================================ */
-function renderAll() {
-  renderStats();
-  renderRecent();
-  renderPackagesTable();
-  renderDestinationsTable();
-}
-
-function renderStats() {
-  const pkgs = getPackages();
-  const dests = getDestinations();
-  const all = [...pkgs, ...dests];
-  const published = all.filter(x => x.status === 'published').length;
-  const totalValue = pkgs.reduce((sum, p) => sum + (Number(p.price) || 0), 0);
-
-  document.getElementById('statPackages').textContent = pkgs.length;
-  document.getElementById('statDestinations').textContent = dests.length;
-  document.getElementById('statPublished').textContent = published;
-  document.getElementById('statValue').textContent = formatPrice(totalValue);
-}
-
-function renderRecent() {
-  const pkgs = getPackages().map(p => ({...p, _type: 'Package'}));
-  const dests = getDestinations().map(d => ({...d, _type: 'Destination'}));
-  const recent = [...pkgs, ...dests]
-    .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
-    .slice(0, 5);
-
-  const tbody = document.getElementById('recentTableBody');
-  if (!recent.length) {
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No items yet. Click "Add Package" to start.</td></tr>`;
-    return;
-  }
-  tbody.innerHTML = recent.map(item => `
-    <tr>
-      <td><img class="table-img" src="${item.image || 'https://via.placeholder.com/64'}" alt=""></td>
-      <td>${item.name || '—'}</td>
-      <td>${item._type}</td>
-      <td>${item.price ? formatPrice(item.price) : '—'}</td>
-      <td><span class="badge ${item.status === 'published' ? 'badge-published' : 'badge-draft'}">${item.status || 'draft'}</span></td>
-    </tr>
-  `).join('');
-}
-
-function renderPackagesTable() {
-  const list = getPackages();
-  const tbody = document.getElementById('packagesTableBody');
-  if (!list.length) {
-    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No packages yet.</td></tr>`;
-    return;
-  }
-  tbody.innerHTML = list.map(p => `
-    <tr>
-      <td><img class="table-img" src="${p.image || 'https://via.placeholder.com/64'}" alt=""></td>
-      <td>${p.name || '—'}</td>
-      <td>${p.destination || '—'}</td>
-      <td>${p.category || '—'}</td>
-      <td>${p.duration || '—'}</td>
-      <td>${p.price ? formatPrice(p.price) : '—'}</td>
-      <td><span class="badge ${p.status === 'published' ? 'badge-published' : 'badge-draft'}">${p.status || 'draft'}</span></td>
-      <td>
-        <button class="action-btn" onclick="editItem('package','${p.id}')" title="Edit">✎</button>
-        <button class="action-btn delete" onclick="deleteItem('package','${p.id}')" title="Delete">🗑</button>
-      </td>
-    </tr>
-  `).join('');
-}
-
-function renderDestinationsTable() {
-  const list = getDestinations();
-  const tbody = document.getElementById('destinationsTableBody');
-  if (!list.length) {
-    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No destinations yet.</td></tr>`;
-    return;
-  }
-  tbody.innerHTML = list.map(d => `
-    <tr>
-      <td><img class="table-img" src="${d.image || 'https://via.placeholder.com/64'}" alt=""></td>
-      <td>${d.name || '—'}</td>
-      <td>${d.destination || '—'}</td>
-      <td>${d.rating || '—'}</td>
-      <td>${d.price ? formatPrice(d.price) : '—'}</td>
-      <td><span class="badge ${d.status === 'published' ? 'badge-published' : 'badge-draft'}">${d.status || 'draft'}</span></td>
-      <td>
-        <button class="action-btn" onclick="editItem('destination','${d.id}')" title="Edit">✎</button>
-        <button class="action-btn delete" onclick="deleteItem('destination','${d.id}')" title="Delete">🗑</button>
-      </td>
-    </tr>
-  `).join('');
-}
-
-/* ============================================================
-   MODAL / FORM
-   ============================================================ */
-const modal = document.getElementById('modalOverlay');
-const form = document.getElementById('itemForm');
-const imageInput = document.getElementById('itemImage');
-const imagePreview = document.getElementById('imagePreview');
-
-imageInput.addEventListener('input', () => {
-  const url = imageInput.value.trim();
-  imagePreview.style.backgroundImage = url ? `url('${url}')` : 'none';
-});
-
-function openModal(type, item = null) {
-  form.reset();
-  document.getElementById('itemId').value = '';
-  document.getElementById('itemType').value = type;
-  document.getElementById('modalTitle').textContent = item ? `Edit ${type}` : `Add New ${type === 'package' ? 'Package' : 'Destination'}`;
-  imagePreview.style.backgroundImage = 'none';
-
-  if (item) {
-    document.getElementById('itemId').value = item.id;
-    document.getElementById('itemImage').value = item.image || '';
-    document.getElementById('itemName').value = item.name || '';
-    document.getElementById('itemDestination').value = item.destination || '';
-    document.getElementById('itemCategory').value = item.category || 'beach';
-    document.getElementById('itemDuration').value = item.duration || '';
-    document.getElementById('itemPrice').value = item.price || '';
-    document.getElementById('itemRating').value = item.rating || '';
-    document.getElementById('itemDescription').value = item.description || '';
-    document.getElementById('itemStatus').value = item.status || 'published';
-    if (item.image) imagePreview.style.backgroundImage = `url('${item.image}')`;
-  }
-
-  modal.classList.add('open');
-}
-
-document.getElementById('cancelModalBtn').addEventListener('click', () => modal.classList.remove('open'));
-
-document.getElementById('addPackageBtn').addEventListener('click', () => openModal('package'));
-document.getElementById('addDestinationBtn').addEventListener('click', () => openModal('destination'));
-
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  const type = document.getElementById('itemType').value;
-  const id = document.getElementById('itemId').value;
-  const data = {
-    id: id || uid(),
-    name: document.getElementById('itemName').value.trim(),
-    destination: document.getElementById('itemDestination').value.trim(),
-    category: document.getElementById('itemCategory').value,
-    duration: document.getElementById('itemDuration').value.trim(),
-    price: Number(document.getElementById('itemPrice').value) || 0,
-    rating: Number(document.getElementById('itemRating').value) || 0,
-    description: document.getElementById('itemDescription').value.trim(),
-    image: document.getElementById('itemImage').value.trim(),
-    status: document.getElementById('itemStatus').value,
-    createdAt: id ? (getItemById(type, id)?.createdAt || Date.now()) : Date.now()
+  const firebaseConfig = {
+    apiKey: "AIzaSyC94eV35vYNjRz_w-4INGwX0c5MjUHBwTQ",
+    authDomain: "travelvista-app-fc93a.firebaseapp.com",
+    databaseURL: "https://travelvista-app-fc93a-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "travelvista-app-fc93a",
+    storageBucket: "travelvista-app-fc93a.firebasestorage.app",
+    messagingSenderId: "375355222246",
+    appId: "1:375355222246:web:fee5ab1981fd96202bb327",
+    measurementId: "G-GHBQ9PEJYR"
   };
 
-  if (type === 'package') {
-    const list = getPackages();
-    if (id) {
-      const idx = list.findIndex(x => x.id === id);
-      if (idx > -1) list[idx] = data; else list.push(data);
-    } else {
-      list.push(data);
-    }
-    savePackages(list);
-    showToast(`Package "${data.name}" ${id ? 'updated' : 'added'} successfully!`);
-  } else {
-    const list = getDestinations();
-    if (id) {
-      const idx = list.findIndex(x => x.id === id);
-      if (idx > -1) list[idx] = data; else list.push(data);
-    } else {
-      list.push(data);
-    }
-    saveDestinations(list);
-    showToast(`Destination "${data.name}" ${id ? 'updated' : 'added'} successfully!`);
-  }
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const packagesRef = collection(db, "packages");
+  const destinationsRef = collection(db, "destinations");
 
-  modal.classList.remove('open');
-  renderAll();
-});
+  let globalPackages = [];
+  let globalDestinations = [];
 
-function getItemById(type, id) {
-  const list = type === 'package' ? getPackages() : getDestinations();
-  return list.find(x => x.id === id);
-}
-
-window.editItem = function(type, id) {
-  const item = getItemById(type, id);
-  if (item) openModal(type, item);
-};
-
-window.deleteItem = function(type, id) {
-  if (!confirm('Are you sure you want to delete this item?')) return;
-  if (type === 'package') {
-    const list = getPackages().filter(x => x.id !== id);
-    savePackages(list);
-  } else {
-    const list = getDestinations().filter(x => x.id !== id);
-    saveDestinations(list);
-  }
-  showToast('Item deleted.');
-  renderAll();
-};
-
-/* ============================================================
-   SEARCH
-   ============================================================ */
-document.getElementById('globalSearch').addEventListener('input', (e) => {
-  const q = e.target.value.toLowerCase();
-  // simple: filter visible table rows
-  document.querySelectorAll('tbody tr').forEach(row => {
-    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  // Listen for real-time updates
+  onSnapshot(packagesRef, (snapshot) => {
+    globalPackages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    if(sessionStorage.getItem('tv_admin_logged_in') === '1') renderAll();
   });
-});
+  
+  onSnapshot(destinationsRef, (snapshot) => {
+    globalDestinations = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    if(sessionStorage.getItem('tv_admin_logged_in') === '1') renderAll();
+  });
 
-/* ============================================================
-   BOOT
-   ============================================================ */
-if (sessionStorage.getItem('tv_admin_logged_in') === '1') {
-  initDashboard();
-} else {
-  document.getElementById('loginView').style.display = 'flex';
-  document.getElementById('dashboardView').style.display = 'none';
-}
+  /* ============================================================
+     UI HELPERS
+     ============================================================ */
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2500);
+  }
 
-/* Listen for updates from other tabs (so admin table refreshes if another tab changes) */
-if (BC) {
-  BC.onmessage = () => renderAll();
-}
-window.addEventListener('storage', (e) => {
-  if (e.key === PKG_KEY || e.key === DEST_KEY) renderAll();
-});
-window.addEventListener('tv_data_changed', () => renderAll());
+  function formatPrice(n) { return '$' + (Number(n) || 0).toLocaleString(); }
+
+  /* ============================================================
+     LOGIN
+     ============================================================ */
+  document.getElementById('loginBtn').addEventListener('click', () => {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass = document.getElementById('loginPassword').value.trim();
+    if (email === 'admin@travelvista.com' && pass === 'admin123') {
+      sessionStorage.setItem('tv_admin_logged_in', '1');
+      initDashboard();
+    } else {
+      alert('Invalid credentials. Use admin@travelvista.com / admin123');
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    sessionStorage.removeItem('tv_admin_logged_in');
+    document.getElementById('dashboardView').style.display = 'none';
+    document.getElementById('loginView').style.display = 'flex';
+  });
+
+  function initDashboard() {
+    document.getElementById('loginView').style.display = 'none';
+    document.getElementById('dashboardView').style.display = 'block';
+    renderAll();
+    initNavigation();
+  }
+
+  function initNavigation() {
+    const links = document.querySelectorAll('.sidebar-nav a');
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const page = link.dataset.page;
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        ['dashboard','packages','destinations','enquiries','settings'].forEach(p => {
+          const el = document.getElementById('page-' + p);
+          if (el) el.style.display = (p === page) ? 'block' : 'none';
+        });
+      });
+    });
+  }
+
+  /* ============================================================
+     RENDER ALL
+     ============================================================ */
+  function renderAll() {
+    renderStats(); renderRecent(); renderPackagesTable(); renderDestinationsTable();
+  }
+
+  function renderStats() {
+    const all = [...globalPackages, ...globalDestinations];
+    const published = all.filter(x => x.status === 'published').length;
+    const totalValue = globalPackages.reduce((sum, p) => sum + (Number(p.price) || 0), 0);
+    document.getElementById('statPackages').textContent = globalPackages.length;
+    document.getElementById('statDestinations').textContent = globalDestinations.length;
+    document.getElementById('statPublished').textContent = published;
+    document.getElementById('statValue').textContent = formatPrice(totalValue);
+  }
+
+  function renderRecent() {
+    const pkgs = globalPackages.map(p => ({...p, _type: 'Package'}));
+    const dests = globalDestinations.map(d => ({...d, _type: 'Destination'}));
+    const recent = [...pkgs, ...dests].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)).slice(0, 5);
+    const tbody = document.getElementById('recentTableBody');
+    if (!recent.length) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No items yet. Click "Add Package" to start.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = recent.map(item => `
+      <tr>
+        <td><img class="table-img" src="${item.image || 'https://via.placeholder.com/64'}" alt=""></td>
+        <td>${item.name || '—'}</td><td>${item._type}</td>
+        <td>${item.price ? formatPrice(item.price) : '—'}</td>
+        <td><span class="badge ${item.status === 'published' ? 'badge-published' : 'badge-draft'}">${item.status || 'draft'}</span></td>
+      </tr>
+    `).join('');
+  }
+
+  function renderPackagesTable() {
+    const tbody = document.getElementById('packagesTableBody');
+    if (!globalPackages.length) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No packages yet.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = globalPackages.map(p => `
+      <tr>
+        <td><img class="table-img" src="${p.image || 'https://via.placeholder.com/64'}" alt=""></td>
+        <td>${p.name || '—'}</td><td>${p.destination || '—'}</td>
+        <td>${p.category || '—'}</td><td>${p.duration || '—'}</td>
+        <td>${p.price ? formatPrice(p.price) : '—'}</td>
+        <td><span class="badge ${p.status === 'published' ? 'badge-published' : 'badge-draft'}">${p.status || 'draft'}</span></td>
+        <td>
+          <button class="action-btn" onclick="editItem('package','${p.id}')" title="Edit">✎</button>
+          <button class="action-btn delete" onclick="deleteItem('package','${p.id}')" title="Delete">🗑</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function renderDestinationsTable() {
+    const tbody = document.getElementById('destinationsTableBody');
+    if (!globalDestinations.length) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No destinations yet.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = globalDestinations.map(d => `
+      <tr>
+        <td><img class="table-img" src="${d.image || 'https://via.placeholder.com/64'}" alt=""></td>
+        <td>${d.name || '—'}</td><td>${d.destination || '—'}</td>
+        <td>${d.rating || '—'}</td><td>${d.price ? formatPrice(d.price) : '—'}</td>
+        <td><span class="badge ${d.status === 'published' ? 'badge-published' : 'badge-draft'}">${d.status || 'draft'}</span></td>
+        <td>
+          <button class="action-btn" onclick="editItem('destination','${d.id}')" title="Edit">✎</button>
+          <button class="action-btn delete" onclick="deleteItem('destination','${d.id}')" title="Delete">🗑</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  /* ============================================================
+     MODAL / FORM
+     ============================================================ */
+  const modal = document.getElementById('modalOverlay');
+  const form = document.getElementById('itemForm');
+  const imageInput = document.getElementById('itemImage');
+  const imagePreview = document.getElementById('imagePreview');
+
+  imageInput.addEventListener('input', () => {
+    const url = imageInput.value.trim();
+    imagePreview.style.backgroundImage = url ? `url('${url}')` : 'none';
+  });
+
+  function openModal(type, item = null) {
+    form.reset(); document.getElementById('itemId').value = '';
+    document.getElementById('itemType').value = type;
+    document.getElementById('modalTitle').textContent = item ? `Edit ${type}` : `Add New ${type === 'package' ? 'Package' : 'Destination'}`;
+    imagePreview.style.backgroundImage = 'none';
+    
+    if (item) {
+      document.getElementById('itemId').value = item.id;
+      document.getElementById('itemImage').value = item.image || '';
+      document.getElementById('itemName').value = item.name || '';
+      document.getElementById('itemDestination').value = item.destination || '';
+      document.getElementById('itemCategory').value = item.category || 'beach';
+      document.getElementById('itemDuration').value = item.duration || '';
+      document.getElementById('itemPrice').value = item.price || '';
+      document.getElementById('itemRating').value = item.rating || '';
+      document.getElementById('itemDescription').value = item.description || '';
+      document.getElementById('itemStatus').value = item.status || 'published';
+      if (item.image) imagePreview.style.backgroundImage = `url('${item.image}')`;
+    }
+    modal.classList.add('open');
+  }
+
+  document.getElementById('cancelModalBtn').addEventListener('click', () => modal.classList.remove('open'));
+  document.getElementById('addPackageBtn').addEventListener('click', () => openModal('package'));
+  document.getElementById('addDestinationBtn').addEventListener('click', () => openModal('destination'));
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const type = document.getElementById('itemType').value;
+    const id = document.getElementById('itemId').value;
+    const data = {
+      name: document.getElementById('itemName').value.trim(),
+      destination: document.getElementById('itemDestination').value.trim(),
+      category: document.getElementById('itemCategory').value,
+      duration: document.getElementById('itemDuration').value.trim(),
+      price: Number(document.getElementById('itemPrice').value) || 0,
+      rating: Number(document.getElementById('itemRating').value) || 0,
+      description: document.getElementById('itemDescription').value.trim(),
+      image: document.getElementById('itemImage').value.trim(),
+      status: document.getElementById('itemStatus').value,
+      createdAt: Date.now()
+    };
+
+    try {
+      if (type === 'package') {
+        if (id) await updateDoc(doc(db, "packages", id), data);
+        else await addDoc(packagesRef, data);
+        showToast(`Package "${data.name}" saved!`);
+      } else {
+        if (id) await updateDoc(doc(db, "destinations", id), data);
+        else await addDoc(destinationsRef, data);
+        showToast(`Destination "${data.name}" saved!`);
+      }
+      modal.classList.remove('open');
+    } catch (error) {
+      console.error("Error saving: ", error);
+      alert("Data save nahi hua. Firestore permissions check karein.");
+    }
+  });
+
+  window.editItem = function(type, id) {
+    const list = type === 'package' ? globalPackages : globalDestinations;
+    const item = list.find(x => x.id === id);
+    if (item) openModal(type, item);
+  };
+
+  window.deleteItem = async function(type, id) {
+    if (!confirm('Are you sure you want to delete this item?')) return;
+    try {
+      if (type === 'package') await deleteDoc(doc(db, "packages", id));
+      else await deleteDoc(doc(db, "destinations", id));
+      showToast('Item deleted successfully.');
+    } catch (error) {
+      console.error("Error deleting: ", error);
+    }
+  };
+
+  document.getElementById('globalSearch').addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase();
+    document.querySelectorAll('tbody tr').forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  });
+
+  if (sessionStorage.getItem('tv_admin_logged_in') === '1') initDashboard();
+  else { document.getElementById('loginView').style.display = 'flex'; document.getElementById('dashboardView').style.display = 'none'; }
+
 </script>
 </body>
 </html>
