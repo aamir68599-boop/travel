@@ -1,54 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Explore destinations and thoughtfully curated travel packages with TravelVista.">
-<title>Destinations — TravelVista</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Discover amazing destinations with TravelVista. Explore the most beautiful places on Earth." />
+  <title>Destinations — TravelVista</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  
+  <!-- Embedded CSS for perfect visibility -->
+  <style>
+    /* === GLOBAL STYLES === */
+    :root {
+      --primary: #0f3d3e; 
+      --primary-hover: #0a2a2b;
+      --text-dark: #222;
+      --text-muted: #666;
+      --bg-light: #f4f6f8;
+      --white: #ffffff;
+      --border: #e0e0e0;
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-dark);
+      background-color: var(--bg-light);
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* === ANNOUNCEMENT & HEADER === */
+    .announcement {
+      background: var(--primary);
+      color: var(--white);
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.85rem;
+    }
+    .announcement a { font-weight: 600; text-decoration: underline; }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 5%;
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .brand-mark { font-size: 1.5rem; }
+    .brand-light { font-weight: 400; }
+
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { font-weight: 500; color: var(--text-dark); transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+    .header-cta {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.6rem 1.2rem;
+      border-radius: 5px;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    .header-cta:hover { background: var(--primary-hover); }
+    .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+    /* === PAGE HERO (Middle Image Style) === */
+    .page-hero {
+      position: relative;
+      /* Background image of mountains/lake as per image */
+      background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80');
+      background-size: cover;
+      background-position: center;
+      padding: 8rem 5% 7rem;
+      text-align: center;
+      color: var(--white);
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(rgba(15, 61, 62, 0.4), rgba(15, 61, 62, 0.4)); /* Dark overlay */
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .page-hero p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* === FILTER BAR === */
+    .filter-wrapper {
+      padding: 0 5%;
+      margin-top: -3.5rem; /* Overlaps hero image */
+      position: relative;
+      z-index: 20;
+    }
+
+    .filter-panel {
+      display: flex;
+      gap: 1rem;
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      max-width: 1000px;
+      margin: 0 auto;
+      align-items: flex-end;
+    }
+
+    .filter-field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .field-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .filter-field input, .filter-field select {
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      outline: none;
+      background: #fafafa;
+      color: var(--text-muted);
+    }
+    .filter-field input:focus, .filter-field select:focus {
+      border-color: var(--primary);
+    }
+
+    .search-button {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 5px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      height: 45px;
+    }
+    .search-button:hover { background: var(--primary-hover); }
+
+    /* === DESTINATIONS GRID === */
+    .section { padding: 4rem 5%; }
+
+    .section-heading { margin-bottom: 2rem; }
+    .section-heading h2 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      color: var(--text-dark);
+    }
+
+    .destination-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .destination-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .destination-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .destination-image {
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .heart {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255,255,255,0.9);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      transition: background 0.3s;
+    }
+    .heart:hover { background: var(--white); }
+
+    .destination-info {
+      padding: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .destination-info h3 {
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      margin-bottom: 0.1rem;
+    }
+
+    .destination-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .rating {
+      font-weight: 600;
+      color: #f39c12;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+    .reviews {
+      color: var(--text-muted);
+      font-weight: 400;
+      font-size: 0.85rem;
+    }
+
+    /* === FOOTER === */
+    .site-footer {
+      background: var(--primary);
+      color: var(--white);
+      padding: 3rem 5%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.5rem;
+    }
+
+    .footer-brand { color: var(--white); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { opacity: 0.7; transition: opacity 0.3s; }
+    .footer-links a:hover { opacity: 1; }
+    .site-footer small { opacity: 0.5; margin-top: 1rem; }
+
+    /* === CARD IMAGES === */
+    .destination-image.bali { background-image: url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&q=80'); }
+    .destination-image.santorini { background-image: url('https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?auto=format&fit=crop&q=80'); }
+    .destination-image.dubai { background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80'); }
+    .destination-image.switzerland { background-image: url('https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&q=80'); }
+    .destination-image.thailand { background-image: url('https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&q=80'); }
+    .destination-image.maldives { background-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&q=80'); }
+
+    /* === RESPONSIVE DESIGN === */
+    @media (max-width: 900px) {
+      .filter-panel { flex-direction: column; align-items: stretch; }
+      .search-button { width: 100%; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .header-cta { display: none; }
+      .menu-toggle { display: block; }
+      .page-hero { padding: 6rem 5% 4rem; }
+      .page-hero h1 { font-size: 2.5rem; }
+      .filter-wrapper { margin-top: -2rem; }
+      .destination-grid { grid-template-columns: 1fr; }
+      .footer-links { flex-direction: column; gap: 1rem; }
+    }
+  </style>
 </head>
 <body>
 
-  <div class="announcement">Make memories, not just plans. <a href="packages.html">Explore our trips ↗</a></div>
+  <!-- Announcement -->
+  <div class="announcement">Make memories, not just plans. <a href="index.html#packages">Explore our trips <span aria-hidden="true">↗</span></a></div>
+
+  <!-- Header -->
   <header class="site-header">
-    <a class="brand" href="index.html"><span class="brand-mark">▲</span><span>Travel<span class="brand-light">Vista</span></span></a>
+    <a class="brand" href="index.html" aria-label="TravelVista home">
+      <span class="brand-mark" aria-hidden="true">▲</span><span>Travel<span class="brand-light">Vista</span></span>
+    </a>
     <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
     <nav class="nav-links" aria-label="Main navigation">
-      <a href="index.html">Home</a><a href="destinations.html">Destinations</a><a href="packages.html">Packages</a><a href="index.html#why-us">About</a><a href="contact.html">Contact</a>
+      <a href="index.html">Home</a>
+      <a class="active" href="destinations.html">Destinations</a>
+      <a href="index.html#packages">Packages</a>
+      <a href="index.html#why-us">About</a>
+      <a href="index.html#contact">Contact</a>
     </nav>
-    <a class="header-cta" href="booking.html">Plan your trip ↗</a>
+    <a class="header-cta" href="index.html#booking">Plan your trip <span aria-hidden="true">↗</span></a>
   </header>
 
-<main>
-  <section class="page-hero destinations-hero">
-    <div><p class="eyebrow light">FIND YOUR SOMEWHERE</p><h1>Discover amazing<br><em>destinations.</em></h1><p>From tropical beaches to snow-capped mountains, your next story starts here.</p></div>
-  </section>
-  <section class="section">
-    <div class="section-heading"><div><p class="eyebrow">A WORLD OF POSSIBILITIES</p><h2>Explore all destinations</h2><p class="section-copy">Choose a place that feels like you.</p></div></div>
-    <div class="filter-bar">
-      <label>Search destination<input id="destination-filter" type="search" placeholder="Try Bali or Dubai"></label>
-      <label>Travel style<select id="style-filter"><option value="all">All travel styles</option><option value="beach">Beach</option><option value="city">City & culture</option><option value="nature">Nature</option></select></label>
-    </div>
-    <div class="destination-grid listing-grid" id="destination-list">
-      <a class="destination-card" href="destination-details.html?place=bali" data-name="bali indonesia" data-style="beach"><div class="destination-image bali"><span class="card-tag">TROPICAL ESCAPE</span></div><div class="destination-info"><div><h3>Bali</h3><p>Indonesia</p></div><span class="rating">★ 4.9</span></div><div class="card-bottom"><span>From <strong>$799</strong></span><span class="round-arrow">↗</span></div></a>
-      <a class="destination-card" href="destination-details.html?place=santorini" data-name="santorini greece" data-style="beach"><div class="destination-image santorini"><span class="card-tag">ISLAND LIFE</span></div><div class="destination-info"><div><h3>Santorini</h3><p>Greece</p></div><span class="rating">★ 4.9</span></div><div class="card-bottom"><span>From <strong>$1,199</strong></span><span class="round-arrow">↗</span></div></a>
-      <a class="destination-card" href="destination-details.html?place=dubai" data-name="dubai united arab emirates" data-style="city"><div class="destination-image dubai"><span class="card-tag">CITY & LUXURY</span></div><div class="destination-info"><div><h3>Dubai</h3><p>United Arab Emirates</p></div><span class="rating">★ 4.8</span></div><div class="card-bottom"><span>From <strong>$899</strong></span><span class="round-arrow">↗</span></div></a>
-      <a class="destination-card" href="destination-details.html?place=switzerland" data-name="switzerland alps europe" data-style="nature"><div class="destination-image switzerland"><span class="card-tag">MOUNTAIN RETREAT</span></div><div class="destination-info"><div><h3>Switzerland</h3><p>Central Europe</p></div><span class="rating">★ 5.0</span></div><div class="card-bottom"><span>From <strong>$1,499</strong></span><span class="round-arrow">↗</span></div></a>
-      <a class="destination-card" href="destination-details.html?place=maldives" data-name="maldives island ocean" data-style="beach"><div class="destination-image maldives"><span class="card-tag">ISLAND RETREAT</span></div><div class="destination-info"><div><h3>Maldives</h3><p>Indian Ocean</p></div><span class="rating">★ 4.9</span></div><div class="card-bottom"><span>From <strong>$1,099</strong></span><span class="round-arrow">↗</span></div></a>
-      <a class="destination-card" href="destination-details.html?place=thailand" data-name="thailand bangkok temples" data-style="city"><div class="destination-image thailand"><span class="card-tag">CULTURE & FLAVOUR</span></div><div class="destination-info"><div><h3>Thailand</h3><p>Southeast Asia</p></div><span class="rating">★ 4.7</span></div><div class="card-bottom"><span>From <strong>$749</strong></span><span class="round-arrow">↗</span></div></a>
-    </div>
-    <p id="filter-empty" class="empty-state" hidden>No destinations match those filters. Try another search.</p>
-  </section>
-  <section class="final-cta"><div><p class="eyebrow light">NEED A LITTLE HELP?</p><h2>Let's find your<br>kind of adventure.</h2><p>Tell us what you love and we'll help you plan a trip around it.</p></div><a class="button button-light" href="contact.html">Talk to our team →</a></section>
-</main>
+  <main>
+    <!-- Hero Section (Image match) -->
+    <section class="page-hero">
+      <div class="hero-content">
+        <h1>Discover Amazing<br>Destinations</h1>
+        <p>From tropical beaches to snow-capped mountains, explore the most beautiful places on Earth.</p>
+      </div>
+    </section>
 
+    <!-- Filter Bar -->
+    <div class="filter-wrapper">
+      <form class="filter-panel">
+        <label class="filter-field">
+          <span class="field-label">Search destination</span>
+          <input type="text" placeholder="Where to?" />
+        </label>
+        <label class="filter-field">
+          <span class="field-label">Travel type</span>
+          <select>
+            <option>All Types</option>
+            <option>Adventure</option>
+            <option>Luxury</option>
+            <option>Beach</option>
+            <option>Cultural</option>
+          </select>
+        </label>
+        <label class="filter-field">
+          <span class="field-label">Price range</span>
+          <select>
+            <option>Any Price</option>
+            <option>Under $1000</option>
+            <option>$1000 - $2000</option>
+            <option>Over $2000</option>
+          </select>
+        </label>
+        <button class="search-button" type="submit">Search</button>
+      </form>
+    </div>
+
+    <!-- Destinations Grid -->
+    <section class="section destinations-section">
+      <div class="section-heading">
+        <h2>All Destinations</h2>
+      </div>
+      
+      <div class="destination-grid">
+        <!-- Bali -->
+        <a class="destination-card" href="index.html#packages">
+          <div class="destination-image bali">
+            <span class="heart" aria-label="Save Bali">♡</span>
+          </div>
+          <div class="destination-info">
+            <div>
+              <h3>Bali</h3>
+              <p>Indonesia</p>
+            </div>
+            <span class="rating">★ 4.8 <span class="reviews">(2.5k reviews)</span></span>
+          </div>
+        </a>
+
+        <!-- Santorini -->
+        <a class="destination-card" href="index.html#packages">
+          <div class="destination-image santorini">
+            <span class="heart" aria-label="Save Santorini">♡</span>
+          </div>
+          <div class="destination-info">
+            <div>
+              <h3>Santorini</h3>
+              <p>Greece</p>
+            </div>
+            <span class="rating">★ 4.9 <span class="reviews">(1.8k reviews)</span></span>
+          </div>
+        </a>
+
+        <!-- Dubai -->
+        <a class="destination-card" href="index.html#packages">
+          <div class="destination-image dubai">
+            <span class="heart" aria-label="Save Dubai">♡</span>
+          </div>
+          <div class="destination-info">
+            <div>
+              <h3>Dubai</h3>
+              <p>UAE</p>
+            </div>
+            <span class="rating">★ 4.7 <span class="reviews">(3.2k reviews)</span></span>
+          </div>
+        </a>
+
+        <!-- Switzerland -->
+        <a class="destination-card" href="index.html#packages">
+          <div class="destination-image switzerland">
+            <span class="heart" aria-label="Save Switzerland">♡</span>
+          </div>
+          <div class="destination-info">
+            <div>
+              <h3>Switzerland</h3>
+              <p>Europe</p>
+            </div>
+            <span class="rating">★ 4.8 <span class="reviews">(1.2k reviews)</span></span>
+          </div>
+        </a>
+
+        <!-- Thailand -->
+        <a class="destination-card" href="index.html#packages">
+          <div class="destination-image thailand">
+            <span class="heart" aria-label="Save Thailand">♡</span>
+          </div>
+          <div class="destination-info">
+            <div>
+              <h3>Thailand</h3>
+              <p>Southeast Asia</p>
+            </div>
+            <span class="rating">★ 4.6 <span class="reviews">(2.1k reviews)</span></span>
+          </div>
+        </a>
+
+        <!-- Maldives -->
+        <a class="destination-card" href="index.html#packages">
+          <div class="destination-image maldives">
+            <span class="heart" aria-label="Save Maldives">♡</span>
+          </div>
+          <div class="destination-info">
+            <div>
+              <h3>Maldives</h3>
+              <p>Indian Ocean</p>
+            </div>
+            <span class="rating">★ 4.9 <span class="reviews">(1.5k reviews)</span></span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
   <footer class="site-footer">
-    <a class="brand footer-brand" href="index.html"><span class="brand-mark">▲</span><span>Travel<span class="brand-light">Vista</span></span></a>
+    <a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">▲</span><span>Travel<span class="brand-light">Vista</span></span></a>
     <p>Go somewhere that moves you.</p>
-    <div class="footer-links"><a href="index.html">Home</a><a href="destinations.html">Destinations</a><a href="packages.html">Packages</a><a href="contact.html">Contact</a></div>
-    <small>© <span class="year"></span> TravelVista. Demo website concept.</small>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="index.html#packages">Packages</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <small>© 2024 TravelVista. Demo website concept.</small>
   </footer>
-  <script src="script.js"></script>
 
-</body></html>
+</body>
+</html>
