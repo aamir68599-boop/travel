@@ -5,12 +5,224 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Discover unforgettable destinations and plan your next adventure with TravelVista." />
   <title>TravelVista — Your Next Adventure Awaits</title>
+  
+  <!-- Fonts & Preconnect for fast loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- Embedded CSS for perfect visibility & responsiveness -->
+  <style>
+    /* === GLOBAL STYLES === */
+    :root {
+      --primary: #0f3d3e; 
+      --primary-hover: #0a2a2b;
+      --text-dark: #222;
+      --text-muted: #666;
+      --bg-light: #f8f9fa;
+      --white: #ffffff;
+      --border: #e0e0e0;
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-body); color: var(--text-dark); background-color: var(--bg-light); line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* === ANNOUNCEMENT & HEADER === */
+    .announcement { background: var(--primary); color: var(--white); text-align: center; padding: 0.5rem; font-size: 0.85rem; }
+    .announcement a { font-weight: 600; text-decoration: underline; }
+
+    .site-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 5%; background: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky; top: 0; z-index: 100;
+    }
+
+    .brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+    .brand-mark { font-size: 1.5rem; }
+    .brand-light { font-weight: 400; }
+
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { font-weight: 500; color: var(--text-dark); transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+    .header-cta { background: var(--primary); color: var(--white); padding: 0.6rem 1.2rem; border-radius: 5px; font-weight: 500; transition: background 0.3s; }
+    .header-cta:hover { background: var(--primary-hover); }
+    .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+    /* === HERO SECTION === */
+    .hero {
+      position: relative;
+      background-image: url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1600&q=60');
+      background-size: cover; background-position: center;
+      min-height: 80vh;
+      display: flex; align-items: center;
+      padding: 0 5%;
+      color: var(--white);
+    }
+    .hero-overlay {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to right, rgba(15, 61, 62, 0.8) 0%, rgba(15, 61, 62, 0.3) 100%);
+    }
+    .hero-content { position: relative; z-index: 10; max-width: 600px; }
+    .eyebrow { font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--primary); }
+    .eyebrow.light { color: #a0c4c4; }
+    .hero h1 { font-family: var(--font-heading); font-size: 4rem; line-height: 1.1; margin-bottom: 1rem; }
+    .hero h1 span { font-style: italic; font-weight: 400; color: #a0c4c4; }
+    .hero-copy { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; max-width: 500px; }
+    
+    .button { display: inline-block; padding: 0.8rem 1.5rem; border-radius: 5px; font-weight: 600; transition: all 0.3s; cursor: pointer; }
+    .button-primary { background: var(--primary); color: var(--white); border: 2px solid var(--primary); }
+    .button-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+    .button-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+    .button-outline:hover { background: var(--primary); color: var(--white); }
+    .button-light { background: var(--white); color: var(--primary); }
+    .button-light:hover { background: #e8f0f0; }
+
+    .hero-proof { display: flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem; font-size: 0.9rem; }
+    .proof-stars { color: #f39c12; }
+
+    .hero-caption {
+      position: absolute; bottom: 2rem; left: 5%; z-index: 10;
+      font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;
+      background: rgba(0,0,0,0.3); padding: 0.5rem 1rem; border-radius: 20px; backdrop-filter: blur(5px);
+    }
+    .caption-dot { width: 8px; height: 8px; background: #20c997; border-radius: 50%; }
+    .caption-divider { opacity: 0.5; }
+
+    /* === SEARCH PANEL === */
+    .search-wrap { padding: 0 5%; position: relative; z-index: 20; margin-top: -3rem; }
+    .search-panel {
+      background: var(--white); padding: 1rem;
+      border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+      max-width: 1000px; margin: 0 auto;
+    }
+    .search-field {
+      flex: 1; min-width: 200px; display: flex; align-items: center; gap: 0.8rem;
+      padding: 0.8rem 1rem; background: #f9f9f9; border-radius: 5px;
+      border: 1px solid var(--border); cursor: pointer;
+    }
+    .field-icon { font-size: 1.2rem; color: var(--primary); }
+    .field-text { display: flex; flex-direction: column; width: 100%; }
+    .field-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
+    .search-field input, .search-field select {
+      border: none; background: transparent; font-family: var(--font-body);
+      font-size: 0.95rem; outline: none; width: 100%; color: var(--text-dark);
+    }
+    .search-button { padding: 0.8rem 1.5rem; height: 100%; white-space: nowrap; background: var(--primary); color: var(--white); border: none; border-radius: 5px; font-weight: 600; cursor: pointer; }
+    .search-message { text-align: center; margin-top: 1rem; font-weight: 500; color: var(--primary); }
+
+    /* === SECTIONS & HEADINGS === */
+    .section { padding: 5rem 5%; max-width: 1400px; margin: 0 auto; }
+    .section-heading { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+    .section-heading h2 { font-family: var(--font-heading); font-size: 2.5rem; color: var(--text-dark); line-height: 1.2; }
+    .section-copy { color: var(--text-muted); margin-top: 0.5rem; }
+    .text-link { font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; transition: gap 0.3s; }
+    .text-link:hover { gap: 0.8rem; }
+
+    /* === DESTINATIONS GRID === */
+    .destination-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
+    .destination-card {
+      background: var(--white); border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column; cursor: pointer;
+    }
+    .destination-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .destination-image { height: 220px; background-size: cover; background-position: center; position: relative; }
+    .card-tag { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.9); padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; }
+    .heart { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.8); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: background 0.3s; }
+    .heart:hover { background: var(--white); }
+    .destination-info { padding: 1.2rem; display: flex; justify-content: space-between; align-items: flex-start; }
+    .destination-info h3 { font-size: 1.2rem; margin-bottom: 0.2rem; }
+    .destination-info p { font-size: 0.85rem; color: var(--text-muted); }
+    .rating { font-weight: 600; color: #f39c12; font-size: 0.95rem; }
+    .card-bottom { padding: 0 1.2rem 1.2rem; display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+    .card-bottom span { font-size: 0.9rem; color: var(--text-muted); }
+    .card-bottom strong { color: var(--primary); font-size: 1.1rem; }
+    .round-arrow { width: 30px; height: 30px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+    .destination-card:hover .round-arrow { background: var(--primary); color: var(--white); border-color: var(--primary); }
+
+    /* Images */
+    .destination-image.bali, .package-image.bali { background-image: url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=60'); }
+    .destination-image.santorini, .package-image.santorini { background-image: url('https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?auto=format&fit=crop&w=600&q=60'); }
+    .destination-image.dubai { background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=60'); }
+    .destination-image.switzerland, .package-image.switzerland { background-image: url('https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=60'); }
+
+    /* === WHY SECTION === */
+    .why-section { display: grid; grid-template-columns: 1fr 1fr; background: var(--primary); color: var(--white); }
+    .why-photo { background-image: url('https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&fit=crop&w=800&q=60'); background-size: cover; background-position: center; min-height: 500px; }
+    .why-content { padding: 5rem; display: flex; flex-direction: column; justify-content: center; }
+    .why-content h2 { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 1rem; line-height: 1.2; }
+    .why-content h2 span { font-style: italic; font-weight: 400; color: #a0c4c4; }
+    .why-copy { opacity: 0.8; margin-bottom: 2rem; font-size: 1.05rem; }
+    
+    .benefit-list { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem; }
+    .benefit { display: flex; gap: 1rem; align-items: flex-start; }
+    .benefit-icon { font-size: 1.5rem; color: #a0c4c4; margin-top: 0.2rem; }
+    .benefit h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }
+    .benefit p { opacity: 0.8; font-size: 0.9rem; }
+
+    /* === PACKAGES SECTION === */
+    .package-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    .package-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s; display: flex; flex-direction: column; }
+    .package-card:hover { transform: translateY(-5px); }
+    .package-image { height: 220px; background-size: cover; background-position: center; }
+    .package-body { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .package-meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .package-body h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .package-body p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; }
+    .package-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem; }
+    .package-footer span { font-size: 0.9rem; color: var(--text-muted); }
+    .package-footer strong { font-size: 1.1rem; color: var(--primary); }
+    .package-footer a { background: var(--primary); color: var(--white); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+    .package-footer a:hover { background: var(--primary-hover); }
+
+    /* === QUOTE SECTION === */
+    .quote-section { text-align: center; padding: 6rem 5%; background: var(--bg-light); }
+    .quote-mark { font-family: var(--font-heading); font-size: 5rem; color: var(--primary); opacity: 0.2; line-height: 1; }
+    .quote-section blockquote { font-family: var(--font-heading); font-size: 2.5rem; max-width: 800px; margin: 0 auto 1.5rem; line-height: 1.3; color: var(--text-dark); }
+    .quote-section p { font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; color: var(--text-muted); }
+
+    /* === FINAL CTA === */
+    .final-cta { background: var(--primary); color: var(--white); padding: 4rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
+    .final-cta h2 { font-family: var(--font-heading); font-size: 2.5rem; margin: 0.5rem 0; }
+    .final-cta p { opacity: 0.8; }
+
+    /* === FOOTER === */
+    .site-footer { background: #0a2a2b; color: var(--white); padding: 3rem 5%; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.5rem; }
+    .footer-brand { color: var(--white); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { opacity: 0.7; transition: opacity 0.3s; }
+    .footer-links a:hover { opacity: 1; }
+    .site-footer small { opacity: 0.5; margin-top: 1rem; }
+
+    /* === RESPONSIVE DESIGN === */
+    @media (max-width: 992px) {
+      .hero h1 { font-size: 3rem; }
+      .why-section { grid-template-columns: 1fr; }
+      .why-photo { min-height: 300px; }
+      .why-content { padding: 3rem 5%; }
+      .final-cta { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .header-cta { display: none; }
+      .menu-toggle { display: block; }
+      .hero h1 { font-size: 2.5rem; }
+      .search-panel { flex-direction: column; align-items: stretch; }
+      .search-field { width: 100%; }
+      .search-button { width: 100%; }
+      .footer-links { flex-direction: column; gap: 1rem; }
+    }
+  </style>
 </head>
 <body>
+  
   <div class="announcement">Make memories, not just plans. <a href="#packages">Explore our trips <span aria-hidden="true">↗</span></a></div>
 
   <header class="site-header">
@@ -29,6 +241,7 @@
   </header>
 
   <main>
+    <!-- Hero -->
     <section class="hero">
       <div class="hero-overlay"></div>
       <div class="hero-content">
@@ -41,6 +254,7 @@
       <div class="hero-caption"><span class="caption-dot"></span> Santorini, Greece <span class="caption-divider">/</span> A place to slow down</div>
     </section>
 
+    <!-- Search -->
     <section class="search-wrap" id="booking" aria-label="Search trips">
       <form class="search-panel" id="search-form">
         <label class="search-field">
@@ -60,6 +274,7 @@
       <p class="search-message" id="search-message" aria-live="polite"></p>
     </section>
 
+    <!-- Destinations -->
     <section class="section destinations-section" id="destinations">
       <div class="section-heading">
         <div><p class="eyebrow">YOUR NEXT STORY STARTS HERE</p><h2>Popular destinations</h2><p class="section-copy">Places that stay with you long after you return.</p></div>
@@ -90,6 +305,7 @@
       <p class="empty-state" id="empty-state" hidden>No matching destinations yet. Try Bali, Santorini, Dubai or Switzerland.</p>
     </section>
 
+    <!-- Why Us -->
     <section class="why-section" id="why-us">
       <div class="why-photo" role="img" aria-label="Traveller looking at a scenic mountain landscape"></div>
       <div class="why-content">
@@ -101,10 +317,11 @@
           <div class="benefit"><span class="benefit-icon">⌁</span><div><h3>Made for your pace</h3><p>Flexible journeys built around what you love.</p></div></div>
           <div class="benefit"><span class="benefit-icon">♡</span><div><h3>Here when you need us</h3><p>Friendly support before, during and after your trip.</p></div></div>
         </div>
-        <a class="button button-outline" href="#contact">Get to know us <span aria-hidden="true">→</span></a>
+        <a class="button button-light" href="#contact">Get to know us <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
+    <!-- Packages -->
     <section class="section packages-section" id="packages">
       <div class="section-heading">
         <div><p class="eyebrow">MADE FOR YOUR KIND OF GETAWAY</p><h2>Trips worth taking</h2><p class="section-copy">A little inspiration for your next big memory.</p></div>
@@ -117,12 +334,14 @@
       </div>
     </section>
 
+    <!-- Quote -->
     <section class="quote-section">
       <span class="quote-mark" aria-hidden="true">“</span>
       <blockquote>The world is a book, and those who do not travel read only one page.</blockquote>
       <p>YOUR NEXT CHAPTER IS OUT THERE</p>
     </section>
 
+    <!-- Final CTA -->
     <section class="final-cta" id="contact">
       <div><p class="eyebrow light">LET'S MAKE IT HAPPEN</p><h2>Your next great story<br>starts with a trip.</h2><p>Tell us what inspires you. We'll help you plan the rest.</p></div>
       <a class="button button-light" href="mailto:hello@travelvista.example?subject=Plan%20my%20trip">Plan my trip <span aria-hidden="true">→</span></a>
@@ -136,6 +355,51 @@
     <small>© <span id="year"></span> TravelVista. Demo website concept.</small>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Embedded Script for Interactivity -->
+  <script>
+    // 1. Update Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 2. Mobile Menu Toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if(menuToggle && navLinks) {
+      menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', !isExpanded);
+        // Basic inline style toggle for simplicity
+        if (navLinks.style.display === 'flex') {
+          navLinks.style.display = 'none';
+        } else {
+          navLinks.style.display = 'flex';
+          navLinks.style.flexDirection = 'column';
+          navLinks.style.position = 'absolute';
+          navLinks.style.top = '100%';
+          navLinks.style.left = '0';
+          navLinks.style.width = '100%';
+          navLinks.style.background = 'white';
+          navLinks.style.padding = '1rem';
+          navLinks.style.boxShadow = '0 5px 10px rgba(0,0,0,0.1)';
+        }
+      });
+    }
+
+    // 3. Simple Search Form Interaction
+    const searchForm = document.getElementById('search-form');
+    const searchMessage = document.getElementById('search-message');
+    if(searchForm) {
+      searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const dest = document.getElementById('destination-input').value;
+        if(dest) {
+          searchMessage.textContent = `Searching for trips to ${dest}...`;
+          // Optional: Hide message after 3 seconds
+          setTimeout(() => { searchMessage.textContent = ''; }, 3000);
+        } else {
+          searchMessage.textContent = `Please enter a destination.`;
+        }
+      });
+    }
+  </script>
 </body>
 </html>
