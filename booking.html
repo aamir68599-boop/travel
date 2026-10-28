@@ -6,13 +6,11 @@
 <meta name="description" content="Explore destinations and thoughtfully curated travel packages with TravelVista.">
 <title>Plan Your Trip — TravelVista</title>
 
-<!-- Fonts & Preconnect for fast loading -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-<!-- Embedded CSS for perfect visibility & responsiveness -->
 <style>
   /* === GLOBAL STYLES === */
   :root {
@@ -57,7 +55,6 @@
   /* === PAGE HERO (Booking Style) === */
   .page-hero {
     position: relative;
-    /* Optimized Hero Image */
     background-image: url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=1600&q=60');
     background-size: cover; background-position: center;
     padding: 7rem 5% 5rem; text-align: center; color: var(--white);
@@ -142,6 +139,7 @@
     font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: background 0.3s;
   }
   .submit-button:hover { background: var(--primary-hover); }
+  .submit-button:disabled { opacity: 0.7; cursor: not-allowed; }
 
   .form-result {
     margin-top: 1rem; text-align: center; font-weight: 600; color: #1e7e34;
@@ -204,7 +202,7 @@
     <div class="form-intro">
       <p class="eyebrow">TRIP ENQUIRY</p>
       <h2>Tell us what you're dreaming of.</h2>
-      <p class="body-copy">This demo form validates your details in the browser. It does not submit to a real booking service or take payment.</p>
+      <p class="body-copy">This form submits your details directly to our team. We will review your preferences and get back to you.</p>
       <div class="form-note">
         <strong>What happens next?</strong>
         <p>We'll review your preferences and help you understand options, dates and estimated costs.</p>
@@ -289,7 +287,7 @@
       </div>
 
       <label class="consent">
-        <input type="checkbox" required> I understand this is a demo enquiry form and no booking is confirmed. *
+        <input type="checkbox" required> I understand this is an enquiry form and no booking is confirmed yet. *
       </label>
       
       <button class="submit-button" type="submit">Send trip enquiry →</button>
@@ -310,34 +308,72 @@
     <small>© <span class="year"></span> TravelVista. Demo website concept.</small>
   </footer>
 
-  <!-- Embedded Script for Form Submission & Year -->
-  <script>
-    // 1. Update Year dynamically
-    document.querySelectorAll('.year').forEach(el => {
-      el.textContent = new Date().getFullYear();
-    });
+  <!-- FIREBASE INTEGRATION -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // 2. Handle Form Submission (Demo Only)
+    const firebaseConfig = {
+      apiKey: "AIzaSyC94eV35vYNjRz_w-4INGwX0c5MjUHBwTQ",
+      authDomain: "travelvista-app-fc93a.firebaseapp.com",
+      databaseURL: "https://travelvista-app-fc93a-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "travelvista-app-fc93a",
+      storageBucket: "travelvista-app-fc93a.firebasestorage.app",
+      messagingSenderId: "375355222246",
+      appId: "1:375355222246:web:fee5ab1981fd96202bb327",
+      measurementId: "G-GHBQ9PEJYR"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const bookingsRef = collection(db, "bookings"); // Bookings ka alag collection
+
+    // Dynamic Year
+    document.querySelectorAll('.year').forEach(el => el.textContent = new Date().getFullYear());
+
     const form = document.getElementById('trip-form');
     const resultMsg = document.getElementById('booking-result');
 
     if(form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent actual page reload
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault(); 
         
-        // Get the name and destination for a personalized message
+        const submitBtn = form.querySelector('.submit-button');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
         const name = form.querySelector('input[name="name"]').value;
         const dest = form.querySelector('select[name="destination"]').value;
         
-        // Show success message
-        resultMsg.style.display = 'block';
-        resultMsg.textContent = `Thank you, ${name}! Your enquiry for ${dest} has been received. We'll be in touch soon.`;
-        
-        // Optional: Reset form after showing message
-        form.reset();
-        
-        // Scroll to result message
-        resultMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const data = {
+          type: 'Booking',
+          name: name,
+          email: form.querySelector('input[name="email"]').value,
+          destination: dest,
+          travelStyle: form.querySelector('select[name="style"]').value,
+          departure: form.querySelector('input[name="departure"]').value,
+          returnDate: form.querySelector('input[name="return"]').value,
+          adults: form.querySelector('select[name="adults"]').value,
+          budget: form.querySelector('select[name="budget"]').value,
+          notes: form.querySelector('textarea[name="notes"]').value,
+          createdAt: Date.now()
+        };
+
+        try {
+          await addDoc(bookingsRef, data);
+          
+          resultMsg.style.display = 'block';
+          resultMsg.textContent = `Thank you, ${name}! Your enquiry for ${dest} has been received.`;
+          form.reset();
+          resultMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } catch (error) {
+          console.error("Error sending: ", error);
+          alert("Sorry, there was an error sending your enquiry. Please try again.");
+        } finally {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
       });
     }
   </script>
