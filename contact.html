@@ -1,51 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Explore destinations and thoughtfully curated travel packages with TravelVista.">
 <title>Contact TravelVista</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Fonts & Preconnect for fast loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+
+<!-- Embedded CSS for perfect visibility & responsiveness -->
+<style>
+  /* === GLOBAL STYLES === */
+  :root {
+    --primary: #0f3d3e; 
+    --primary-hover: #0a2a2b;
+    --text-dark: #222;
+    --text-muted: #666;
+    --bg-light: #f4f6f8;
+    --white: #ffffff;
+    --border: #dcdcdc;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font-body); color: var(--text-dark); background-color: var(--bg-light); line-height: 1.6; }
+  a { text-decoration: none; color: inherit; }
+
+  /* === ANNOUNCEMENT & HEADER === */
+  .announcement { background: var(--primary); color: var(--white); text-align: center; padding: 0.5rem; font-size: 0.85rem; }
+  .announcement a { font-weight: 600; text-decoration: underline; }
+
+  .site-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 5%; background: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky; top: 0; z-index: 100;
+  }
+
+  .brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+  .brand-mark { font-size: 1.5rem; }
+  .brand-light { font-weight: 400; }
+
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-weight: 500; color: var(--text-dark); transition: color 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+  .header-cta { background: var(--primary); color: var(--white); padding: 0.6rem 1.2rem; border-radius: 5px; font-weight: 500; transition: background 0.3s; }
+  .header-cta:hover { background: var(--primary-hover); }
+  .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+  /* === PAGE HERO (Contact Style) === */
+  .page-hero {
+    position: relative;
+    /* Optimized Hero Image */
+    background-image: url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1600&q=60');
+    background-size: cover; background-position: center;
+    padding: 7rem 5% 5rem; text-align: center; color: var(--white);
+  }
+  .page-hero::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(rgba(15, 61, 62, 0.6), rgba(15, 61, 62, 0.8));
+  }
+  .page-hero > div { position: relative; z-index: 10; max-width: 800px; margin: 0 auto; }
+  .page-hero h1 { font-family: var(--font-heading); font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.2; }
+  .page-hero em { font-style: italic; font-weight: 400; }
+  .page-hero p { font-size: 1.1rem; opacity: 0.9; }
+  
+  .eyebrow { font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--primary); }
+  .eyebrow.light { color: #a0c4c4; }
+
+  /* === CONTACT SECTION === */
+  .section { padding: 4rem 5%; max-width: 1300px; margin: 0 auto; }
+  
+  .contact-section {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* Contact Intro (Left Side) */
+  .contact-intro h2 { font-family: var(--font-heading); font-size: 2.2rem; color: var(--text-dark); margin-bottom: 1rem; }
+  .body-copy { color: var(--text-muted); margin-bottom: 2.5rem; font-size: 1.05rem; }
+  
+  .contact-method {
+    display: flex; align-items: flex-start; gap: 1.2rem; margin-bottom: 2rem;
+  }
+  .contact-icon {
+    background: #e8f0f0; color: var(--primary); width: 45px; height: 45px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .contact-method h3 { font-size: 1.1rem; margin-bottom: 0.2rem; color: var(--text-dark); }
+  .contact-method p { color: var(--text-dark); font-weight: 500; font-size: 0.95rem; }
+  .contact-method small { color: var(--text-muted); font-size: 0.85rem; display: block; margin-top: 0.2rem; }
+
+  /* Contact Form (Right Side) */
+  .contact-form {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  }
+  .contact-form h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .section-copy { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+  .contact-form label {
+    display: flex; flex-direction: column; gap: 0.4rem;
+    font-size: 0.9rem; font-weight: 600; color: var(--text-dark);
+    margin-bottom: 1.2rem;
+  }
+
+  .contact-form input, .contact-form select, .contact-form textarea {
+    padding: 0.8rem 1rem; border: 1px solid var(--border); border-radius: 6px;
+    font-family: var(--font-body); font-size: 0.95rem; outline: none; background: #fafafa;
+    transition: border-color 0.3s;
+  }
+  .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
+    border-color: var(--primary); background: var(--white);
+  }
+
+  .submit-button {
+    width: 100%; background: var(--primary); color: var(--white);
+    padding: 1rem; border: none; border-radius: 6px;
+    font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: background 0.3s;
+  }
+  .submit-button:hover { background: var(--primary-hover); }
+
+  .form-result {
+    margin-top: 1rem; text-align: center; font-weight: 600; color: #1e7e34;
+    padding: 1rem; background: #d4edda; border-radius: 6px; display: none;
+  }
+
+  /* === MAP PLACEHOLDER === */
+  .map-placeholder {
+    background: var(--primary); color: var(--white); text-align: center;
+    padding: 5rem 5%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .map-placeholder span { font-size: 2rem; margin-bottom: 1rem; color: #a0c4c4; }
+  .map-placeholder h2 { font-family: var(--font-heading); font-size: 2.2rem; margin-bottom: 0.5rem; }
+  .map-placeholder p { opacity: 0.8; font-size: 1.1rem; }
+
+  /* === FOOTER === */
+  .site-footer {
+    background: #0a2a2b; color: var(--white); padding: 3rem 5%;
+    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.5rem;
+  }
+  .footer-brand { color: var(--white); }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { opacity: 0.7; transition: opacity 0.3s; }
+  .footer-links a:hover { opacity: 1; }
+  .site-footer small { opacity: 0.5; margin-top: 1rem; }
+
+  /* === RESPONSIVE DESIGN === */
+  @media (max-width: 992px) {
+    .contact-section { grid-template-columns: 1fr; gap: 3rem; }
+  }
+  @media (max-width: 768px) {
+    .nav-links, .header-cta { display: none; }
+    .menu-toggle { display: block; }
+    .page-hero h1 { font-size: 2.5rem; }
+    .contact-form { padding: 1.5rem; }
+    .footer-links { flex-direction: column; gap: 1rem; }
+  }
+</style>
 </head>
 <body>
 
   <div class="announcement">Make memories, not just plans. <a href="packages.html">Explore our trips ↗</a></div>
+  
   <header class="site-header">
     <a class="brand" href="index.html"><span class="brand-mark">▲</span><span>Travel<span class="brand-light">Vista</span></span></a>
     <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
     <nav class="nav-links" aria-label="Main navigation">
-      <a href="index.html">Home</a><a href="destinations.html">Destinations</a><a href="packages.html">Packages</a><a href="index.html#why-us">About</a><a href="contact.html">Contact</a>
+      <a href="index.html">Home</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="packages.html">Packages</a>
+      <a href="index.html#why-us">About</a>
+      <a class="active" href="contact.html">Contact</a>
     </nav>
     <a class="header-cta" href="booking.html">Plan your trip ↗</a>
   </header>
 
 <main>
-  <section class="page-hero contact-hero"><div><p class="eyebrow light">WE'D LOVE TO HEAR FROM YOU</p><h1>Every great trip<br><em>starts with a hello.</em></h1><p>Questions, ideas or a destination on your mind? Let's talk.</p></div></section>
-  <section class="section contact-section">
-    <div class="contact-intro"><p class="eyebrow">GET IN TOUCH</p><h2>Let's start a conversation.</h2><p class="body-copy">Tell us a little about what you're looking for. This demo contact form shows a local confirmation only; connect it to a form service or backend to receive real messages.</p>
-      <div class="contact-method"><span class="contact-icon">✉</span><div><h3>Email us</h3><p>hello@travelvista.example</p><small>Replace this demo address with your business email.</small></div></div>
-      <div class="contact-method"><span class="contact-icon">◷</span><div><h3>Working hours</h3><p>Monday – Friday</p><small>9:00 AM – 6:00 PM (your local time)</small></div></div>
-      <div class="contact-method"><span class="contact-icon">⌖</span><div><h3>Travel planning, wherever you are</h3><p>Online consultations</p><small>We can help you plan from anywhere.</small></div></div>
+  <section class="page-hero contact-hero">
+    <div>
+      <p class="eyebrow light">WE'D LOVE TO HEAR FROM YOU</p>
+      <h1>Every great trip<br><em>starts with a hello.</em></h1>
+      <p>Questions, ideas or a destination on your mind? Let's talk.</p>
     </div>
+  </section>
+
+  <section class="section contact-section">
+    <!-- Contact Intro (Left) -->
+    <div class="contact-intro">
+      <p class="eyebrow">GET IN TOUCH</p>
+      <h2>Let's start a conversation.</h2>
+      <p class="body-copy">Tell us a little about what you're looking for. This demo contact form shows a local confirmation only; connect it to a form service or backend to receive real messages.</p>
+      
+      <div class="contact-method">
+        <span class="contact-icon">✉</span>
+        <div>
+          <h3>Email us</h3>
+          <p>hello@travelvista.example</p>
+          <small>Replace this demo address with your business email.</small>
+        </div>
+      </div>
+      
+      <div class="contact-method">
+        <span class="contact-icon">◷</span>
+        <div>
+          <h3>Working hours</h3>
+          <p>Monday – Friday</p>
+          <small>9:00 AM – 6:00 PM (your local time)</small>
+        </div>
+      </div>
+      
+      <div class="contact-method">
+        <span class="contact-icon">⌖</span>
+        <div>
+          <h3>Travel planning, wherever you are</h3>
+          <p>Online consultations</p>
+          <small>We can help you plan from anywhere.</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form (Right) -->
     <form class="contact-form" id="contact-form">
-      <h3>Send us a message</h3><p class="section-copy">We usually reply within 1–2 business days.</p>
-      <label>Your name *<input name="name" type="text" placeholder="Full name" required></label>
-      <label>Email address *<input name="email" type="email" placeholder="you@example.com" required></label>
-      <label>What can we help with? *<select name="topic" required><option value="">Choose a topic</option><option>Plan a trip</option><option>Package question</option><option>Custom itinerary</option><option>Other question</option></select></label>
-      <label>Your message *<textarea name="message" rows="5" placeholder="Tell us what's on your mind…" required></textarea></label>
-      <button class="button search-button submit-button" type="submit">Send message →</button><p id="contact-result" class="form-result" aria-live="polite"></p>
+      <h3>Send us a message</h3>
+      <p class="section-copy">We usually reply within 1–2 business days.</p>
+      
+      <label>Your name *
+        <input name="name" type="text" placeholder="Full name" required>
+      </label>
+      
+      <label>Email address *
+        <input name="email" type="email" placeholder="you@example.com" required>
+      </label>
+      
+      <label>What can we help with? *
+        <select name="topic" required>
+          <option value="">Choose a topic</option>
+          <option>Plan a trip</option>
+          <option>Package question</option>
+          <option>Custom itinerary</option>
+          <option>Other question</option>
+        </select>
+      </label>
+      
+      <label>Your message *
+        <textarea name="message" rows="5" placeholder="Tell us what's on your mind…" required></textarea>
+      </label>
+      
+      <button class="submit-button" type="submit">Send message →</button>
+      <p id="contact-result" class="form-result" aria-live="polite"></p>
     </form>
   </section>
-  <section class="map-placeholder"><span>✦</span><h2>Adventure has no address.</h2><p>Wherever you're dreaming of, we'll help you get there.</p></section>
+
+  <section class="map-placeholder">
+    <span>✦</span>
+    <h2>Adventure has no address.</h2>
+    <p>Wherever you're dreaming of, we'll help you get there.</p>
+  </section>
 </main>
 
   <footer class="site-footer">
     <a class="brand footer-brand" href="index.html"><span class="brand-mark">▲</span><span>Travel<span class="brand-light">Vista</span></span></a>
     <p>Go somewhere that moves you.</p>
-    <div class="footer-links"><a href="index.html">Home</a><a href="destinations.html">Destinations</a><a href="packages.html">Packages</a><a href="contact.html">Contact</a></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="packages.html">Packages</a>
+      <a href="contact.html">Contact</a>
+    </div>
     <small>© <span class="year"></span> TravelVista. Demo website concept.</small>
   </footer>
-  <script src="script.js"></script>
 
-</body></html>
+  <!-- Embedded Script for Form Submission & Year -->
+  <script>
+    // 1. Update Year dynamically
+    document.querySelectorAll('.year').forEach(el => {
+      el.textContent = new Date().getFullYear();
+    });
+
+    // 2. Handle Form Submission (Demo Only)
+    const form = document.getElementById('contact-form');
+    const resultMsg = document.getElementById('contact-result');
+
+    if(form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent actual page reload
+        
+        // Get the name for a personalized message
+        const name = form.querySelector('input[name="name"]').value;
+        
+        // Show success message
+        resultMsg.style.display = 'block';
+        resultMsg.textContent = `Thank you, ${name}! Your message has been sent successfully. We'll get back to you shortly.`;
+        
+        // Reset form
+        form.reset();
+        
+        // Scroll to result message
+        resultMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    }
+  </script>
+</body>
+</html>
