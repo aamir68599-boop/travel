@@ -6,13 +6,11 @@
 <meta name="description" content="Explore destinations and thoughtfully curated travel packages with TravelVista.">
 <title>Contact TravelVista</title>
 
-<!-- Fonts & Preconnect for fast loading -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-<!-- Embedded CSS for perfect visibility & responsiveness -->
 <style>
   /* === GLOBAL STYLES === */
   :root {
@@ -54,10 +52,9 @@
   .header-cta:hover { background: var(--primary-hover); }
   .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
 
-  /* === PAGE HERO (Contact Style) === */
+  /* === PAGE HERO === */
   .page-hero {
     position: relative;
-    /* Optimized Hero Image */
     background-image: url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1600&q=60');
     background-size: cover; background-position: center;
     padding: 7rem 5% 5rem; text-align: center; color: var(--white);
@@ -76,61 +73,33 @@
 
   /* === CONTACT SECTION === */
   .section { padding: 4rem 5%; max-width: 1300px; margin: 0 auto; }
-  
-  .contact-section {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  /* Contact Intro (Left Side) */
+  .contact-section { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start; }
   .contact-intro h2 { font-family: var(--font-heading); font-size: 2.2rem; color: var(--text-dark); margin-bottom: 1rem; }
   .body-copy { color: var(--text-muted); margin-bottom: 2.5rem; font-size: 1.05rem; }
-  
-  .contact-method {
-    display: flex; align-items: flex-start; gap: 1.2rem; margin-bottom: 2rem;
-  }
+  .contact-method { display: flex; align-items: flex-start; gap: 1.2rem; margin-bottom: 2rem; }
   .contact-icon {
     background: #e8f0f0; color: var(--primary); width: 45px; height: 45px;
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem; flex-shrink: 0;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
   }
   .contact-method h3 { font-size: 1.1rem; margin-bottom: 0.2rem; color: var(--text-dark); }
   .contact-method p { color: var(--text-dark); font-weight: 500; font-size: 0.95rem; }
   .contact-method small { color: var(--text-muted); font-size: 0.85rem; display: block; margin-top: 0.2rem; }
 
-  /* Contact Form (Right Side) */
-  .contact-form {
-    background: var(--white);
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  }
+  .contact-form { background: var(--white); padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
   .contact-form h3 { font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 0.5rem; }
   .section-copy { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
-
-  .contact-form label {
-    display: flex; flex-direction: column; gap: 0.4rem;
-    font-size: 0.9rem; font-weight: 600; color: var(--text-dark);
-    margin-bottom: 1.2rem;
-  }
-
+  .contact-form label { display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.9rem; font-weight: 600; color: var(--text-dark); margin-bottom: 1.2rem; }
   .contact-form input, .contact-form select, .contact-form textarea {
     padding: 0.8rem 1rem; border: 1px solid var(--border); border-radius: 6px;
-    font-family: var(--font-body); font-size: 0.95rem; outline: none; background: #fafafa;
-    transition: border-color 0.3s;
+    font-family: var(--font-body); font-size: 0.95rem; outline: none; background: #fafafa; transition: border-color 0.3s;
   }
-  .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
-    border-color: var(--primary); background: var(--white);
-  }
-
+  .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: var(--primary); background: var(--white); }
   .submit-button {
-    width: 100%; background: var(--primary); color: var(--white);
-    padding: 1rem; border: none; border-radius: 6px;
-    font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: background 0.3s;
+    width: 100%; background: var(--primary); color: var(--white); padding: 1rem;
+    border: none; border-radius: 6px; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: background 0.3s;
   }
   .submit-button:hover { background: var(--primary-hover); }
+  .submit-button:disabled { opacity: 0.7; cursor: not-allowed; }
 
   .form-result {
     margin-top: 1rem; text-align: center; font-weight: 600; color: #1e7e34;
@@ -158,9 +127,7 @@
   .site-footer small { opacity: 0.5; margin-top: 1rem; }
 
   /* === RESPONSIVE DESIGN === */
-  @media (max-width: 992px) {
-    .contact-section { grid-template-columns: 1fr; gap: 3rem; }
-  }
+  @media (max-width: 992px) { .contact-section { grid-template-columns: 1fr; gap: 3rem; } }
   @media (max-width: 768px) {
     .nav-links, .header-cta { display: none; }
     .menu-toggle { display: block; }
@@ -197,41 +164,25 @@
   </section>
 
   <section class="section contact-section">
-    <!-- Contact Intro (Left) -->
     <div class="contact-intro">
       <p class="eyebrow">GET IN TOUCH</p>
       <h2>Let's start a conversation.</h2>
-      <p class="body-copy">Tell us a little about what you're looking for. This demo contact form shows a local confirmation only; connect it to a form service or backend to receive real messages.</p>
+      <p class="body-copy">Tell us a little about what you're looking for. Fill the form and our team will get back to you.</p>
       
       <div class="contact-method">
         <span class="contact-icon">✉</span>
-        <div>
-          <h3>Email us</h3>
-          <p>hello@travelvista.example</p>
-          <small>Replace this demo address with your business email.</small>
-        </div>
+        <div><h3>Email us</h3><p>hello@travelvista.example</p><small>Replace this demo address with your business email.</small></div>
       </div>
-      
       <div class="contact-method">
         <span class="contact-icon">◷</span>
-        <div>
-          <h3>Working hours</h3>
-          <p>Monday – Friday</p>
-          <small>9:00 AM – 6:00 PM (your local time)</small>
-        </div>
+        <div><h3>Working hours</h3><p>Monday – Friday</p><small>9:00 AM – 6:00 PM (your local time)</small></div>
       </div>
-      
       <div class="contact-method">
         <span class="contact-icon">⌖</span>
-        <div>
-          <h3>Travel planning, wherever you are</h3>
-          <p>Online consultations</p>
-          <small>We can help you plan from anywhere.</small>
-        </div>
+        <div><h3>Travel planning, wherever you are</h3><p>Online consultations</p><small>We can help you plan from anywhere.</small></div>
       </div>
     </div>
 
-    <!-- Contact Form (Right) -->
     <form class="contact-form" id="contact-form">
       <h3>Send us a message</h3>
       <p class="section-copy">We usually reply within 1–2 business days.</p>
@@ -239,11 +190,9 @@
       <label>Your name *
         <input name="name" type="text" placeholder="Full name" required>
       </label>
-      
       <label>Email address *
         <input name="email" type="email" placeholder="you@example.com" required>
       </label>
-      
       <label>What can we help with? *
         <select name="topic" required>
           <option value="">Choose a topic</option>
@@ -253,11 +202,9 @@
           <option>Other question</option>
         </select>
       </label>
-      
       <label>Your message *
         <textarea name="message" rows="5" placeholder="Tell us what's on your mind…" required></textarea>
       </label>
-      
       <button class="submit-button" type="submit">Send message →</button>
       <p id="contact-result" class="form-result" aria-live="polite"></p>
     </form>
@@ -282,33 +229,68 @@
     <small>© <span class="year"></span> TravelVista. Demo website concept.</small>
   </footer>
 
-  <!-- Embedded Script for Form Submission & Year -->
-  <script>
-    // 1. Update Year dynamically
-    document.querySelectorAll('.year').forEach(el => {
-      el.textContent = new Date().getFullYear();
-    });
+  <!-- FIREBASE INTEGRATION -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // 2. Handle Form Submission (Demo Only)
+    const firebaseConfig = {
+      apiKey: "AIzaSyC94eV35vYNjRz_w-4INGwX0c5MjUHBwTQ",
+      authDomain: "travelvista-app-fc93a.firebaseapp.com",
+      databaseURL: "https://travelvista-app-fc93a-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "travelvista-app-fc93a",
+      storageBucket: "travelvista-app-fc93a.firebasestorage.app",
+      messagingSenderId: "375355222246",
+      appId: "1:375355222246:web:fee5ab1981fd96202bb327",
+      measurementId: "G-GHBQ9PEJYR"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const messagesRef = collection(db, "messages");
+
+    // Dynamic Year
+    document.querySelectorAll('.year').forEach(el => el.textContent = new Date().getFullYear());
+
     const form = document.getElementById('contact-form');
     const resultMsg = document.getElementById('contact-result');
 
     if(form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent actual page reload
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault(); 
         
-        // Get the name for a personalized message
+        const submitBtn = form.querySelector('.submit-button');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
         const name = form.querySelector('input[name="name"]').value;
-        
-        // Show success message
-        resultMsg.style.display = 'block';
-        resultMsg.textContent = `Thank you, ${name}! Your message has been sent successfully. We'll get back to you shortly.`;
-        
-        // Reset form
-        form.reset();
-        
-        // Scroll to result message
-        resultMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const email = form.querySelector('input[name="email"]').value;
+        const topic = form.querySelector('select[name="topic"]').value;
+        const message = form.querySelector('textarea[name="message"]').value;
+
+        const data = {
+          name: name,
+          email: email,
+          topic: topic,
+          message: message,
+          createdAt: Date.now()
+        };
+
+        try {
+          await addDoc(messagesRef, data);
+          
+          resultMsg.style.display = 'block';
+          resultMsg.textContent = `Thank you, ${name}! Your message has been sent successfully.`;
+          form.reset();
+          resultMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } catch (error) {
+          console.error("Error sending: ", error);
+          alert("Sorry, there was an error sending your message. Please try again.");
+        } finally {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
       });
     }
   </script>
