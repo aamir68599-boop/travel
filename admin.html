@@ -177,7 +177,7 @@
           <div class="stat-card"><div class="label">Total Packages</div><div class="value" id="statPackages">0</div></div>
           <div class="stat-card"><div class="label">Total Destinations</div><div class="value" id="statDestinations">0</div></div>
           <div class="stat-card"><div class="label">Published Items</div><div class="value accent" id="statPublished">0</div></div>
-          <div class="stat-card"><div class="label">Total Value</div><div class="value" id="statValue">$0</div></div>
+          <div class="stat-card"><div class="label">Total Enquiries</div><div class="value" id="statEnquiries">0</div></div>
         </div>
         <div class="panel">
           <div class="panel-header"><h2>Recent Additions</h2></div>
@@ -220,7 +220,30 @@
         </div>
       </div>
 
-      <div id="page-enquiries" style="display:none;"><div class="panel"><h2>Enquiries</h2><p style="color:var(--text-muted);margin-top:0.5rem;">Enquiries module coming soon.</p></div></div>
+      <!-- UPDATED ENQUIRIES PAGE -->
+      <div id="page-enquiries" style="display:none;">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>All Enquiries (Contact & Bookings)</h2>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Topic</th>
+                  <th>Message</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="enquiriesTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <div id="page-settings" style="display:none;"><div class="panel"><h2>Settings</h2><p style="color:var(--text-muted);margin-top:0.5rem;">Settings module coming soon.</p></div></div>
     </main>
   </div>
@@ -292,9 +315,11 @@
   const db = getFirestore(app);
   const packagesRef = collection(db, "packages");
   const destinationsRef = collection(db, "destinations");
+  const messagesRef = collection(db, "messages"); // Naya collection enquiries ke liye
 
   let globalPackages = [];
   let globalDestinations = [];
+  let globalMessages = [];
 
   // Listen for real-time updates
   onSnapshot(packagesRef, (snapshot) => {
@@ -304,6 +329,12 @@
   
   onSnapshot(destinationsRef, (snapshot) => {
     globalDestinations = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    if(sessionStorage.getItem('tv_admin_logged_in') === '1') renderAll();
+  });
+
+  // Listen for Enquiries
+  onSnapshot(messagesRef, (snapshot) => {
+    globalMessages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     if(sessionStorage.getItem('tv_admin_logged_in') === '1') renderAll();
   });
 
@@ -367,17 +398,20 @@
      RENDER ALL
      ============================================================ */
   function renderAll() {
-    renderStats(); renderRecent(); renderPackagesTable(); renderDestinationsTable();
+    renderStats(); 
+    renderRecent(); 
+    renderPackagesTable(); 
+    renderDestinationsTable();
+    renderEnquiriesTable(); // Naya function call
   }
 
   function renderStats() {
     const all = [...globalPackages, ...globalDestinations];
     const published = all.filter(x => x.status === 'published').length;
-    const totalValue = globalPackages.reduce((sum, p) => sum + (Number(p.price) || 0), 0);
     document.getElementById('statPackages').textContent = globalPackages.length;
     document.getElementById('statDestinations').textContent = globalDestinations.length;
     document.getElementById('statPublished').textContent = published;
-    document.getElementById('statValue').textContent = formatPrice(totalValue);
+    document.getElementById('statEnquiries').textContent = globalMessages.length; // Enquiries count
   }
 
   function renderRecent() {
@@ -438,6 +472,34 @@
         </td>
       </tr>
     `).join('');
+  }
+
+  // ENQUIRIES TABLE RENDER
+  function renderEnquiriesTable() {
+    const tbody = document.getElementById('enquiriesTableBody');
+    if (!globalMessages.length) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No enquiries yet.</td></tr>`;
+      return;
+    }
+    
+    // Newest first
+    const sorted = [...globalMessages].sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
+    
+    tbody.innerHTML = sorted.map(m => {
+      const date = m.createdAt ? new Date(m.createdAt).toLocaleDateString() : '—';
+      return `
+        <tr>
+          <td>${date}</td>
+          <td>${m.name || '—'}</td>
+          <td><a href="mailto:${m.email}" style="color:var(--primary);text-decoration:underline;">${m.email || '—'}</a></td>
+          <td><span class="badge" style="background:#e0f2fe;color:#0369a1;">${m.topic || 'General'}</span></td>
+          <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${m.message}">${m.message || '—'}</td>
+          <td>
+            <button class="action-btn delete" onclick="deleteEnquiry('${m.id}')" title="Delete">🗑</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
   }
 
   /* ============================================================
@@ -525,6 +587,17 @@
       if (type === 'package') await deleteDoc(doc(db, "packages", id));
       else await deleteDoc(doc(db, "destinations", id));
       showToast('Item deleted successfully.');
+    } catch (error) {
+      console.error("Error deleting: ", error);
+    }
+  };
+
+  // Delete Enquiry
+  window.deleteEnquiry = async function(id) {
+    if (!confirm('Are you sure you want to delete this enquiry?')) return;
+    try {
+      await deleteDoc(doc(db, "messages", id));
+      showToast('Enquiry deleted successfully.');
     } catch (error) {
       console.error("Error deleting: ", error);
     }
