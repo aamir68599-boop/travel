@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Learn more about TravelVista. We create unforgettable travel experiences.">
+<title>About Us — TravelVista</title>
+
+<!-- Fonts & Preconnect for fast loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- Embedded CSS for perfect visibility & responsiveness -->
+<style>
+  /* === GLOBAL STYLES === */
+  :root {
+    --primary: #0f3d3e; 
+    --primary-hover: #0a2a2b;
+    --text-dark: #222;
+    --text-muted: #666;
+    --bg-light: #f4f6f8;
+    --white: #ffffff;
+    --border: #dcdcdc;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font-body); color: var(--text-dark); background-color: var(--bg-light); line-height: 1.6; }
+  a { text-decoration: none; color: inherit; }
+
+  /* === ANNOUNCEMENT & HEADER === */
+  .announcement { background: var(--primary); color: var(--white); text-align: center; padding: 0.5rem; font-size: 0.85rem; }
+  .announcement a { font-weight: 600; text-decoration: underline; }
+
+  .site-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 5%; background: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky; top: 0; z-index: 100;
+  }
+
+  .brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+  .brand-mark { font-size: 1.5rem; }
+  .brand-light { font-weight: 400; }
+
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-weight: 500; color: var(--text-dark); transition: color 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+  .header-cta { background: var(--primary); color: var(--white); padding: 0.6rem 1.2rem; border-radius: 5px; font-weight: 500; transition: background 0.3s; }
+  .header-cta:hover { background: var(--primary-hover); }
+  .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+  /* === PAGE HERO === */
+  .page-hero {
+    position: relative;
+    /* Optimized Hero Image */
+    background-image: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1600&q=60');
+    background-size: cover; background-position: center;
+    padding: 7rem 5% 5rem; text-align: center; color: var(--white);
+  }
+  .page-hero::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(rgba(15, 61, 62, 0.7), rgba(15, 61, 62, 0.8));
+  }
+  .page-hero > div { position: relative; z-index: 10; max-width: 800px; margin: 0 auto; }
+  .page-hero h1 { font-family: var(--font-heading); font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.2; }
+  .page-hero em { font-style: italic; font-weight: 400; }
+  .page-hero p { font-size: 1.1rem; opacity: 0.9; }
+  
+  .eyebrow { font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--primary); }
+  .eyebrow.light { color: #a0c4c4; }
+
+  /* === MAIN SECTIONS === */
+  .section { padding: 5rem 5%; max-width: 1300px; margin: 0 auto; }
+  
+  /* Our Story Grid */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .about-text h2 { font-family: var(--font-heading); font-size: 2.5rem; color: var(--text-dark); margin-bottom: 1.5rem; line-height: 1.2; }
+  .about-text p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1rem; }
+  .about-image {
+    height: 500px;
+    background-image: url('https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=800&q=60');
+    background-size: cover; background-position: center;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  /* Stats Row */
+  .stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+    text-align: center; margin-top: 4rem; border-top: 1px solid var(--border); padding-top: 3rem;
+  }
+  .stat-item h3 { font-size: 2.5rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+  .stat-item p { color: var(--text-muted); font-weight: 500; }
+
+  /* Why Choose Us Grid */
+  .values-section { background: var(--white); }
+  .values-header { text-align: center; margin-bottom: 3rem; }
+  .values-header h2 { font-family: var(--font-heading); font-size: 2.2rem; color: var(--text-dark); }
+  
+  .values-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;
+  }
+  .value-card {
+    padding: 2rem; background: var(--bg-light); border-radius: 12px; text-align: center;
+    transition: transform 0.3s;
+  }
+  .value-card:hover { transform: translateY(-5px); }
+  .value-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; }
+  .value-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .value-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+  /* === FINAL CTA === */
+  .final-cta {
+    background: var(--primary); color: var(--white); padding: 4rem 5%;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;
+  }
+  .final-cta h2 { font-family: var(--font-heading); font-size: 2.2rem; margin: 0.5rem 0; }
+  .final-cta p { opacity: 0.8; }
+  .button-light { background: var(--white); color: var(--primary); padding: 0.8rem 1.5rem; border-radius: 5px; font-weight: 600; white-space: nowrap; transition: background 0.3s; }
+  .button-light:hover { background: #e8f0f0; }
+
+  /* === FOOTER === */
+  .site-footer {
+    background: #0a2a2b; color: var(--white); padding: 3rem 5%;
+    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.5rem;
+  }
+  .footer-brand { color: var(--white); }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { opacity: 0.7; transition: opacity 0.3s; }
+  .footer-links a:hover { opacity: 1; }
+  .site-footer small { opacity: 0.5; margin-top: 1rem; }
+
+  /* === RESPONSIVE DESIGN === */
+  @media (max-width: 992px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-image { height: 350px; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .nav-links, .header-cta { display: none; }
+    .menu-toggle { display: block; }
+    .page-hero h1 { font-size: 2.5rem; }
+    .about-text h2 { font-size: 2rem; }
+    .final-cta { flex-direction: column; text-align: center; }
+    .footer-links { flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="announcement">Make memories, not just plans. <a href="packages.html">Explore our trips ↗</a></div>
+  
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">▲</span><span>Travel<span class="brand-light">Vista</span></span></a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="packages.html">Packages</a>
+      <a class="active" href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="header-cta" href="booking.html">Plan your trip ↗</a>
+  </header>
+
+<main>
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div>
+      <p class="eyebrow light">OUR STORY</p>
+      <h1>Crafting journeys,<br><em>creating memories.</em></h1>
+      <p>We believe that travel is more than just visiting a new place. It's about the stories you bring back.</p>
+    </div>
+  </section>
+
+  <!-- Our Story Section -->
+  <section class="section">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="eyebrow">WHO WE ARE</p>
+        <h2>More than just a travel agency.</h2>
+        <p>Founded with a passion for exploration, TravelVista was born out of a simple idea: that travel should be effortless, enriching, and deeply personal.</p>
+        <p>We don't just book trips; we design experiences. Whether you're looking for a quiet retreat in the mountains, a bustling city adventure, or a relaxing beach escape, our team of travel experts works tirelessly to ensure every detail is perfect.</p>
+        <p>From the moment you start dreaming to the moment you return home, we are with you every step of the way.</p>
+      </div>
+      <div class="about-image" role="img" aria-label="Travelers exploring a new city"></div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-item">
+        <h3>10k+</h3>
+        <p>Happy Travellers</p>
+      </div>
+      <div class="stat-item">
+        <h3>50+</h3>
+        <p>Destinations</p>
+      </div>
+      <div class="stat-item">
+        <h3>24/7</h3>
+        <p>Customer Support</p>
+      </div>
+      <div class="stat-item">
+        <h3>4.9</h3>
+        <p>Average Rating</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="section values-section">
+    <div class="values-header">
+      <p class="eyebrow">THE TRAVELVISTA DIFFERENCE</p>
+      <h2>Why travel with us?</h2>
+    </div>
+    
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">✦</div>
+        <h3>Curated Experiences</h3>
+        <p>We handpick every hotel, tour, and activity to ensure it meets our high standards.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">♡</div>
+        <h3>Personalized Service</h3>
+        <p>No two travellers are the same. We tailor every itinerary to your specific interests.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⌖</div>
+        <h3>Expert Knowledge</h3>
+        <p>Our team has travelled extensively and knows the hidden gems that guidebooks miss.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⌁</div>
+        <h3>Peace of Mind</h3>
+        <p>With 24/7 support and comprehensive travel protection, you can relax and enjoy the journey.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <div>
+      <p class="eyebrow light">READY TO EXPLORE?</p>
+      <h2>Let's plan your next adventure.</h2>
+      <p>Get in touch with our team and start turning your travel dreams into reality.</p>
+    </div>
+    <a class="button-light" href="contact.html">Contact Us →</a>
+  </section>
+</main>
+
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="index.html"><span class="brand-mark">▲</span><span>Travel<span class="brand-light">Vista</span></span></a>
+    <p>Go somewhere that moves you.</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="packages.html">Packages</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <small>© <span class="year"></span> TravelVista. Demo website concept.</small>
+  </footer>
+
+  <!-- Script for dynamic year and mobile menu -->
+  <script>
+    // Update Year dynamically
+    document.querySelectorAll('.year').forEach(el => {
+      el.textContent = new Date().getFullYear();
+    });
+
+    // Basic Mobile Menu Toggle (Optional implementation)
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if(menuToggle && navLinks) {
+      menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', !isExpanded);
+        navLinks.style.display = isExpanded ? 'none' : 'flex';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.position = 'absolute';
+        navLinks.style.top = '100%';
+        navLinks.style.left = '0';
+        navLinks.style.width = '100%';
+        navLinks.style.background = 'white';
+        navLinks.style.padding = '1rem';
+        navLinks.style.boxShadow = '0 5px 10px rgba(0,0,0,0.1)';
+      });
+    }
+  </script>
+</body>
+</html>about.html
