@@ -6,9 +6,10 @@
   <meta name="description" content="Discover amazing destinations with TravelVista. Explore the most beautiful places on Earth." />
   <title>Destinations — TravelVista</title>
   
-  <!-- Google Fonts -->
+  <!-- Google Fonts & Preconnect for faster loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   
   <!-- Embedded CSS for perfect visibility -->
@@ -92,8 +93,8 @@
     /* === PAGE HERO (Middle Image Style) === */
     .page-hero {
       position: relative;
-      /* Background image of mountains/lake as per image */
-      background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80');
+      /* Optimized Hero Image: Width 1600px, Quality 60 */
+      background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1600&q=60');
       background-size: cover;
       background-position: center;
       padding: 8rem 5% 7rem;
@@ -105,7 +106,7 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(rgba(15, 61, 62, 0.4), rgba(15, 61, 62, 0.4)); /* Dark overlay */
+      background: linear-gradient(rgba(15, 61, 62, 0.4), rgba(15, 61, 62, 0.4));
     }
 
     .hero-content {
@@ -132,7 +133,7 @@
     /* === FILTER BAR === */
     .filter-wrapper {
       padding: 0 5%;
-      margin-top: -3.5rem; /* Overlaps hero image */
+      margin-top: -3.5rem;
       position: relative;
       z-index: 20;
     }
@@ -295,13 +296,13 @@
     .footer-links a:hover { opacity: 1; }
     .site-footer small { opacity: 0.5; margin-top: 1rem; }
 
-    /* === CARD IMAGES === */
-    .destination-image.bali { background-image: url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&q=80'); }
-    .destination-image.santorini { background-image: url('https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?auto=format&fit=crop&q=80'); }
-    .destination-image.dubai { background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80'); }
-    .destination-image.switzerland { background-image: url('https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&q=80'); }
-    .destination-image.thailand { background-image: url('https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&q=80'); }
-    .destination-image.maldives { background-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&q=80'); }
+    /* === OPTIMIZED CARD IMAGES (Width 600px, Quality 60) === */
+    .destination-image.bali { background-image: url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=60'); }
+    .destination-image.santorini { background-image: url('https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?auto=format&fit=crop&w=600&q=60'); }
+    .destination-image.dubai { background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=60'); }
+    .destination-image.switzerland { background-image: url('https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=60'); }
+    .destination-image.thailand { background-image: url('https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=600&q=60'); }
+    .destination-image.maldives { background-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=600&q=60'); }
 
     /* === RESPONSIVE DESIGN === */
     @media (max-width: 900px) {
