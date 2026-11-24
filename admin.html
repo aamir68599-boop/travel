@@ -105,9 +105,21 @@
   .badge-partial { background: #fef3c7; color: #92400e; }
   .badge-pending { background: #fee2e2; color: #991b1b; }
 
-  .action-btn { background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0.3rem; color: var(--text-muted); }
-  .action-btn:hover { color: var(--accent); }
-  .action-btn.delete:hover { color: var(--danger); }
+  .action-btn { background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0.3rem; color: var(--text-muted); border-radius: 4px; }
+  .action-btn:hover { color: var(--accent); background: rgba(255,122,0,0.08); }
+  .action-btn.delete:hover { color: var(--danger); background: rgba(239,68,68,0.08); }
+  .action-btn.link:hover { color: var(--info); background: rgba(59,130,246,0.08); }
+
+  /* Slug / Live URL chip */
+  .slug-chip {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: #eef6ff; color: #0369a1; border: 1px solid #bae6fd;
+    padding: 0.2rem 0.55rem; border-radius: 6px; font-size: 0.72rem;
+    font-family: 'Courier New', monospace; max-width: 220px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .slug-chip a { color: inherit; text-decoration: none; }
+  .slug-chip a:hover { text-decoration: underline; }
 
   /* MODAL */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: none; align-items: center; justify-content: center; z-index: 200; padding: 1rem; }
@@ -122,6 +134,15 @@
   .form-group textarea { resize: vertical; min-height: 70px; }
   .image-preview { margin-top: 0.5rem; width: 100%; height: 140px; border-radius: 8px; background: var(--bg); background-size: cover; background-position: center; border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; }
   .modal-actions { display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 1.5rem; flex-wrap: wrap; }
+
+  /* Slug preview bar in modal */
+  .slug-preview {
+    background: #eef6ff; border: 1px dashed #93c5fd; border-radius: 8px;
+    padding: 0.7rem 0.9rem; font-size: 0.82rem; color: #0369a1;
+    display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .slug-preview code { font-family: 'Courier New', monospace; background: white; padding: 0.2rem 0.5rem; border-radius: 4px; word-break: break-all; }
 
   /* ENQUIRY DETAIL */
   .enq-field { display: flex; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
@@ -235,14 +256,17 @@
         <div class="panel">
           <div class="panel-header">
             <h2>All Packages</h2>
-            <div style="display:flex;gap:0.5rem;">
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
               <button class="btn btn-outline btn-sm" onclick="exportCSV('packages')">⬇ Export CSV</button>
               <button class="btn btn-primary" id="addPackageBtn">+ Add Package</button>
             </div>
           </div>
+          <div style="background:#eef6ff;border:1px solid #bae6fd;border-radius:8px;padding:0.6rem 0.9rem;font-size:0.82rem;color:#0369a1;margin-bottom:1rem;">
+            💡 <strong>Live URL pattern:</strong> <code style="background:white;padding:0.1rem 0.4rem;border-radius:4px;">/package/&lt;slug&gt;</code> — click 🔗 View to preview the live page (Cloudflare Worker).
+          </div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Image</th><th>Name</th><th>Destination</th><th>Category</th><th>Duration</th><th>Departure</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
+              <thead><tr><th>Image</th><th>Name</th><th>Destination</th><th>Category</th><th>Duration</th><th>Departure</th><th>Price</th><th>Status</th><th>Live URL</th><th>Actions</th></tr></thead>
               <tbody id="packagesTableBody"></tbody>
             </table>
           </div>
@@ -268,7 +292,7 @@
         </div>
       </div>
 
-      <!-- ENQUIRIES PAGE (UPGRADED) -->
+      <!-- ENQUIRIES PAGE -->
       <div id="page-enquiries" style="display:none;">
         <div class="panel">
           <div class="panel-header">
@@ -291,7 +315,7 @@
         </div>
       </div>
 
-      <!-- PAYMENTS PAGE (NEW) -->
+      <!-- PAYMENTS PAGE -->
       <div id="page-payments" style="display:none;">
         <div class="panel">
           <div class="panel-header">
@@ -336,6 +360,16 @@
         </div>
         <div class="form-group"><label>Name *</label><input type="text" id="itemName" required placeholder="Bali Escape"></div>
         <div class="form-group"><label>Destination / Country *</label><input type="text" id="itemDestination" required placeholder="Bali, Indonesia"></div>
+
+        <!-- Live URL preview -->
+        <div class="form-group full">
+          <label>Live Page URL (auto-generated from name)</label>
+          <div class="slug-preview">
+            <span>🌐 <code id="slugPreviewText">/package/your-package-name</code></span>
+            <span style="font-size:0.75rem;opacity:0.75;" id="slugPreviewHint">Type a name above to see the URL</span>
+          </div>
+        </div>
+
         <div class="form-group">
           <label>Category</label>
           <select id="itemCategory">
@@ -348,11 +382,10 @@
         <div class="form-group"><label>Departure Date</label><input type="date" id="itemDepartureDate"></div>
         <div class="form-group"><label>Price (USD)</label><input type="number" id="itemPrice" placeholder="799"></div>
         <div class="form-group"><label>Rating</label><input type="number" id="itemRating" step="0.1" min="0" max="5" placeholder="4.9"></div>
-        <div class="form-group full"><label>Description</label><textarea id="itemDescription" placeholder="Short description..."></textarea></div>
-        <div class="form-group full">
-          <label>Status</label>
+        <div class="form-group"><label>Status</label>
           <select id="itemStatus"><option value="published">Published</option><option value="draft">Draft</option></select>
         </div>
+        <div class="form-group full"><label>Description</label><textarea id="itemDescription" placeholder="Short description..."></textarea></div>
       </div>
       <div class="modal-actions">
         <button type="button" class="btn btn-outline" id="cancelModalBtn">Cancel</button>
@@ -362,7 +395,7 @@
   </div>
 </div>
 
-<!-- ENQUIRY DETAIL MODAL (NEW) -->
+<!-- ENQUIRY DETAIL MODAL -->
 <div class="modal-overlay" id="enquiryModal">
   <div class="modal">
     <h2 id="enqTitle">Enquiry Details</h2>
@@ -373,7 +406,7 @@
   </div>
 </div>
 
-<!-- PAYMENT MODAL (NEW) -->
+<!-- PAYMENT MODAL -->
 <div class="modal-overlay" id="paymentModal">
   <div class="modal">
     <h2 id="payModalTitle">Add Payment</h2>
@@ -459,11 +492,24 @@
   function formatDate(ts) { return ts ? new Date(ts).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }) : '—'; }
   function escHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
 
+  /** Slug — MUST match worker.js toSlug() */
+  function toSlug(str) {
+    return String(str || 'package')
+      .toLowerCase().trim()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+  function getLiveUrl(name) {
+    // Worker URL is same origin — /package/:slug
+    return `${window.location.origin}/package/${toSlug(name)}`;
+  }
+
   // ============ LOGIN ============
   document.getElementById('loginBtn').addEventListener('click', () => {
     const email = document.getElementById('loginEmail').value.trim();
     const pass = document.getElementById('loginPassword').value.trim();
-    // NOTE: Demo login — production mein Firebase Auth use karein (neeche reference)
     if (email === 'admin@travelvista.com' && pass === 'admin123') {
       sessionStorage.setItem('tv_admin_logged_in', '1');
       initDashboard();
@@ -537,8 +583,11 @@
 
   function renderPackagesTable() {
     const tbody = document.getElementById('packagesTableBody');
-    if (!globalPackages.length) { tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No packages yet.</td></tr>`; return; }
-    tbody.innerHTML = globalPackages.map(p => `
+    if (!globalPackages.length) { tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No packages yet.</td></tr>`; return; }
+    tbody.innerHTML = globalPackages.map(p => {
+      const slug = toSlug(p.name || '');
+      const liveUrl = getLiveUrl(p.name || '');
+      return `
       <tr>
         <td><img class="table-img" src="${escHtml(p.image || '')}" onerror="this.src='https://via.placeholder.com/64'" alt=""></td>
         <td>${escHtml(p.name || '—')}</td><td>${escHtml(p.destination || '—')}</td>
@@ -547,10 +596,18 @@
         <td>${p.price ? formatPrice(p.price) : '—'}</td>
         <td><span class="badge ${p.status === 'published' ? 'badge-published' : 'badge-draft'}">${p.status || 'draft'}</span></td>
         <td>
+          <span class="slug-chip" title="${escHtml(liveUrl)}">
+            <a href="${escHtml(liveUrl)}" target="_blank" rel="noopener">/package/${escHtml(slug)}</a>
+          </span>
+        </td>
+        <td style="white-space:nowrap;">
+          <button class="action-btn link" onclick="openLivePage('${p.id}')" title="View live page">🔗</button>
+          <button class="action-btn link" onclick="copyPackageLink('${p.id}')" title="Copy link">📋</button>
           <button class="action-btn" onclick="editItem('package','${p.id}')" title="Edit">✎</button>
           <button class="action-btn delete" onclick="deleteItem('package','${p.id}')" title="Delete">🗑</button>
         </td>
-      </tr>`).join('');
+      </tr>`;
+    }).join('');
   }
 
   function renderDestinationsTable() {
@@ -646,6 +703,35 @@
     else badge.style.display = 'none';
   }
 
+  // ============ LIVE PAGE / COPY LINK ============
+  window.openLivePage = (id) => {
+    const p = globalPackages.find(x => x.id === id);
+    if (!p) return;
+    if (p.status !== 'published') {
+      showToast('Draft package — worker only serves published items. Publish first.', true);
+      return;
+    }
+    const url = getLiveUrl(p.name);
+    window.open(url, '_blank', 'noopener');
+    showToast(`Opening ${url.replace(window.location.origin, '')}…`);
+  };
+
+  window.copyPackageLink = async (id) => {
+    const p = globalPackages.find(x => x.id === id);
+    if (!p) return;
+    const url = getLiveUrl(p.name);
+    try {
+      await navigator.clipboard.writeText(url);
+      showToast(`Link copied: ${url.replace(window.location.origin, '')}`);
+    } catch {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = url; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      showToast('Link copied!');
+    }
+  };
+
   // ============ ITEM MODAL (Package / Destination) ============
   const modal = document.getElementById('modalOverlay');
   const form = document.getElementById('itemForm');
@@ -676,6 +762,29 @@
     }
   });
 
+  // Live slug preview update as user types the name
+  const nameInput = document.getElementById('itemName');
+  const slugPreviewText = document.getElementById('slugPreviewText');
+  const slugPreviewHint = document.getElementById('slugPreviewHint');
+  function updateSlugPreview() {
+    const type = document.getElementById('itemType').value || 'package';
+    const name = nameInput.value.trim();
+    if (type !== 'package') {
+      slugPreviewText.textContent = '—';
+      slugPreviewHint.textContent = 'Live pages only apply to packages';
+      return;
+    }
+    if (!name) {
+      slugPreviewText.textContent = '/package/your-package-name';
+      slugPreviewHint.textContent = 'Type a name above to see the URL';
+      return;
+    }
+    const slug = toSlug(name);
+    slugPreviewText.textContent = `/package/${slug}`;
+    slugPreviewHint.textContent = '✓ Auto-generated';
+  }
+  nameInput.addEventListener('input', updateSlugPreview);
+
   function openModal(type, item = null) {
     form.reset(); document.getElementById('itemId').value = ''; uploadedImageUrl = '';
     document.getElementById('itemType').value = type;
@@ -695,6 +804,7 @@
       document.getElementById('itemStatus').value = item.status || 'published';
       setPreview(item.image || '');
     }
+    updateSlugPreview();
     modal.classList.add('open');
   }
 
@@ -719,6 +829,10 @@
       status: document.getElementById('itemStatus').value,
     };
     if (!id) data.createdAt = Date.now();
+    // Persist slug for packages — worker prefers this if present
+    if (type === 'package') {
+      data.slug = toSlug(data.name);
+    }
     try {
       if (type === 'package') {
         if (id) await updateDoc(doc(db, "packages", id), data);
@@ -729,6 +843,11 @@
       }
       showToast(`${type} "${data.name}" saved!`);
       modal.classList.remove('open');
+      if (type === 'package' && data.status === 'published') {
+        setTimeout(() => {
+          showToast(`Live page ready: /package/${data.slug}`);
+        }, 900);
+      }
     } catch (err) { console.error(err); showToast("Save nahi hua. Firestore permissions check karein.", true); }
   });
 
@@ -925,8 +1044,11 @@
 
   // ============ CSV EXPORT ============
   window.exportCSV = (type) => {
-    let rows = [], headers = [], data = [];
-    if (type === 'packages') { data = globalPackages; headers = ['name','destination','category','duration','departureDate','price','status']; }
+    let headers = [], data = [];
+    if (type === 'packages') {
+      data = globalPackages.map(p => ({ ...p, slug: toSlug(p.name || '') }));
+      headers = ['name','slug','destination','category','duration','departureDate','price','status'];
+    }
     else if (type === 'destinations') { data = globalDestinations; headers = ['name','destination','rating','price','status']; }
     else if (type === 'enquiries') {
       data = [...globalMessages, ...globalBookings].map(x => ({ ...x, _type: x.type }));
