@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "travelvista",
+  "main": "worker.js",
+  "compatibility_date": "2024-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page"
+  },
+
+  "observability": {
+    "enabled": true
+  },
+
+  "routes": [
+    // Apne domain ke hisaab se change karein
+    // { "pattern": "travelvista.com/*", "zone_name": "travelvista.com" }
+  ]
+}
