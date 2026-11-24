@@ -3,30 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TravelVista Admin — Dashboard</title>
+<title>TravelVista Admin — Complete Panel</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --primary: #0f3d3e;
-    --primary-dark: #0a2a2b;
-    --accent: #ff7a00;
-    --accent-hover: #e66a00;
-    --bg: #f4f6f8;
-    --white: #ffffff;
-    --text-dark: #1f2937;
-    --text-muted: #6b7280;
-    --border: #e5e7eb;
-    --sidebar-width: 260px;
-    --danger: #ef4444;
-    --success: #10b981;
+    --primary: #0f3d3e; --primary-dark: #0a2a2b; --accent: #ff7a00;
+    --accent-hover: #e66a00; --bg: #f4f6f8; --white: #ffffff;
+    --text-dark: #1f2937; --text-muted: #6b7280; --border: #e5e7eb;
+    --sidebar-width: 260px; --danger: #ef4444; --success: #10b981;
+    --warning: #f59e0b; --info: #3b82f6;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-dark); line-height: 1.5; }
 
-  /* ---------- LOGIN VIEW ---------- */
+  /* LOGIN */
   #loginView { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--primary) 0%, #1a5c5e 100%); padding: 1rem; }
   .login-card { background: var(--white); border-radius: 16px; padding: 2.5rem; width: 100%; max-width: 420px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
   .login-card .brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.4rem; font-weight: 700; color: var(--primary); margin-bottom: 2rem; }
@@ -40,7 +32,7 @@
   .login-card .btn-login:hover { background: var(--accent-hover); }
   .login-hint { margin-top: 1.2rem; font-size: 0.8rem; color: var(--text-muted); text-align: center; }
 
-  /* ---------- DASHBOARD LAYOUT ---------- */
+  /* LAYOUT */
   #dashboardView { display: none; }
   .admin-layout { display: flex; min-height: 100vh; }
   .sidebar { width: var(--sidebar-width); background: var(--primary); color: white; display: flex; flex-direction: column; padding: 1.5rem 1rem; position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; transition: transform 0.3s; }
@@ -52,63 +44,104 @@
   .sidebar-nav a .icon { font-size: 1.1rem; width: 20px; text-align: center; }
   .sidebar-footer { margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.15); }
   .sidebar-footer a { color: rgba(255,255,255,0.7); }
-
   .main-content { flex: 1; margin-left: var(--sidebar-width); padding: 1.5rem 2rem; min-width: 0; }
   .topbar { display: flex; align-items: center; justify-content: space-between; background: var(--white); padding: 0.9rem 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 1.5rem; }
   .topbar-search { display: flex; align-items: center; gap: 0.5rem; background: var(--bg); padding: 0.5rem 1rem; border-radius: 8px; width: 300px; }
   .topbar-search input { border: none; background: transparent; outline: none; font-family: inherit; width: 100%; }
   .topbar-actions { display: flex; align-items: center; gap: 1rem; }
-  .btn-icon { background: var(--bg); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .btn-icon { background: var(--bg); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; position: relative; }
+  .notification-badge { position: absolute; top: -2px; right: -2px; background: var(--danger); color: white; font-size: 0.65rem; font-weight: 700; min-width: 18px; height: 18px; border-radius: 9px; display: flex; align-items: center; justify-content: center; padding: 0 5px; }
   .user-chip { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; font-weight: 500; }
   .avatar { width: 38px; height: 38px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; margin-bottom: 1.5rem; }
-  .stat-card { background: var(--white); padding: 1.4rem 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-  .stat-card .label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem; }
-  .stat-card .value { font-size: 1.8rem; font-weight: 700; color: var(--text-dark); }
+  /* STATS */
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+  .stat-card { background: var(--white); padding: 1.2rem 1.3rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .stat-card .label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+  .stat-card .value { font-size: 1.7rem; font-weight: 700; color: var(--text-dark); }
   .stat-card .value.accent { color: var(--accent); }
+  .stat-card .value.success { color: var(--success); }
+  .stat-card .sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; }
 
+  /* CHART */
+  .chart-wrap { display: flex; align-items: flex-end; gap: 0.8rem; height: 160px; padding: 1rem 0.5rem; border-bottom: 1px solid var(--border); }
+  .chart-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+  .chart-bar { width: 100%; max-width: 40px; background: linear-gradient(to top, var(--accent), #ffab5c); border-radius: 6px 6px 0 0; min-height: 4px; transition: height 0.4s; }
+  .chart-label { font-size: 0.7rem; color: var(--text-muted); }
+  .chart-value { font-size: 0.75rem; font-weight: 600; color: var(--text-dark); }
+
+  /* PANEL & TABLE */
   .panel { background: var(--white); border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 1.5rem; }
   .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem; }
   .panel-header h2 { font-size: 1.15rem; font-weight: 600; }
-  .btn { border: none; padding: 0.6rem 1.2rem; border-radius: 8px; font-family: inherit; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; }
+  .btn { border: none; padding: 0.55rem 1rem; border-radius: 8px; font-family: inherit; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: background 0.2s; }
   .btn-primary { background: var(--accent); color: white; }
   .btn-primary:hover { background: var(--accent-hover); }
   .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-dark); }
   .btn-outline:hover { background: var(--bg); }
   .btn-danger { background: var(--danger); color: white; }
   .btn-danger:hover { background: #dc2626; }
+  .btn-sm { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
 
   .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-  th { text-align: left; padding: 0.8rem 0.6rem; border-bottom: 1px solid var(--border); color: var(--text-muted); font-weight: 600; white-space: nowrap; }
-  td { padding: 0.75rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { text-align: left; padding: 0.75rem 0.5rem; border-bottom: 1px solid var(--border); color: var(--text-muted); font-weight: 600; white-space: nowrap; }
+  td { padding: 0.7rem 0.5rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
   .table-img { width: 48px; height: 36px; border-radius: 6px; object-fit: cover; background: var(--bg); }
-  .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+  .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.72rem; font-weight: 600; }
   .badge-published { background: #d1fae5; color: #065f46; }
   .badge-draft { background: #fef3c7; color: #92400e; }
   .badge-booking { background: #e0f2fe; color: #0369a1; }
   .badge-contact { background: #f3e8ff; color: #6b21a8; }
+  .badge-new { background: #fee2e2; color: #991b1b; }
+  .badge-contacted { background: #fef3c7; color: #92400e; }
+  .badge-booked { background: #d1fae5; color: #065f46; }
+  .badge-closed { background: #e5e7eb; color: #374151; }
+  .badge-high { background: #fee2e2; color: #991b1b; }
+  .badge-medium { background: #fef3c7; color: #92400e; }
+  .badge-low { background: #dbeafe; color: #1e40af; }
+  .badge-paid { background: #d1fae5; color: #065f46; }
+  .badge-partial { background: #fef3c7; color: #92400e; }
+  .badge-pending { background: #fee2e2; color: #991b1b; }
+
   .action-btn { background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0.3rem; color: var(--text-muted); }
   .action-btn:hover { color: var(--accent); }
   .action-btn.delete:hover { color: var(--danger); }
 
+  /* MODAL */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: none; align-items: center; justify-content: center; z-index: 200; padding: 1rem; }
   .modal-overlay.open { display: flex; }
-  .modal { background: var(--white); border-radius: 16px; width: 100%; max-width: 620px; max-height: 90vh; overflow-y: auto; padding: 2rem; }
+  .modal { background: var(--white); border-radius: 16px; width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto; padding: 2rem; }
   .modal h2 { font-size: 1.3rem; margin-bottom: 1.2rem; }
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .form-grid .full { grid-column: span 2; }
   .form-group label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--text-dark); }
   .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.65rem 0.9rem; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.9rem; outline: none; background: #fafafa; }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); background: white; }
-  .form-group textarea { resize: vertical; min-height: 80px; }
-  .image-preview { margin-top: 0.5rem; width: 100%; height: 120px; border-radius: 8px; background: var(--bg); background-size: cover; background-position: center; border: 1px dashed var(--border); }
-  .modal-actions { display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 1.5rem; }
+  .form-group textarea { resize: vertical; min-height: 70px; }
+  .image-preview { margin-top: 0.5rem; width: 100%; height: 140px; border-radius: 8px; background: var(--bg); background-size: cover; background-position: center; border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 1.5rem; flex-wrap: wrap; }
 
-  #toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--primary); color: white; padding: 0.9rem 1.5rem; border-radius: 8px; font-weight: 500; box-shadow: 0 10px 25px rgba(0,0,0,0.2); opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 300; pointer-events: none; }
+  /* ENQUIRY DETAIL */
+  .enq-field { display: flex; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+  .enq-field .k { color: var(--text-muted); min-width: 100px; font-weight: 500; }
+  .enq-field .v { color: var(--text-dark); flex: 1; }
+  .status-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.8rem 0; }
+  .status-pill { padding: 0.4rem 0.9rem; border-radius: 20px; border: 2px solid var(--border); background: white; font-size: 0.8rem; font-weight: 600; cursor: pointer; color: var(--text-muted); transition: all 0.2s; }
+  .status-pill.active[data-status="new"] { background: #fee2e2; color: #991b1b; border-color: #991b1b; }
+  .status-pill.active[data-status="contacted"] { background: #fef3c7; color: #92400e; border-color: #92400e; }
+  .status-pill.active[data-status="booked"] { background: #d1fae5; color: #065f46; border-color: #065f46; }
+  .status-pill.active[data-status="closed"] { background: #e5e7eb; color: #374151; border-color: #374151; }
+  .notes-list { max-height: 200px; overflow-y: auto; margin: 0.5rem 0; }
+  .note-item { background: var(--bg); padding: 0.6rem 0.8rem; border-radius: 8px; margin-bottom: 0.5rem; font-size: 0.85rem; position: relative; }
+  .note-item .note-meta { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+  .note-item .note-del { position: absolute; top: 0.4rem; right: 0.4rem; cursor: pointer; color: var(--danger); background: none; border: none; font-size: 0.85rem; }
+  .note-input-row { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+
+  #toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--primary); color: white; padding: 0.9rem 1.5rem; border-radius: 8px; font-weight: 500; box-shadow: 0 10px 25px rgba(0,0,0,0.2); opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 300; pointer-events: none; max-width: 350px; }
   #toast.show { opacity: 1; transform: translateY(0); }
+  #toast.error { background: var(--danger); }
 
   @media (max-width: 900px) {
     .sidebar { transform: translateX(-100%); }
@@ -126,12 +159,10 @@
 </head>
 <body>
 
+<!-- LOGIN -->
 <div id="loginView">
   <div class="login-card">
-    <div class="brand">
-      <span class="brand-mark">▲</span>
-      <span>TravelVista <span style="font-weight:400;color:var(--text-muted);font-size:0.9rem;">Admin</span></span>
-    </div>
+    <div class="brand"><span class="brand-mark">▲</span><span>TravelVista <span style="font-weight:400;color:var(--text-muted);font-size:0.9rem;">Admin</span></span></div>
     <h2>Welcome back</h2>
     <p>Please login to manage your travel content.</p>
     <label for="loginEmail">Email address</label>
@@ -139,10 +170,11 @@
     <label for="loginPassword">Password</label>
     <input id="loginPassword" type="password" placeholder="••••••••" value="admin123">
     <button class="btn-login" id="loginBtn">Login</button>
-    <p class="login-hint">Demo login: <strong>admin@travelvista.com</strong> / <strong>admin123</strong></p>
+    <p class="login-hint">Demo: <strong>admin@travelvista.com</strong> / <strong>admin123</strong></p>
   </div>
 </div>
 
+<!-- DASHBOARD -->
 <div id="dashboardView">
   <div class="admin-layout">
     <aside class="sidebar" id="sidebar">
@@ -152,6 +184,7 @@
         <a data-page="packages"><span class="icon">📦</span> Packages</a>
         <a data-page="destinations"><span class="icon">📍</span> Destinations</a>
         <a data-page="enquiries"><span class="icon">✉</span> Enquiries</a>
+        <a data-page="payments"><span class="icon">💳</span> Payments</a>
         <a data-page="settings"><span class="icon">⚙</span> Settings</a>
       </nav>
       <div class="sidebar-footer">
@@ -163,24 +196,29 @@
       <div class="topbar">
         <div class="topbar-search">
           <span>🔍</span>
-          <input type="text" id="globalSearch" placeholder="Search packages, destinations...">
+          <input type="text" id="globalSearch" placeholder="Search packages, destinations, enquiries...">
         </div>
         <div class="topbar-actions">
-          <button class="btn-icon" title="Notifications">🔔</button>
-          <div class="user-chip">
-            <div class="avatar">A</div>
-            <span>Admin</span>
-          </div>
+          <button class="btn-icon" id="notifBtn" title="Notifications">🔔<span class="notification-badge" id="notifBadge" style="display:none;">0</span></button>
+          <div class="user-chip"><div class="avatar">A</div><span>Admin</span></div>
         </div>
       </div>
 
+      <!-- DASHBOARD PAGE -->
       <div id="page-dashboard">
         <div class="stats-grid">
           <div class="stat-card"><div class="label">Total Packages</div><div class="value" id="statPackages">0</div></div>
-          <div class="stat-card"><div class="label">Total Destinations</div><div class="value" id="statDestinations">0</div></div>
-          <div class="stat-card"><div class="label">Published Items</div><div class="value accent" id="statPublished">0</div></div>
-          <div class="stat-card"><div class="label">Total Enquiries</div><div class="value" id="statEnquiries">0</div></div>
+          <div class="stat-card"><div class="label">Destinations</div><div class="value" id="statDestinations">0</div></div>
+          <div class="stat-card"><div class="label">Published</div><div class="value accent" id="statPublished">0</div></div>
+          <div class="stat-card"><div class="label">Enquiries</div><div class="value" id="statEnquiries">0</div><div class="sub" id="statNewEnq"></div></div>
+          <div class="stat-card"><div class="label">Revenue</div><div class="value success" id="statRevenue">$0</div></div>
         </div>
+
+        <div class="panel">
+          <div class="panel-header"><h2>Enquiries — Last 7 Days</h2></div>
+          <div class="chart-wrap" id="chartWrap"></div>
+        </div>
+
         <div class="panel">
           <div class="panel-header"><h2>Recent Additions</h2></div>
           <div class="table-wrap">
@@ -192,26 +230,34 @@
         </div>
       </div>
 
+      <!-- PACKAGES PAGE -->
       <div id="page-packages" style="display:none;">
         <div class="panel">
           <div class="panel-header">
             <h2>All Packages</h2>
-            <button class="btn btn-primary" id="addPackageBtn">+ Add Package</button>
+            <div style="display:flex;gap:0.5rem;">
+              <button class="btn btn-outline btn-sm" onclick="exportCSV('packages')">⬇ Export CSV</button>
+              <button class="btn btn-primary" id="addPackageBtn">+ Add Package</button>
+            </div>
           </div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Image</th><th>Name</th><th>Destination</th><th>Category</th><th>Duration</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
+              <thead><tr><th>Image</th><th>Name</th><th>Destination</th><th>Category</th><th>Duration</th><th>Departure</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
               <tbody id="packagesTableBody"></tbody>
             </table>
           </div>
         </div>
       </div>
 
+      <!-- DESTINATIONS PAGE -->
       <div id="page-destinations" style="display:none;">
         <div class="panel">
           <div class="panel-header">
             <h2>All Destinations</h2>
-            <button class="btn btn-primary" id="addDestinationBtn">+ Add Destination</button>
+            <div style="display:flex;gap:0.5rem;">
+              <button class="btn btn-outline btn-sm" onclick="exportCSV('destinations')">⬇ Export CSV</button>
+              <button class="btn btn-primary" id="addDestinationBtn">+ Add Destination</button>
+            </div>
           </div>
           <div class="table-wrap">
             <table>
@@ -222,22 +268,21 @@
         </div>
       </div>
 
-      <!-- UPDATED ENQUIRIES PAGE -->
+      <!-- ENQUIRIES PAGE (UPGRADED) -->
       <div id="page-enquiries" style="display:none;">
         <div class="panel">
           <div class="panel-header">
-            <h2>All Enquiries (Contact & Bookings)</h2>
+            <h2>All Enquiries</h2>
+            <div style="display:flex;gap:0.5rem;">
+              <button class="btn btn-outline btn-sm" onclick="exportCSV('enquiries')">⬇ Export CSV</button>
+            </div>
           </div>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Date</th>
-                  <th>Type</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Details</th>
-                  <th>Actions</th>
+                  <th>Date</th><th>Type</th><th>Name</th><th>Email</th>
+                  <th>Status</th><th>Priority</th><th>Details</th><th>Actions</th>
                 </tr>
               </thead>
               <tbody id="enquiriesTableBody"></tbody>
@@ -246,11 +291,36 @@
         </div>
       </div>
 
-      <div id="page-settings" style="display:none;"><div class="panel"><h2>Settings</h2><p style="color:var(--text-muted);margin-top:0.5rem;">Settings module coming soon.</p></div></div>
+      <!-- PAYMENTS PAGE (NEW) -->
+      <div id="page-payments" style="display:none;">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>All Payments</h2>
+            <div style="display:flex;gap:0.5rem;">
+              <button class="btn btn-outline btn-sm" onclick="exportCSV('payments')">⬇ Export CSV</button>
+              <button class="btn btn-primary" onclick="openPaymentModal()">+ Add Payment</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Date</th><th>Booking</th><th>Customer</th><th>Amount</th><th>Method</th><th>Reference</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody id="paymentsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="page-settings" style="display:none;">
+        <div class="panel"><h2>Settings</h2><p style="color:var(--text-muted);margin-top:0.5rem;">Settings module coming soon.</p></div>
+      </div>
     </main>
   </div>
 </div>
 
+<!-- ITEM MODAL (Package / Destination) -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h2 id="modalTitle">Add New Package</h2>
@@ -259,32 +329,29 @@
       <input type="hidden" id="itemType">
       <div class="form-grid">
         <div class="form-group full">
-          <label>Image URL</label>
-          <input type="url" id="itemImage" placeholder="https://images.unsplash.com/...">
-          <div class="image-preview" id="imagePreview"></div>
+          <label>Image</label>
+          <input type="file" id="itemImageFile" accept="image/*" style="margin-bottom:0.5rem;">
+          <input type="url" id="itemImage" placeholder="Or paste URL: https://images.unsplash.com/...">
+          <div class="image-preview" id="imagePreview">No image selected</div>
         </div>
         <div class="form-group"><label>Name *</label><input type="text" id="itemName" required placeholder="Bali Escape"></div>
         <div class="form-group"><label>Destination / Country *</label><input type="text" id="itemDestination" required placeholder="Bali, Indonesia"></div>
         <div class="form-group">
           <label>Category</label>
           <select id="itemCategory">
-            <option value="beach">Beach</option>
-            <option value="culture">Culture</option>
-            <option value="nature">Nature</option>
-            <option value="luxury">Luxury</option>
+            <option value="beach">Beach</option><option value="culture">Culture</option>
+            <option value="nature">Nature</option><option value="luxury">Luxury</option>
             <option value="adventure">Adventure</option>
           </select>
         </div>
         <div class="form-group"><label>Duration</label><input type="text" id="itemDuration" placeholder="5 days / 4 nights"></div>
+        <div class="form-group"><label>Departure Date</label><input type="date" id="itemDepartureDate"></div>
         <div class="form-group"><label>Price (USD)</label><input type="number" id="itemPrice" placeholder="799"></div>
         <div class="form-group"><label>Rating</label><input type="number" id="itemRating" step="0.1" min="0" max="5" placeholder="4.9"></div>
         <div class="form-group full"><label>Description</label><textarea id="itemDescription" placeholder="Short description..."></textarea></div>
         <div class="form-group full">
           <label>Status</label>
-          <select id="itemStatus">
-            <option value="published">Published</option>
-            <option value="draft">Draft</option>
-          </select>
+          <select id="itemStatus"><option value="published">Published</option><option value="draft">Draft</option></select>
         </div>
       </div>
       <div class="modal-actions">
@@ -295,12 +362,58 @@
   </div>
 </div>
 
+<!-- ENQUIRY DETAIL MODAL (NEW) -->
+<div class="modal-overlay" id="enquiryModal">
+  <div class="modal">
+    <h2 id="enqTitle">Enquiry Details</h2>
+    <div id="enqContent"></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeEnqModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL (NEW) -->
+<div class="modal-overlay" id="paymentModal">
+  <div class="modal">
+    <h2 id="payModalTitle">Add Payment</h2>
+    <form id="paymentForm">
+      <input type="hidden" id="payId">
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Booking *</label>
+          <select id="payBookingId" required><option value="">— Select booking —</option></select>
+        </div>
+        <div class="form-group"><label>Amount (USD) *</label><input type="number" id="payAmount" step="0.01" required placeholder="500"></div>
+        <div class="form-group">
+          <label>Method</label>
+          <select id="payMethod">
+            <option>Cash</option><option>Bank Transfer</option><option>Card</option>
+            <option>UPI</option><option>PayPal</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Reference / Txn ID</label><input type="text" id="payReference" placeholder="TXN12345"></div>
+        <div class="form-group">
+          <label>Status</label>
+          <select id="payStatus"><option value="paid">Paid</option><option value="pending">Pending</option><option value="partial">Partial</option></select>
+        </div>
+        <div class="form-group full"><label>Note</label><textarea id="payNote" placeholder="Optional note..."></textarea></div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="document.getElementById('paymentModal').classList.remove('open')">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Payment</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div id="toast"></div>
 
-<!-- FIREBASE INTEGRATION -->
+<!-- ============================ FIREBASE + APP LOGIC ============================ -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyC94eV35vYNjRz_w-4INGwX0c5MjUHBwTQ",
@@ -315,56 +428,42 @@
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+  const storage = getStorage(app);
+
   const packagesRef = collection(db, "packages");
   const destinationsRef = collection(db, "destinations");
-  const messagesRef = collection(db, "messages"); // Contact
-  const bookingsRef = collection(db, "bookings"); // Booking
+  const messagesRef = collection(db, "messages");
+  const bookingsRef = collection(db, "bookings");
+  const paymentsRef = collection(db, "payments");
 
-  let globalPackages = [];
-  let globalDestinations = [];
-  let globalMessages = [];
-  let globalBookings = [];
+  let globalPackages = [], globalDestinations = [], globalMessages = [], globalBookings = [], globalPayments = [];
+  let currentEnquiry = null;
 
-  // Listen for real-time updates
-  onSnapshot(packagesRef, (snapshot) => {
-    globalPackages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    if(sessionStorage.getItem('tv_admin_logged_in') === '1') renderAll();
-  });
-  
-  onSnapshot(destinationsRef, (snapshot) => {
-    globalDestinations = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    if(sessionStorage.getItem('tv_admin_logged_in') === '1') renderAll();
-  });
+  // ============ LISTENERS ============
+  onSnapshot(packagesRef, s => { globalPackages = s.docs.map(d => ({ id: d.id, ...d.data() })); if (isLoggedIn()) renderAll(); });
+  onSnapshot(destinationsRef, s => { globalDestinations = s.docs.map(d => ({ id: d.id, ...d.data() })); if (isLoggedIn()) renderAll(); });
+  onSnapshot(messagesRef, s => { globalMessages = s.docs.map(d => ({ id: d.id, ...d.data(), type: 'Contact' })); if (isLoggedIn()) renderAll(); });
+  onSnapshot(bookingsRef, s => { globalBookings = s.docs.map(d => ({ id: d.id, ...d.data(), type: 'Booking' })); if (isLoggedIn()) renderAll(); });
+  onSnapshot(paymentsRef, s => { globalPayments = s.docs.map(d => ({ id: d.id, ...d.data() })); if (isLoggedIn()) renderAll(); });
 
-  onSnapshot(messagesRef, (snapshot) => {
-    globalMessages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data(), type: 'Contact' }));
-    if(sessionStorage.getItem('tv_admin_logged_in') === '1') renderAll();
-  });
-
-  onSnapshot(bookingsRef, (snapshot) => {
-    globalBookings = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data(), type: 'Booking' }));
-    if(sessionStorage.getItem('tv_admin_logged_in') === '1') renderAll();
-  });
-
-  /* ============================================================
-     UI HELPERS
-     ============================================================ */
-  function showToast(msg) {
+  // ============ HELPERS ============
+  function isLoggedIn() { return sessionStorage.getItem('tv_admin_logged_in') === '1'; }
+  function showToast(msg, isError = false) {
     const t = document.getElementById('toast');
     t.textContent = msg;
-    t.classList.add('show');
+    t.className = isError ? 'show error' : 'show';
     clearTimeout(t._timer);
-    t._timer = setTimeout(() => t.classList.remove('show'), 2500);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2800);
   }
-
   function formatPrice(n) { return '$' + (Number(n) || 0).toLocaleString(); }
+  function formatDate(ts) { return ts ? new Date(ts).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }) : '—'; }
+  function escHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
 
-  /* ============================================================
-     LOGIN
-     ============================================================ */
+  // ============ LOGIN ============
   document.getElementById('loginBtn').addEventListener('click', () => {
     const email = document.getElementById('loginEmail').value.trim();
     const pass = document.getElementById('loginPassword').value.trim();
+    // NOTE: Demo login — production mein Firebase Auth use karein (neeche reference)
     if (email === 'admin@travelvista.com' && pass === 'admin123') {
       sessionStorage.setItem('tv_admin_logged_in', '1');
       initDashboard();
@@ -372,29 +471,27 @@
       alert('Invalid credentials. Use admin@travelvista.com / admin123');
     }
   });
-
   document.getElementById('logoutBtn').addEventListener('click', () => {
     sessionStorage.removeItem('tv_admin_logged_in');
     document.getElementById('dashboardView').style.display = 'none';
     document.getElementById('loginView').style.display = 'flex';
   });
-
   function initDashboard() {
     document.getElementById('loginView').style.display = 'none';
     document.getElementById('dashboardView').style.display = 'block';
-    renderAll();
-    initNavigation();
+    renderAll(); initNavigation();
   }
 
+  // ============ NAVIGATION ============
   function initNavigation() {
-    const links = document.querySelectorAll('.sidebar-nav a');
-    links.forEach(link => {
+    document.querySelectorAll('.sidebar-nav a').forEach(link => {
+      if (link._bound) return; link._bound = true;
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const page = link.dataset.page;
-        links.forEach(l => l.classList.remove('active'));
+        document.querySelectorAll('.sidebar-nav a').forEach(l => l.classList.remove('active'));
         link.classList.add('active');
-        ['dashboard','packages','destinations','enquiries','settings'].forEach(p => {
+        ['dashboard','packages','destinations','enquiries','payments','settings'].forEach(p => {
           const el = document.getElementById('page-' + p);
           if (el) el.style.display = (p === page) ? 'block' : 'none';
         });
@@ -402,146 +499,188 @@
     });
   }
 
-  /* ============================================================
-     RENDER ALL
-     ============================================================ */
+  // ============ RENDER ============
   function renderAll() {
-    renderStats(); 
-    renderRecent(); 
-    renderPackagesTable(); 
-    renderDestinationsTable();
-    renderEnquiriesTable(); 
+    renderStats(); renderRecent(); renderPackagesTable(); renderDestinationsTable();
+    renderEnquiriesTable(); renderPaymentsTable(); renderChart(); updateNotifBadge();
   }
 
   function renderStats() {
     const all = [...globalPackages, ...globalDestinations];
     const published = all.filter(x => x.status === 'published').length;
     const totalEnq = globalMessages.length + globalBookings.length;
+    const newEnq = [...globalMessages, ...globalBookings].filter(x => (x.status || 'new') === 'new').length;
+    const revenue = globalPayments.filter(p => p.status === 'paid').reduce((s, p) => s + (Number(p.amount) || 0), 0);
 
     document.getElementById('statPackages').textContent = globalPackages.length;
     document.getElementById('statDestinations').textContent = globalDestinations.length;
     document.getElementById('statPublished').textContent = published;
     document.getElementById('statEnquiries').textContent = totalEnq;
+    document.getElementById('statNewEnq').textContent = newEnq ? `${newEnq} new` : '';
+    document.getElementById('statRevenue').textContent = formatPrice(revenue);
   }
 
   function renderRecent() {
     const pkgs = globalPackages.map(p => ({...p, _type: 'Package'}));
     const dests = globalDestinations.map(d => ({...d, _type: 'Destination'}));
-    const recent = [...pkgs, ...dests].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)).slice(0, 5);
+    const recent = [...pkgs, ...dests].sort((a,b) => (b.createdAt||0) - (a.createdAt||0)).slice(0, 5);
     const tbody = document.getElementById('recentTableBody');
-    if (!recent.length) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No items yet. Click "Add Package" to start.</td></tr>`;
-      return;
-    }
+    if (!recent.length) { tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No items yet.</td></tr>`; return; }
     tbody.innerHTML = recent.map(item => `
       <tr>
-        <td><img class="table-img" src="${item.image || 'https://via.placeholder.com/64'}" alt=""></td>
-        <td>${item.name || '—'}</td><td>${item._type}</td>
+        <td><img class="table-img" src="${escHtml(item.image || '')}" onerror="this.src='https://via.placeholder.com/64'" alt=""></td>
+        <td>${escHtml(item.name || '—')}</td><td>${item._type}</td>
         <td>${item.price ? formatPrice(item.price) : '—'}</td>
         <td><span class="badge ${item.status === 'published' ? 'badge-published' : 'badge-draft'}">${item.status || 'draft'}</span></td>
-      </tr>
-    `).join('');
+      </tr>`).join('');
   }
 
   function renderPackagesTable() {
     const tbody = document.getElementById('packagesTableBody');
-    if (!globalPackages.length) {
-      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No packages yet.</td></tr>`;
-      return;
-    }
+    if (!globalPackages.length) { tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No packages yet.</td></tr>`; return; }
     tbody.innerHTML = globalPackages.map(p => `
       <tr>
-        <td><img class="table-img" src="${p.image || 'https://via.placeholder.com/64'}" alt=""></td>
-        <td>${p.name || '—'}</td><td>${p.destination || '—'}</td>
-        <td>${p.category || '—'}</td><td>${p.duration || '—'}</td>
+        <td><img class="table-img" src="${escHtml(p.image || '')}" onerror="this.src='https://via.placeholder.com/64'" alt=""></td>
+        <td>${escHtml(p.name || '—')}</td><td>${escHtml(p.destination || '—')}</td>
+        <td>${escHtml(p.category || '—')}</td><td>${escHtml(p.duration || '—')}</td>
+        <td>${p.departureDate ? formatDate(p.departureDate) : '—'}</td>
         <td>${p.price ? formatPrice(p.price) : '—'}</td>
         <td><span class="badge ${p.status === 'published' ? 'badge-published' : 'badge-draft'}">${p.status || 'draft'}</span></td>
         <td>
           <button class="action-btn" onclick="editItem('package','${p.id}')" title="Edit">✎</button>
           <button class="action-btn delete" onclick="deleteItem('package','${p.id}')" title="Delete">🗑</button>
         </td>
-      </tr>
-    `).join('');
+      </tr>`).join('');
   }
 
   function renderDestinationsTable() {
     const tbody = document.getElementById('destinationsTableBody');
-    if (!globalDestinations.length) {
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No destinations yet.</td></tr>`;
-      return;
-    }
+    if (!globalDestinations.length) { tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No destinations yet.</td></tr>`; return; }
     tbody.innerHTML = globalDestinations.map(d => `
       <tr>
-        <td><img class="table-img" src="${d.image || 'https://via.placeholder.com/64'}" alt=""></td>
-        <td>${d.name || '—'}</td><td>${d.destination || '—'}</td>
+        <td><img class="table-img" src="${escHtml(d.image || '')}" onerror="this.src='https://via.placeholder.com/64'" alt=""></td>
+        <td>${escHtml(d.name || '—')}</td><td>${escHtml(d.destination || '—')}</td>
         <td>${d.rating || '—'}</td><td>${d.price ? formatPrice(d.price) : '—'}</td>
         <td><span class="badge ${d.status === 'published' ? 'badge-published' : 'badge-draft'}">${d.status || 'draft'}</span></td>
         <td>
           <button class="action-btn" onclick="editItem('destination','${d.id}')" title="Edit">✎</button>
           <button class="action-btn delete" onclick="deleteItem('destination','${d.id}')" title="Delete">🗑</button>
         </td>
-      </tr>
-    `).join('');
+      </tr>`).join('');
   }
 
-  // UNIFIED ENQUIRIES TABLE
   function renderEnquiriesTable() {
     const tbody = document.getElementById('enquiriesTableBody');
-    const allEnquiries = [...globalMessages, ...globalBookings].sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
-
-    if (!allEnquiries.length) {
-      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No enquiries yet.</td></tr>`;
-      return;
-    }
-    
-    tbody.innerHTML = allEnquiries.map(m => {
-      const date = m.createdAt ? new Date(m.createdAt).toLocaleDateString() : '—';
+    const all = [...globalMessages, ...globalBookings].sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+    if (!all.length) { tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No enquiries yet.</td></tr>`; return; }
+    tbody.innerHTML = all.map(m => {
+      const status = m.status || 'new';
+      const priority = m.priority || 'medium';
       let details = '';
-      
       if (m.type === 'Contact') {
-        details = `<strong>Topic:</strong> ${m.topic || 'General'}<br><span style="font-size:0.85rem;color:#555;">${m.message}</span>`;
+        details = `<strong>Topic:</strong> ${escHtml(m.topic || 'General')}<br><span style="font-size:0.82rem;color:#555;">${escHtml((m.message || '').slice(0, 100))}${(m.message||'').length>100?'…':''}</span>`;
       } else {
-        // Booking details
-        details = `<strong>Dest:</strong> ${m.destination}<br>
-                   <strong>Dates:</strong> ${m.departure} to ${m.returnDate || 'N/A'}<br>
-                   <strong>Guests:</strong> ${m.adults} | <strong>Budget:</strong> ${m.budget}<br>
-                   <span style="font-size:0.85rem;color:#555;">${m.notes ? 'Notes: ' + m.notes : ''}</span>`;
+        details = `<strong>Dest:</strong> ${escHtml(m.destination || '—')}<br><strong>Guests:</strong> ${m.adults || '—'} | <strong>Budget:</strong> ${escHtml(m.budget || '—')}`;
       }
-
-      return `
-        <tr>
-          <td>${date}</td>
-          <td><span class="badge ${m.type === 'Booking' ? 'badge-booking' : 'badge-contact'}">${m.type}</span></td>
-          <td>${m.name || '—'}</td>
-          <td><a href="mailto:${m.email}" style="color:var(--primary);text-decoration:underline;">${m.email || '—'}</a></td>
-          <td style="max-width: 350px;">${details}</td>
-          <td>
-            <button class="action-btn delete" onclick="deleteEnquiry('${m.type}', '${m.id}')" title="Delete">🗑</button>
-          </td>
-        </tr>
-      `;
+      return `<tr>
+        <td>${formatDate(m.createdAt)}</td>
+        <td><span class="badge ${m.type === 'Booking' ? 'badge-booking' : 'badge-contact'}">${m.type}</span></td>
+        <td>${escHtml(m.name || '—')}</td>
+        <td><a href="mailto:${escHtml(m.email || '')}" style="color:var(--primary);text-decoration:underline;">${escHtml(m.email || '—')}</a></td>
+        <td><span class="badge badge-${status}">${status}</span></td>
+        <td><span class="badge badge-${priority}">${priority}</span></td>
+        <td style="max-width:280px;">${details}</td>
+        <td>
+          <button class="action-btn" onclick="openEnquiry('${m.type}','${m.id}')" title="View">👁</button>
+          <button class="action-btn delete" onclick="deleteEnquiry('${m.type}','${m.id}')" title="Delete">🗑</button>
+        </td>
+      </tr>`;
     }).join('');
   }
 
-  /* ============================================================
-     MODAL / FORM
-     ============================================================ */
+  function renderPaymentsTable() {
+    const tbody = document.getElementById('paymentsTableBody');
+    if (!globalPayments.length) { tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No payments yet.</td></tr>`; return; }
+    const sorted = [...globalPayments].sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+    tbody.innerHTML = sorted.map(p => {
+      const booking = globalBookings.find(b => b.id === p.bookingId);
+      return `<tr>
+        <td>${formatDate(p.createdAt)}</td>
+        <td>${booking ? escHtml(booking.destination || 'Booking') : '—'}</td>
+        <td>${booking ? escHtml(booking.name || '—') : '—'}</td>
+        <td><strong>${formatPrice(p.amount)}</strong></td>
+        <td>${escHtml(p.method || '—')}</td>
+        <td>${escHtml(p.reference || '—')}</td>
+        <td><span class="badge badge-${p.status || 'paid'}">${p.status || 'paid'}</span></td>
+        <td>
+          <button class="action-btn" onclick="editPayment('${p.id}')" title="Edit">✎</button>
+          <button class="action-btn delete" onclick="deletePayment('${p.id}')" title="Delete">🗑</button>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  function renderChart() {
+    const wrap = document.getElementById('chartWrap');
+    const days = [];
+    const now = new Date(); now.setHours(23,59,59,999);
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(now); d.setDate(d.getDate() - i); d.setHours(0,0,0,0);
+      const end = new Date(d); end.setHours(23,59,59,999);
+      const count = [...globalMessages, ...globalBookings].filter(x => x.createdAt && x.createdAt >= d.getTime() && x.createdAt <= end.getTime()).length;
+      days.push({ label: d.toLocaleDateString('en-US',{weekday:'short'}), count });
+    }
+    const max = Math.max(1, ...days.map(d => d.count));
+    wrap.innerHTML = days.map(d => `
+      <div class="chart-col">
+        <div class="chart-value">${d.count}</div>
+        <div class="chart-bar" style="height:${(d.count/max)*100}%;"></div>
+        <div class="chart-label">${d.label}</div>
+      </div>`).join('');
+  }
+
+  function updateNotifBadge() {
+    const newCount = [...globalMessages, ...globalBookings].filter(x => (x.status || 'new') === 'new').length;
+    const badge = document.getElementById('notifBadge');
+    if (newCount > 0) { badge.textContent = newCount > 99 ? '99+' : newCount; badge.style.display = 'flex'; }
+    else badge.style.display = 'none';
+  }
+
+  // ============ ITEM MODAL (Package / Destination) ============
   const modal = document.getElementById('modalOverlay');
   const form = document.getElementById('itemForm');
   const imageInput = document.getElementById('itemImage');
+  const imageFile = document.getElementById('itemImageFile');
   const imagePreview = document.getElementById('imagePreview');
+  let uploadedImageUrl = '';
 
-  imageInput.addEventListener('input', () => {
-    const url = imageInput.value.trim();
-    imagePreview.style.backgroundImage = url ? `url('${url}')` : 'none';
+  function setPreview(url) {
+    if (url) { imagePreview.style.backgroundImage = `url('${url}')`; imagePreview.textContent = ''; imagePreview.style.border = 'none'; }
+    else { imagePreview.style.backgroundImage = 'none'; imagePreview.textContent = 'No image selected'; imagePreview.style.border = '1px dashed var(--border)'; }
+  }
+  imageInput.addEventListener('input', () => setPreview(imageInput.value.trim()));
+  imageFile.addEventListener('change', async () => {
+    const file = imageFile.files[0]; if (!file) return;
+    imagePreview.textContent = 'Uploading...';
+    try {
+      const r = storageRef(storage, `travelvista/${Date.now()}_${file.name}`);
+      await uploadBytes(r, file);
+      uploadedImageUrl = await getDownloadURL(r);
+      imageInput.value = uploadedImageUrl;
+      setPreview(uploadedImageUrl);
+      showToast('Image uploaded!');
+    } catch (err) {
+      console.error(err);
+      showToast('Upload failed. Enable Firebase Storage in console.', true);
+      imagePreview.textContent = 'Upload failed';
+    }
   });
 
   function openModal(type, item = null) {
-    form.reset(); document.getElementById('itemId').value = '';
+    form.reset(); document.getElementById('itemId').value = ''; uploadedImageUrl = '';
     document.getElementById('itemType').value = type;
     document.getElementById('modalTitle').textContent = item ? `Edit ${type}` : `Add New ${type === 'package' ? 'Package' : 'Destination'}`;
-    imagePreview.style.backgroundImage = 'none';
-    
+    setPreview('');
     if (item) {
       document.getElementById('itemId').value = item.id;
       document.getElementById('itemImage').value = item.image || '';
@@ -549,11 +688,12 @@
       document.getElementById('itemDestination').value = item.destination || '';
       document.getElementById('itemCategory').value = item.category || 'beach';
       document.getElementById('itemDuration').value = item.duration || '';
+      document.getElementById('itemDepartureDate').value = item.departureDate || '';
       document.getElementById('itemPrice').value = item.price || '';
       document.getElementById('itemRating').value = item.rating || '';
       document.getElementById('itemDescription').value = item.description || '';
       document.getElementById('itemStatus').value = item.status || 'published';
-      if (item.image) imagePreview.style.backgroundImage = `url('${item.image}')`;
+      setPreview(item.image || '');
     }
     modal.classList.add('open');
   }
@@ -571,60 +711,247 @@
       destination: document.getElementById('itemDestination').value.trim(),
       category: document.getElementById('itemCategory').value,
       duration: document.getElementById('itemDuration').value.trim(),
+      departureDate: document.getElementById('itemDepartureDate').value || '',
       price: Number(document.getElementById('itemPrice').value) || 0,
       rating: Number(document.getElementById('itemRating').value) || 0,
       description: document.getElementById('itemDescription').value.trim(),
       image: document.getElementById('itemImage').value.trim(),
       status: document.getElementById('itemStatus').value,
-      createdAt: Date.now()
     };
-
+    if (!id) data.createdAt = Date.now();
     try {
       if (type === 'package') {
         if (id) await updateDoc(doc(db, "packages", id), data);
         else await addDoc(packagesRef, data);
-        showToast(`Package "${data.name}" saved!`);
       } else {
         if (id) await updateDoc(doc(db, "destinations", id), data);
         else await addDoc(destinationsRef, data);
-        showToast(`Destination "${data.name}" saved!`);
       }
+      showToast(`${type} "${data.name}" saved!`);
       modal.classList.remove('open');
-    } catch (error) {
-      console.error("Error saving: ", error);
-      alert("Data save nahi hua. Firestore permissions check karein.");
-    }
+    } catch (err) { console.error(err); showToast("Save nahi hua. Firestore permissions check karein.", true); }
   });
 
-  window.editItem = function(type, id) {
+  window.editItem = (type, id) => {
     const list = type === 'package' ? globalPackages : globalDestinations;
     const item = list.find(x => x.id === id);
     if (item) openModal(type, item);
   };
-
-  window.deleteItem = async function(type, id) {
+  window.deleteItem = async (type, id) => {
     if (!confirm('Are you sure you want to delete this item?')) return;
     try {
       if (type === 'package') await deleteDoc(doc(db, "packages", id));
       else await deleteDoc(doc(db, "destinations", id));
-      showToast('Item deleted successfully.');
-    } catch (error) {
-      console.error("Error deleting: ", error);
-    }
+      showToast('Item deleted.');
+    } catch (err) { console.error(err); showToast('Delete failed', true); }
   };
 
-  // Delete Enquiry (Handles both Contact and Booking)
-  window.deleteEnquiry = async function(type, id) {
-    if (!confirm('Are you sure you want to delete this enquiry?')) return;
+  // ============ ENQUIRY DETAIL MODAL ============
+  window.openEnquiry = (type, id) => {
+    const list = type === 'Booking' ? globalBookings : globalMessages;
+    const item = list.find(x => x.id === id);
+    if (!item) return;
+    currentEnquiry = { ...item, _coll: type === 'Booking' ? 'bookings' : 'messages' };
+    const status = item.status || 'new';
+    const priority = item.priority || 'medium';
+    const notes = item.notes || [];
+
+    let fields = '';
+    if (item.type === 'Contact') {
+      fields = `
+        <div class="enq-field"><span class="k">Topic:</span><span class="v">${escHtml(item.topic || 'General')}</span></div>
+        <div class="enq-field"><span class="k">Message:</span><span class="v">${escHtml(item.message || '—')}</span></div>`;
+    } else {
+      fields = `
+        <div class="enq-field"><span class="k">Destination:</span><span class="v">${escHtml(item.destination || '—')}</span></div>
+        <div class="enq-field"><span class="k">Departure:</span><span class="v">${escHtml(item.departure || '—')}</span></div>
+        <div class="enq-field"><span class="k">Return:</span><span class="v">${escHtml(item.returnDate || '—')}</span></div>
+        <div class="enq-field"><span class="k">Guests:</span><span class="v">${item.adults || '—'} adults</span></div>
+        <div class="enq-field"><span class="k">Budget:</span><span class="v">${escHtml(item.budget || '—')}</span></div>
+        <div class="enq-field"><span class="k">Notes:</span><span class="v">${escHtml(item.notes_text || item.notes || '—')}</span></div>`;
+    }
+
+    const notesHtml = notes.length
+      ? notes.map((n, i) => `<div class="note-item"><div class="note-meta">${escHtml(n.author || 'Admin')} • ${formatDate(n.at)}</div>${escHtml(n.text)}<button class="note-del" onclick="deleteEnquiryNote(${i})">×</button></div>`).join('')
+      : '<div style="font-size:0.85rem;color:var(--text-muted);padding:0.5rem 0;">No internal notes yet.</div>';
+
+    document.getElementById('enqTitle').textContent = `${item.type} — ${item.name || 'Unnamed'}`;
+    document.getElementById('enqContent').innerHTML = `
+      <div class="enq-field"><span class="k">Email:</span><span class="v"><a href="mailto:${escHtml(item.email)}">${escHtml(item.email || '—')}</a></span></div>
+      <div class="enq-field"><span class="k">Date:</span><span class="v">${formatDate(item.createdAt)}</span></div>
+      ${fields}
+      <div style="margin-top:1.2rem;"><strong style="font-size:0.9rem;">Status</strong>
+        <div class="status-pills">
+          <button class="status-pill ${status==='new'?'active':''}" data-status="new" onclick="updateEnquiryStatus('new')">New</button>
+          <button class="status-pill ${status==='contacted'?'active':''}" data-status="contacted" onclick="updateEnquiryStatus('contacted')">Contacted</button>
+          <button class="status-pill ${status==='booked'?'active':''}" data-status="booked" onclick="updateEnquiryStatus('booked')">Booked</button>
+          <button class="status-pill ${status==='closed'?'active':''}" data-status="closed" onclick="updateEnquiryStatus('closed')">Closed</button>
+        </div>
+      </div>
+      <div style="margin-top:0.8rem;"><strong style="font-size:0.9rem;">Priority</strong>
+        <div class="status-pills">
+          <button class="status-pill ${priority==='low'?'active':''}" data-status="low" onclick="updateEnquiryPriority('low')">Low</button>
+          <button class="status-pill ${priority==='medium'?'active':''}" data-status="medium" onclick="updateEnquiryPriority('medium')">Medium</button>
+          <button class="status-pill ${priority==='high'?'active':''}" data-status="high" onclick="updateEnquiryPriority('high')">High</button>
+        </div>
+      </div>
+      <div style="margin-top:1.2rem;"><strong style="font-size:0.9rem;">Internal Notes</strong>
+        <div class="notes-list">${notesHtml}</div>
+        <div class="note-input-row">
+          <input type="text" id="newNoteInput" placeholder="Add note..." style="flex:1;padding:0.5rem 0.8rem;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:0.85rem;">
+          <button class="btn btn-primary btn-sm" onclick="addEnquiryNote()">+ Add</button>
+        </div>
+      </div>
+      <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <button class="btn btn-outline btn-sm" onclick="sendQuickEmail()">✉ Send Email</button>
+      </div>`;
+    document.getElementById('enquiryModal').classList.add('open');
+  };
+  window.closeEnqModal = () => { document.getElementById('enquiryModal').classList.remove('open'); currentEnquiry = null; };
+
+  window.updateEnquiryStatus = async (status) => {
+    if (!currentEnquiry) return;
     try {
-      const collName = type === 'Booking' ? 'bookings' : 'messages';
-      await deleteDoc(doc(db, collName, id));
-      showToast('Enquiry deleted successfully.');
-    } catch (error) {
-      console.error("Error deleting: ", error);
-    }
+      await updateDoc(doc(db, currentEnquiry._coll, currentEnquiry.id), { status });
+      currentEnquiry.status = status;
+      document.querySelectorAll('#enqContent .status-pill[data-status]').forEach(p => {
+        p.classList.toggle('active', p.dataset.status === status);
+      });
+      showToast(`Status → ${status}`);
+    } catch (err) { console.error(err); showToast('Update failed', true); }
   };
 
+  window.updateEnquiryPriority = async (priority) => {
+    if (!currentEnquiry) return;
+    try {
+      await updateDoc(doc(db, currentEnquiry._coll, currentEnquiry.id), { priority });
+      currentEnquiry.priority = priority;
+      document.querySelectorAll('#enqContent .status-pill[data-status]').forEach(p => {
+        if (['low','medium','high'].includes(p.dataset.status)) p.classList.toggle('active', p.dataset.status === priority);
+      });
+      showToast(`Priority → ${priority}`);
+    } catch (err) { console.error(err); showToast('Update failed', true); }
+  };
+
+  window.addEnquiryNote = async () => {
+    if (!currentEnquiry) return;
+    const input = document.getElementById('newNoteInput');
+    const text = input.value.trim(); if (!text) return;
+    try {
+      const notes = currentEnquiry.notes || [];
+      const newNotes = [...notes, { text, author: 'Admin', at: Date.now() }];
+      await updateDoc(doc(db, currentEnquiry._coll, currentEnquiry.id), { notes: newNotes });
+      currentEnquiry.notes = newNotes;
+      openEnquiry(currentEnquiry.type, currentEnquiry.id);
+      showToast('Note added');
+    } catch (err) { console.error(err); showToast('Failed to add note', true); }
+  };
+
+  window.deleteEnquiryNote = async (idx) => {
+    if (!currentEnquiry) return;
+    try {
+      const newNotes = (currentEnquiry.notes || []).filter((_, i) => i !== idx);
+      await updateDoc(doc(db, currentEnquiry._coll, currentEnquiry.id), { notes: newNotes });
+      currentEnquiry.notes = newNotes;
+      openEnquiry(currentEnquiry.type, currentEnquiry.id);
+    } catch (err) { console.error(err); showToast('Failed', true); }
+  };
+
+  window.sendQuickEmail = () => {
+    if (!currentEnquiry) return;
+    const subject = encodeURIComponent(`Re: Your ${currentEnquiry.type === 'Booking' ? 'booking enquiry' : 'message'} — TravelVista`);
+    const body = encodeURIComponent(`Hi ${currentEnquiry.name || 'there'},\n\nThank you for reaching out to TravelVista!\n\n[Your reply here]\n\nBest regards,\nTravelVista Team`);
+    window.location.href = `mailto:${currentEnquiry.email}?subject=${subject}&body=${body}`;
+  };
+
+  window.deleteEnquiry = async (type, id) => {
+    if (!confirm('Delete this enquiry?')) return;
+    try {
+      const coll = type === 'Booking' ? 'bookings' : 'messages';
+      await deleteDoc(doc(db, coll, id));
+      showToast('Enquiry deleted');
+    } catch (err) { console.error(err); showToast('Delete failed', true); }
+  };
+
+  // ============ PAYMENTS ============
+  function populateBookingDropdown(selectedId = '') {
+    const sel = document.getElementById('payBookingId');
+    sel.innerHTML = '<option value="">— Select booking —</option>' +
+      globalBookings.map(b => `<option value="${b.id}" ${b.id===selectedId?'selected':''}>${escHtml(b.name||'—')} → ${escHtml(b.destination||'—')} (${formatDate(b.createdAt)})</option>`).join('');
+  }
+  window.openPaymentModal = (id = null) => {
+    document.getElementById('paymentForm').reset();
+    document.getElementById('payId').value = '';
+    document.getElementById('payModalTitle').textContent = id ? 'Edit Payment' : 'Add Payment';
+    populateBookingDropdown();
+    if (id) {
+      const p = globalPayments.find(x => x.id === id); if (!p) return;
+      document.getElementById('payId').value = p.id;
+      populateBookingDropdown(p.bookingId);
+      document.getElementById('payAmount').value = p.amount || '';
+      document.getElementById('payMethod').value = p.method || 'Cash';
+      document.getElementById('payReference').value = p.reference || '';
+      document.getElementById('payStatus').value = p.status || 'paid';
+      document.getElementById('payNote').value = p.note || '';
+    }
+    document.getElementById('paymentModal').classList.add('open');
+  };
+  window.editPayment = (id) => openPaymentModal(id);
+  window.deletePayment = async (id) => {
+    if (!confirm('Delete this payment?')) return;
+    try { await deleteDoc(doc(db, 'payments', id)); showToast('Payment deleted'); }
+    catch (err) { console.error(err); showToast('Failed', true); }
+  };
+
+  document.getElementById('paymentForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('payId').value;
+    const data = {
+      bookingId: document.getElementById('payBookingId').value,
+      amount: Number(document.getElementById('payAmount').value) || 0,
+      method: document.getElementById('payMethod').value,
+      reference: document.getElementById('payReference').value.trim(),
+      status: document.getElementById('payStatus').value,
+      note: document.getElementById('payNote').value.trim(),
+    };
+    if (!data.bookingId) return showToast('Please select a booking', true);
+    try {
+      if (id) await updateDoc(doc(db, 'payments', id), data);
+      else { data.createdAt = Date.now(); await addDoc(paymentsRef, data); }
+      showToast('Payment saved');
+      document.getElementById('paymentModal').classList.remove('open');
+    } catch (err) { console.error(err); showToast('Save failed', true); }
+  });
+
+  // ============ CSV EXPORT ============
+  window.exportCSV = (type) => {
+    let rows = [], headers = [], data = [];
+    if (type === 'packages') { data = globalPackages; headers = ['name','destination','category','duration','departureDate','price','status']; }
+    else if (type === 'destinations') { data = globalDestinations; headers = ['name','destination','rating','price','status']; }
+    else if (type === 'enquiries') {
+      data = [...globalMessages, ...globalBookings].map(x => ({ ...x, _type: x.type }));
+      headers = ['_type','name','email','status','priority','createdAt','message','destination','budget'];
+    } else if (type === 'payments') {
+      data = globalPayments.map(p => {
+        const b = globalBookings.find(x => x.id === p.bookingId);
+        return { ...p, customerName: b?.name || '', customerEmail: b?.email || '' };
+      });
+      headers = ['createdAt','customerName','customerEmail','amount','method','reference','status','note'];
+    }
+    const esc = (v) => `"${String(v ?? '').replace(/"/g,'""')}"`;
+    const csv = [
+      headers.join(','),
+      ...data.map(row => headers.map(h => esc(h==='createdAt' && row[h] ? new Date(row[h]).toISOString() : row[h])).join(','))
+    ].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `${type}_${Date.now()}.csv`; a.click();
+    URL.revokeObjectURL(url);
+    showToast(`${type} exported!`);
+  };
+
+  // ============ GLOBAL SEARCH ============
   document.getElementById('globalSearch').addEventListener('input', (e) => {
     const q = e.target.value.toLowerCase();
     document.querySelectorAll('tbody tr').forEach(row => {
@@ -632,7 +959,13 @@
     });
   });
 
-  if (sessionStorage.getItem('tv_admin_logged_in') === '1') initDashboard();
+  document.getElementById('notifBtn').addEventListener('click', () => {
+    document.querySelector('.sidebar-nav a[data-page="enquiries"]').click();
+    showToast(`${[...globalMessages, ...globalBookings].filter(x => (x.status||'new')==='new').length} new enquiries`);
+  });
+
+  // ============ INIT ============
+  if (isLoggedIn()) initDashboard();
   else { document.getElementById('loginView').style.display = 'flex'; document.getElementById('dashboardView').style.display = 'none'; }
 
 </script>
