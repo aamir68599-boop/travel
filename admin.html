@@ -262,7 +262,7 @@
             </div>
           </div>
           <div style="background:#eef6ff;border:1px solid #bae6fd;border-radius:8px;padding:0.6rem 0.9rem;font-size:0.82rem;color:#0369a1;margin-bottom:1rem;">
-            💡 <strong>Live URL pattern:</strong> <code style="background:white;padding:0.1rem 0.4rem;border-radius:4px;">/package/&lt;slug&gt;</code> — click 🔗 View to preview the live page (Cloudflare Worker).
+            💡 <strong>Live URL pattern:</strong> <code style="background:white;padding:0.1rem 0.4rem;border-radius:4px;">/package/&lt;slug&gt;</code> — click 🔗 View to open the live page (Cloudflare Worker).
           </div>
           <div class="table-wrap">
             <table>
@@ -283,9 +283,12 @@
               <button class="btn btn-primary" id="addDestinationBtn">+ Add Destination</button>
             </div>
           </div>
+          <div style="background:#eef6ff;border:1px solid #bae6fd;border-radius:8px;padding:0.6rem 0.9rem;font-size:0.82rem;color:#0369a1;margin-bottom:1rem;">
+            💡 <strong>Live URL pattern:</strong> <code style="background:white;padding:0.1rem 0.4rem;border-radius:4px;">/destination/&lt;slug&gt;</code> — click 🔗 View to open the live page (Cloudflare Worker).
+          </div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Image</th><th>Name</th><th>Country</th><th>Rating</th><th>Starting Price</th><th>Status</th><th>Actions</th></tr></thead>
+              <thead><tr><th>Image</th><th>Name</th><th>Country</th><th>Rating</th><th>Starting Price</th><th>Status</th><th>Live URL</th><th>Actions</th></tr></thead>
               <tbody id="destinationsTableBody"></tbody>
             </table>
           </div>
@@ -501,9 +504,21 @@
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
   }
-  function getLiveUrl(name) {
-    // Worker URL is same origin — /package/:slug
-    return `${window.location.origin}/package/${toSlug(name)}`;
+
+  /** URL segment for a collection: package → /package/slug, destination → /destination/slug */
+  function urlSegment(type) { return type === 'package' ? 'package' : 'destination'; }
+
+  /** Slug stored in Firestore, or derived from name */
+  function itemSlug(item) { return item.slug || toSlug(item.name || ''); }
+
+  /** Full live URL for an item (package or destination) */
+  function liveUrlFor(type, item) {
+    return `${window.location.origin}/${urlSegment(type)}/${itemSlug(item)}`;
+  }
+
+  /** Live path preview from a raw name */
+  function livePathFor(type, name) {
+    return `/${urlSegment(type)}/${toSlug(name || 'your-' + urlSegment(type) + '-name')}`;
   }
 
   // ============ LOGIN ============
@@ -585,8 +600,8 @@
     const tbody = document.getElementById('packagesTableBody');
     if (!globalPackages.length) { tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No packages yet.</td></tr>`; return; }
     tbody.innerHTML = globalPackages.map(p => {
-      const slug = toSlug(p.name || '');
-      const liveUrl = getLiveUrl(p.name || '');
+      const slug = itemSlug(p);
+      const liveUrl = liveUrlFor('package', p);
       return `
       <tr>
         <td><img class="table-img" src="${escHtml(p.image || '')}" onerror="this.src='https://via.placeholder.com/64'" alt=""></td>
@@ -601,8 +616,8 @@
           </span>
         </td>
         <td style="white-space:nowrap;">
-          <button class="action-btn link" onclick="openLivePage('${p.id}')" title="View live page">🔗</button>
-          <button class="action-btn link" onclick="copyPackageLink('${p.id}')" title="Copy link">📋</button>
+          <button class="action-btn link" onclick="openLivePage('package','${p.id}')" title="View live page">🔗</button>
+          <button class="action-btn link" onclick="copyItemLink('package','${p.id}')" title="Copy link">📋</button>
           <button class="action-btn" onclick="editItem('package','${p.id}')" title="Edit">✎</button>
           <button class="action-btn delete" onclick="deleteItem('package','${p.id}')" title="Delete">🗑</button>
         </td>
@@ -612,18 +627,29 @@
 
   function renderDestinationsTable() {
     const tbody = document.getElementById('destinationsTableBody');
-    if (!globalDestinations.length) { tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No destinations yet.</td></tr>`; return; }
-    tbody.innerHTML = globalDestinations.map(d => `
+    if (!globalDestinations.length) { tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:1.5rem;">No destinations yet.</td></tr>`; return; }
+    tbody.innerHTML = globalDestinations.map(d => {
+      const slug = itemSlug(d);
+      const liveUrl = liveUrlFor('destination', d);
+      return `
       <tr>
         <td><img class="table-img" src="${escHtml(d.image || '')}" onerror="this.src='https://via.placeholder.com/64'" alt=""></td>
         <td>${escHtml(d.name || '—')}</td><td>${escHtml(d.destination || '—')}</td>
         <td>${d.rating || '—'}</td><td>${d.price ? formatPrice(d.price) : '—'}</td>
         <td><span class="badge ${d.status === 'published' ? 'badge-published' : 'badge-draft'}">${d.status || 'draft'}</span></td>
         <td>
+          <span class="slug-chip" title="${escHtml(liveUrl)}">
+            <a href="${escHtml(liveUrl)}" target="_blank" rel="noopener">/destination/${escHtml(slug)}</a>
+          </span>
+        </td>
+        <td style="white-space:nowrap;">
+          <button class="action-btn link" onclick="openLivePage('destination','${d.id}')" title="View live page">🔗</button>
+          <button class="action-btn link" onclick="copyItemLink('destination','${d.id}')" title="Copy link">📋</button>
           <button class="action-btn" onclick="editItem('destination','${d.id}')" title="Edit">✎</button>
           <button class="action-btn delete" onclick="deleteItem('destination','${d.id}')" title="Delete">🗑</button>
         </td>
-      </tr>`).join('');
+      </tr>`;
+    }).join('');
   }
 
   function renderEnquiriesTable() {
@@ -703,23 +729,25 @@
     else badge.style.display = 'none';
   }
 
-  // ============ LIVE PAGE / COPY LINK ============
-  window.openLivePage = (id) => {
-    const p = globalPackages.find(x => x.id === id);
-    if (!p) return;
-    if (p.status !== 'published') {
-      showToast('Draft package — worker only serves published items. Publish first.', true);
+  // ============ LIVE PAGE / COPY LINK (Package + Destination) ============
+  window.openLivePage = (type, id) => {
+    const list = type === 'package' ? globalPackages : globalDestinations;
+    const item = list.find(x => x.id === id);
+    if (!item) return;
+    if (item.status !== 'published') {
+      showToast('Draft item — the worker only serves published items. Publish first.', true);
       return;
     }
-    const url = getLiveUrl(p.name);
+    const url = liveUrlFor(type, item);
     window.open(url, '_blank', 'noopener');
     showToast(`Opening ${url.replace(window.location.origin, '')}…`);
   };
 
-  window.copyPackageLink = async (id) => {
-    const p = globalPackages.find(x => x.id === id);
-    if (!p) return;
-    const url = getLiveUrl(p.name);
+  window.copyItemLink = async (type, id) => {
+    const list = type === 'package' ? globalPackages : globalDestinations;
+    const item = list.find(x => x.id === id);
+    if (!item) return;
+    const url = liveUrlFor(type, item);
     try {
       await navigator.clipboard.writeText(url);
       showToast(`Link copied: ${url.replace(window.location.origin, '')}`);
@@ -762,25 +790,20 @@
     }
   });
 
-  // Live slug preview update as user types the name
+  // Live slug preview update as user types the name (works for package + destination)
   const nameInput = document.getElementById('itemName');
   const slugPreviewText = document.getElementById('slugPreviewText');
   const slugPreviewHint = document.getElementById('slugPreviewHint');
   function updateSlugPreview() {
     const type = document.getElementById('itemType').value || 'package';
     const name = nameInput.value.trim();
-    if (type !== 'package') {
-      slugPreviewText.textContent = '—';
-      slugPreviewHint.textContent = 'Live pages only apply to packages';
-      return;
-    }
+    const seg = urlSegment(type);
     if (!name) {
-      slugPreviewText.textContent = '/package/your-package-name';
+      slugPreviewText.textContent = `/${seg}/your-${seg}-name`;
       slugPreviewHint.textContent = 'Type a name above to see the URL';
       return;
     }
-    const slug = toSlug(name);
-    slugPreviewText.textContent = `/package/${slug}`;
+    slugPreviewText.textContent = `/${seg}/${toSlug(name)}`;
     slugPreviewHint.textContent = '✓ Auto-generated';
   }
   nameInput.addEventListener('input', updateSlugPreview);
@@ -829,10 +852,9 @@
       status: document.getElementById('itemStatus').value,
     };
     if (!id) data.createdAt = Date.now();
-    // Persist slug for packages — worker prefers this if present
-    if (type === 'package') {
-      data.slug = toSlug(data.name);
-    }
+    // Persist slug for BOTH packages and destinations — the worker prefers this field
+    data.slug = toSlug(data.name);
+
     try {
       if (type === 'package') {
         if (id) await updateDoc(doc(db, "packages", id), data);
@@ -843,9 +865,9 @@
       }
       showToast(`${type} "${data.name}" saved!`);
       modal.classList.remove('open');
-      if (type === 'package' && data.status === 'published') {
+      if (data.status === 'published') {
         setTimeout(() => {
-          showToast(`Live page ready: /package/${data.slug}`);
+          showToast(`Live page ready: /${urlSegment(type)}/${data.slug}`);
         }, 900);
       }
     } catch (err) { console.error(err); showToast("Save nahi hua. Firestore permissions check karein.", true); }
@@ -1046,10 +1068,13 @@
   window.exportCSV = (type) => {
     let headers = [], data = [];
     if (type === 'packages') {
-      data = globalPackages.map(p => ({ ...p, slug: toSlug(p.name || '') }));
+      data = globalPackages.map(p => ({ ...p, slug: itemSlug(p) }));
       headers = ['name','slug','destination','category','duration','departureDate','price','status'];
     }
-    else if (type === 'destinations') { data = globalDestinations; headers = ['name','destination','rating','price','status']; }
+    else if (type === 'destinations') {
+      data = globalDestinations.map(d => ({ ...d, slug: itemSlug(d) }));
+      headers = ['name','slug','destination','rating','price','status'];
+    }
     else if (type === 'enquiries') {
       data = [...globalMessages, ...globalBookings].map(x => ({ ...x, _type: x.type }));
       headers = ['_type','name','email','status','priority','createdAt','message','destination','budget'];
